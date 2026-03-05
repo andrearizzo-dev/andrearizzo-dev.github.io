@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Andrea Rizzo — Portfolio</title>
 
-  <!-- ── Fonts: Syne (display) + DM Sans (body) + JetBrains Mono (code/labels) ── -->
+  <!-- Fonts: Syne (display) + DM Sans (body) + JetBrains Mono (code/labels) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <!-- ── AOS (Animate On Scroll) ── -->
+  <!-- AOS (Animate On Scroll) -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
   <style>
@@ -47,7 +47,7 @@
     a   { color: inherit; text-decoration: none; }
     ul  { list-style: none; }
 
-    /* ── subtle noise overlay ── */
+    /* subtle noise overlay */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -70,14 +70,12 @@
       transition: background 0.3s;
     }
 
-    /* Logo */
     .nav-logo {
       font-family: 'Syne', sans-serif;
       font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em;
     }
     .nav-logo span { color: var(--accent); }
 
-    /* Desktop links */
     .nav-links { display: flex; gap: 2rem; }
     .nav-links a {
       font-size: 0.85rem; font-weight: 500;
@@ -92,7 +90,6 @@
     .nav-links a:hover { color: var(--text); }
     .nav-links a:hover::after { transform: scaleX(1); }
 
-    /* Mobile toggle button */
     .nav-toggle {
       display: none; background: none; border: none;
       cursor: pointer; color: var(--text); padding: 0.5rem;
@@ -108,13 +105,11 @@
       position: relative;
     }
 
-    /* Thin gradient divider between sections */
     .divider {
       height: 1px;
       background: linear-gradient(to right, transparent, var(--border), transparent);
     }
 
-    /* Section eyebrow label  e.g. "— About" */
     .section-label {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
@@ -126,7 +121,6 @@
       background: var(--accent);
     }
 
-    /* Large section heading */
     .section-title {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
@@ -136,7 +130,7 @@
     }
 
     /* =========================================================
-       GLASSMORPHISM CARD (reused everywhere)
+       GLASSMORPHISM CARD
     ========================================================= */
     .glass-card {
       background: var(--glass);
@@ -154,7 +148,6 @@
     .glass-card:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
     .glass-card:hover::before { opacity: 1; }
 
-    /* Card inner typography */
     .card-eyebrow {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem; color: var(--accent); letter-spacing: 0.05em;
@@ -169,7 +162,6 @@
       font-size: 0.9rem; color: var(--text-mid); line-height: 1.75;
     }
 
-    /* Tag pills */
     .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
     .tag {
       background: rgba(59,130,246,0.10);
@@ -180,7 +172,6 @@
       border-radius: 100px; letter-spacing: 0.03em;
     }
 
-    /* Cert badge (lighter variant) */
     .cert-badge {
       background: var(--bg-3);
       border: 1px solid var(--border);
@@ -190,7 +181,6 @@
       border-radius: 100px; letter-spacing: 0.03em;
     }
 
-    /* Left-bordered callout block */
     .challenge-block {
       background: var(--glass);
       border: 1px solid var(--glass-border);
@@ -218,7 +208,6 @@
       position: relative; overflow: hidden;
     }
 
-    /* Ambient glow blobs */
     .hero-glow {
       position: absolute; width: 600px; height: 600px; border-radius: 50%;
       background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
@@ -237,7 +226,6 @@
       50%      { opacity: 1;   transform: translate(-50%,-55%) scale(1.1); }
     }
 
-    /* Blinking "online" badge */
     .hero-tag {
       display: inline-flex; align-items: center; gap: 0.5rem;
       background: var(--glass); border: 1px solid var(--glass-border);
@@ -253,7 +241,6 @@
       0%,100% { opacity: 1; } 50% { opacity: 0.3; }
     }
 
-    /* Hero photo */
     .hero-photo {
       width: 120px; height: 120px; border-radius: 50%;
       overflow: hidden;
@@ -263,7 +250,6 @@
     }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* Name */
     .hero-name {
       font-family: 'Syne', sans-serif; font-weight: 800;
       font-size: clamp(3.5rem, 10vw, 8rem);
@@ -286,7 +272,6 @@
       color: var(--text-muted); margin-bottom: 3rem; letter-spacing: 0.03em;
     }
 
-    /* CTA button */
     .hero-cta {
       display: inline-flex; align-items: center; gap: 0.75rem;
       background: var(--accent); color: #fff;
@@ -305,7 +290,6 @@
     .hero-cta .cta-arrow { transition: transform 0.3s; }
     .hero-cta:hover .cta-arrow { transform: translateY(3px); }
 
-    /* Scroll indicator */
     .hero-scroll {
       position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
@@ -325,25 +309,24 @@
     }
 
     /* =========================================================
-       2 — ABOUT ME
+       2 — CHI SONO
     ========================================================= */
     #about .about-body {
       display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
     }
 
     /* =========================================================
-       3 — TECHNICAL EDUCATION
+       3 — FORMAZIONE
     ========================================================= */
     #education .edu-grid {
       display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
     }
 
     /* =========================================================
-       4 — PCTO / EXPERIENCE
+       4 — PCTO / ESPERIENZE
     ========================================================= */
     #experience .exp-list { display: flex; flex-direction: column; gap: 1.5rem; }
 
-    /* Timeline dot + line inside each experience card */
     .exp-inner {
       display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start;
     }
@@ -363,19 +346,17 @@
     }
 
     /* =========================================================
-       5 — PROJECTS
+       5 — PROGETTI
     ========================================================= */
     #projects .project-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
     }
 
-    /* Animated scan placeholder / video container */
     .project-media {
       background: var(--bg-3); border: 1px solid var(--border);
       border-radius: 16px; overflow: hidden; position: relative;
     }
 
-    /* When showing placeholder */
     .project-media-placeholder {
       aspect-ratio: 16/10;
       display: flex; flex-direction: column;
@@ -402,7 +383,6 @@
       color: var(--text-muted); position: relative;
     }
 
-    /* Video element (when demo file present) */
     .project-media video {
       width: 100%; display: block;
       border-radius: 16px;
@@ -414,7 +394,6 @@
       letter-spacing: -0.03em; margin-bottom: 1rem;
     }
 
-    /* Pipeline row */
     .pipeline {
       display: flex; align-items: center; flex-wrap: wrap; gap: 0;
       margin: 1.25rem 0;
@@ -427,7 +406,6 @@
     }
     .pipeline-arrow { padding: 0 6px; color: var(--text-muted); font-size: 0.85rem; }
 
-    /* Caption under media */
     .media-caption {
       font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
       color: var(--text-muted); text-align: center; margin-top: 0.6rem;
@@ -435,7 +413,7 @@
     }
 
     /* =========================================================
-       6 — FUTURE DEVELOPMENT
+       6 — SVILUPPI FUTURI
     ========================================================= */
     #future .future-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
@@ -447,7 +425,7 @@
     }
 
     /* =========================================================
-       7 — CONTACT
+       7 — CONTATTI
     ========================================================= */
     #contact { text-align: center; padding-bottom: 60px; }
 
@@ -512,16 +490,16 @@
       section { padding: 70px 1.25rem; }
     }
 
-    /* ── AOS pointer-events fix ── */
-    [data-aos]           { pointer-events: none; }
+    /* AOS pointer-events fix */
+    [data-aos]             { pointer-events: none; }
     [data-aos].aos-animate { pointer-events: auto; }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════════════════
+  <!-- ═══════════════════════════════════════
        NAVIGATION
-  ════════════════════════════════════════════════════════ -->
+  ══════════════════════════════════════════ -->
   <nav id="navbar">
     <a href="#home" class="nav-logo">AR<span>.</span></a>
 
@@ -544,19 +522,18 @@
   </nav>
 
 
-  <!-- ═══════════════════════════════════════════════════════
+  <!-- ═══════════════════════════════════════
        1 — HERO
-  ════════════════════════════════════════════════════════ -->
+  ══════════════════════════════════════════ -->
   <section id="home">
     <div class="hero-glow"></div>
     <div class="hero-glow-2"></div>
 
-    <!-- Badge -->
     <div class="hero-tag" data-aos="fade-down" data-aos-duration="600">
       Student Developer &nbsp;·&nbsp; Maturità 2025
     </div>
 
-    <!-- Profile photo — replace src with real photo -->
+    <!-- Sostituisci src con il percorso della tua foto reale -->
     <div class="hero-photo" data-aos="fade-up" data-aos-delay="50" data-aos-duration="600">
       <img
         src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=240&h=240&fit=crop&crop=face"
@@ -564,22 +541,18 @@
       />
     </div>
 
-    <!-- Name -->
     <h1 class="hero-name" data-aos="fade-up" data-aos-delay="120" data-aos-duration="700">
       <span class="gradient-text">Andrea Rizzo</span>
     </h1>
 
-    <!-- Tagline -->
     <p class="hero-tagline" data-aos="fade-up" data-aos-delay="200" data-aos-duration="700">
       Studente appassionato di tecnologia, automazione e sviluppo software
     </p>
 
-    <!-- Mono descriptor -->
     <p class="hero-desc" data-aos="fade-up" data-aos-delay="280" data-aos-duration="700">
       // Portfolio digitale — formazione tecnica, esperienze e progetti personali
     </p>
 
-    <!-- CTA -->
     <a href="#about" class="hero-cta" data-aos="fade-up" data-aos-delay="360" data-aos-duration="700">
       Scopri il mio percorso
       <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -587,7 +560,6 @@
       </svg>
     </a>
 
-    <!-- Scroll indicator -->
     <div class="hero-scroll">
       <div class="scroll-line"></div>
       <span>scorri</span>
@@ -597,9 +569,9 @@
   <div class="divider"></div>
 
 
-  <!-- ═══════════════════════════════════════════════════════
-       2 — ABOUT ME
-  ════════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       2 — CHI SONO
+  ══════════════════════════════════════════ -->
   <section id="about">
     <p class="section-label" data-aos="fade-right">Chi sono</p>
     <h2 class="section-title" data-aos="fade-up">Chi sono</h2>
@@ -632,9 +604,9 @@
   <div class="divider"></div>
 
 
-  <!-- ═══════════════════════════════════════════════════════
-       3 — TECHNICAL EDUCATION
-  ════════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       3 — FORMAZIONE TECNICA
+  ══════════════════════════════════════════ -->
   <section id="education">
     <p class="section-label" data-aos="fade-right">Formazione</p>
     <h2 class="section-title" data-aos="fade-up">Formazione<br>Tecnica</h2>
@@ -692,16 +664,16 @@
   <div class="divider"></div>
 
 
-  <!-- ═══════════════════════════════════════════════════════
-       4 — PCTO / WORK EXPERIENCE
-  ════════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       4 — ESPERIENZE PCTO
+  ══════════════════════════════════════════ -->
   <section id="experience">
     <p class="section-label" data-aos="fade-right">Esperienze</p>
     <h2 class="section-title" data-aos="fade-up">Esperienze<br>PCTO</h2>
 
     <div class="exp-list">
 
-      <!-- ABB RobotStudio Certifications -->
+      <!-- ABB RobotStudio -->
       <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
         <div class="exp-inner">
           <div class="exp-timeline">
@@ -804,7 +776,7 @@
         </div>
       </div>
 
-      <!-- Orientation Programs -->
+      <!-- Orientamento Universitario -->
       <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
         <div class="exp-inner">
           <div class="exp-timeline">
@@ -833,16 +805,16 @@
   <div class="divider"></div>
 
 
-  <!-- ═══════════════════════════════════════════════════════
-       5 — TECHNICAL PROJECTS
-  ════════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       5 — PROGETTI TECNICI
+  ══════════════════════════════════════════ -->
   <section id="projects">
     <p class="section-label" data-aos="fade-right">Showcase</p>
     <h2 class="section-title" data-aos="fade-up">Progetti<br>Tecnici</h2>
 
     <div class="project-grid">
 
-      <!-- Left: description -->
+      <!-- Sinistra: descrizione -->
       <div data-aos="fade-right" data-aos-delay="100">
         <h3 class="project-title">License Plate<br>Recognition System</h3>
 
@@ -852,7 +824,6 @@
           della targa, applica un pre-processing dell'immagine ed estrae il testo alfanumerico tramite OCR.
         </p>
 
-        <!-- Processing pipeline -->
         <div class="pipeline">
           <span class="pipeline-step">Video Input</span>
           <span class="pipeline-arrow">→</span>
@@ -884,23 +855,19 @@
         </div>
       </div>
 
-      <!-- Right: video player (falls back to animated placeholder) -->
+      <!-- Destra: video player con fallback animato -->
       <div data-aos="fade-left" data-aos-delay="200">
         <!--
-          VIDEO SETUP:
-          Inserisci il file demo nella cartella:  video/ocr-demo.mp4
-          (crea una cartella "video" accanto a questo file HTML)
-          Il tag <video> lo caricherà automaticamente.
-          Finché il file non è presente, viene mostrato il placeholder animato.
+          VIDEO: crea una cartella "video" accanto a questo file HTML
+          e inserisci il file:  video/ocr-demo.mp4
+          Il player si attiverà automaticamente quando il file è presente.
         -->
         <div class="project-media" id="projectMedia">
-          <!-- Animated placeholder — hidden once video loads -->
           <div class="project-media-placeholder" id="mediaPlaceholder">
             <span class="media-icon">🔍</span>
             <p class="media-label">[ LPR System — Demo ]</p>
             <p class="media-label" style="opacity:0.4;font-size:0.68rem;">AB · 123 · CD</p>
           </div>
-          <!-- Video — shown automatically when file exists -->
           <video id="demoVideo" controls preload="metadata" style="display:none;">
             <source src="video/ocr-demo.mp4" type="video/mp4" />
           </video>
@@ -914,9 +881,9 @@
   <div class="divider"></div>
 
 
-  <!-- ═══════════════════════════════════════════════════════
-       6 — FUTURE DEVELOPMENT
-  ════════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       6 — SVILUPPI FUTURI
+  ══════════════════════════════════════════ -->
   <section id="future">
     <p class="section-label" data-aos="fade-right">Sviluppi Futuri</p>
     <h2 class="section-title" data-aos="fade-up">Sviluppi<br>Futuri</h2>
@@ -947,10 +914,11 @@
   <div class="divider"></div>
 
 
-  <!-- ═══════════════════════════════════════════════════════
-       7 — CONTACT
-  ════════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════
+       7 — CONTATTI
+  ══════════════════════════════════════════ -->
   <section id="contact">
+
     <h2 class="contact-headline" data-aos="fade-up">
       Alea iacta<br><span class="accent">est.</span>
     </h2>
@@ -976,23 +944,23 @@
   </section>
 
 
-  <!-- ═══════════════════════════════════════════════════════
+  <!-- ═══════════════════════════════════════
        FOOTER
-  ════════════════════════════════════════════════════════ -->
+  ══════════════════════════════════════════ -->
   <footer>
     <p>Progettato e realizzato da <strong>Andrea Rizzo</strong> &nbsp;·&nbsp; 2025</p>
   </footer>
 
 
-  <!-- ═══════════════════════════════════════════════════════
+  <!-- ═══════════════════════════════════════
        SCRIPTS
-  ════════════════════════════════════════════════════════ -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  ══════════════════════════════════════════ -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    /* ── AOS init ── */
+    /* AOS init */
     AOS.init({ once: true, offset: 80, duration: 700, easing: 'ease-out-cubic' });
 
-    /* ── Nav background on scroll ── */
+    /* Nav background on scroll */
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.style.background = window.scrollY > 40
@@ -1000,7 +968,7 @@
         : 'rgba(8,8,8,0.75)';
     });
 
-    /* ── Magnetic CTA ── */
+    /* Magnetic CTA */
     const cta = document.querySelector('.hero-cta');
     if (cta) {
       cta.addEventListener('mousemove', e => {
@@ -1012,7 +980,7 @@
       cta.addEventListener('mouseleave', () => { cta.style.transform = ''; });
     }
 
-    /* ── Mobile nav toggle ── */
+    /* Mobile nav toggle */
     function toggleNav() {
       const links = document.getElementById('navLinks');
       const open  = links.classList.toggle('open');
@@ -1025,7 +993,6 @@
           border-bottom:1px solid rgba(255,255,255,0.07);
           padding:1.25rem 2rem 1.75rem;
         `;
-        /* re-style individual links for mobile */
         links.querySelectorAll('a').forEach(a => {
           a.style.padding = '0.75rem 0';
           a.style.fontSize = '0.95rem';
@@ -1036,7 +1003,7 @@
       }
     }
 
-    /* Close mobile nav when a link is clicked */
+    /* Close mobile nav on link click */
     document.querySelectorAll('#navLinks a').forEach(link => {
       link.addEventListener('click', () => {
         const links = document.getElementById('navLinks');
@@ -1046,17 +1013,32 @@
       });
     });
 
-    /* ── Smooth scroll ── */
+    /* Smooth scroll */
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', e => {
         const target = document.querySelector(link.getAttribute('href'));
-        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
 
-    /* ── Video / placeholder switcher ──
-       Show video player if ocr-demo.mp4 loads; otherwise keep animated placeholder. */
+    /* Video / placeholder switcher
+       Mostra il player solo se il file video è presente e caricabile. */
     const video       = document.getElementById('demoVideo');
     const placeholder = document.getElementById('mediaPlaceholder');
     if (video) {
-      video.addEventLis
+      video.addEventListener('loadedmetadata', () => {
+        placeholder.style.display = 'none';
+        video.style.display       = 'block';
+      });
+      video.addEventListener('error', () => {
+        video.style.display       = 'none';
+        placeholder.style.display = 'flex';
+      });
+    }
+  </script>
+
+</body>
+</html>
