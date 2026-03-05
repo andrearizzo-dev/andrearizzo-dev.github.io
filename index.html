@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <!-- AOS -->
+  <!-- AOS – Animate On Scroll -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
   <style>
@@ -47,12 +47,14 @@
     a   { color: inherit; text-decoration: none; }
     ul  { list-style: none; }
 
-    /* noise overlay */
+    /* Noise texture overlay */
     body::before {
       content: '';
       position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0; opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
     }
 
     /* =========================================================
@@ -87,8 +89,8 @@
       height: 1px; background: var(--accent);
       transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
     }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links a:hover              { color: var(--text); }
+    .nav-links a:hover::after       { transform: scaleX(1); }
 
     .nav-toggle {
       display: none; background: none; border: none;
@@ -96,7 +98,7 @@
     }
 
     /* =========================================================
-       SECTION LAYOUT
+       SHARED SECTION LAYOUT
     ========================================================= */
     section {
       padding: 100px 2rem;
@@ -166,7 +168,7 @@
       font-size: 0.9rem; color: var(--text-mid); line-height: 1.75;
     }
 
-    /* Tags */
+    /* Tag pills */
     .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
     .tag {
       background: rgba(59,130,246,0.10);
@@ -185,7 +187,7 @@
       border-radius: 100px; letter-spacing: 0.03em;
     }
 
-    /* Challenge block */
+    /* Challenge / callout blocks */
     .challenge-block {
       background: var(--glass);
       border: 1px solid var(--glass-border);
@@ -227,7 +229,7 @@
       animation: pulse-glow 8s ease-in-out infinite reverse;
     }
     @keyframes pulse-glow {
-      0%,100% { opacity: 0.7; transform: translate(-50%,-55%) scale(1); }
+      0%,100% { opacity: 0.7; transform: translate(-50%,-55%) scale(1);   }
       50%      { opacity: 1;   transform: translate(-50%,-55%) scale(1.1); }
     }
 
@@ -250,7 +252,8 @@
       width: 120px; height: 120px; border-radius: 50%;
       overflow: hidden;
       border: 2px solid var(--glass-border);
-      margin-bottom: 1.5rem; position: relative;
+      margin-bottom: 1.5rem;
+      position: relative;
       box-shadow: 0 0 40px rgba(59,130,246,0.15);
     }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
@@ -307,9 +310,9 @@
       animation: scroll-anim 2s ease-in-out infinite;
     }
     @keyframes scroll-anim {
-      0%   { transform: scaleY(0); transform-origin: top; }
-      50%  { transform: scaleY(1); transform-origin: top; }
-      51%  { transform-origin: bottom; }
+      0%   { transform: scaleY(0); transform-origin: top;    }
+      50%  { transform: scaleY(1); transform-origin: top;    }
+      51%  { transform-origin: bottom;                       }
       100% { transform: scaleY(0); transform-origin: bottom; }
     }
 
@@ -351,10 +354,10 @@
       letter-spacing: -0.02em; margin-bottom: 0.75rem;
     }
 
-    /* Company logos in PCTO cards */
+    /* Loghi aziende PCTO */
     .exp-logo {
       display: block;
-      height: 36px; width: auto; max-width: 120px;
+      height: 56px; width: auto; max-width: 180px;
       object-fit: contain;
       filter: brightness(0) invert(1);
       opacity: 0.55;
@@ -393,16 +396,13 @@
       90%  { opacity: 1; }
       100% { top: 80%; opacity: 0; }
     }
-    .media-icon {
-      font-size: 3rem; opacity: 0.25; position: relative;
-    }
+    .media-icon  { font-size: 3rem; opacity: 0.25; position: relative; }
     .media-label {
       font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
       color: var(--text-muted); position: relative;
     }
-    .project-media video {
-      width: 100%; display: block; border-radius: 16px;
-    }
+
+    .project-media video { width: 100%; display: block; border-radius: 16px; }
 
     .project-title {
       font-family: 'Syne', sans-serif; font-weight: 800;
@@ -488,7 +488,7 @@
        RESPONSIVE
     ========================================================= */
     @media (max-width: 768px) {
-      .nav-links { display: none; }
+      .nav-links  { display: none; }
       .nav-toggle { display: block; }
 
       #about .about-body,
@@ -496,10 +496,10 @@
       #projects .project-grid,
       #future .future-grid { grid-template-columns: 1fr; }
 
-      .exp-timeline { display: none; }
-      .exp-inner    { grid-template-columns: 1fr; }
+      .exp-timeline   { display: none; }
+      .exp-inner      { grid-template-columns: 1fr; }
       .pipeline-arrow { display: none; }
-      .pipeline { gap: 8px; }
+      .pipeline       { gap: 8px; }
     }
 
     @media (max-width: 480px) {
@@ -549,7 +549,7 @@
       Student Developer &nbsp;·&nbsp; Maturità 2025
     </div>
 
-    <!-- Foto profilo — file: images/foto_andrea_portfolio.jpg -->
+    <!-- Foto profilo → images/foto_andrea_portfolio.jpg -->
     <div class="hero-photo" data-aos="fade-up" data-aos-delay="50" data-aos-duration="600">
       <img src="images/foto_andrea_portfolio.jpg" alt="Andrea Rizzo" />
     </div>
@@ -687,7 +687,7 @@
 
     <div class="exp-list">
 
-      <!-- ── ABB RobotStudio ── -->
+      <!-- ── ABB RobotStudio ─────────────────── -->
       <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
         <div class="exp-inner">
           <div class="exp-timeline">
@@ -695,7 +695,8 @@
             <div class="exp-line"></div>
           </div>
           <div>
-            <img src="images/logo_abb.png" alt="ABB" class="exp-logo" />
+            <!-- Logo ABB → images/abb.png -->
+            <img src="images/abb.png" alt="ABB" class="exp-logo" />
             <p class="card-eyebrow">Certificazioni ufficiali ABB</p>
             <h3 class="exp-company">ABB RobotStudio</h3>
             <p class="card-text" style="margin-bottom:1rem;">
@@ -723,7 +724,7 @@
         </div>
       </div>
 
-      <!-- ── Comune di Civita Castellana ── -->
+      <!-- ── Comune di Civita Castellana ──────── -->
       <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
         <div class="exp-inner">
           <div class="exp-timeline">
@@ -731,7 +732,8 @@
             <div class="exp-line"></div>
           </div>
           <div>
-            <img src="images/logo_comune.png" alt="Comune di Civita Castellana" class="exp-logo" />
+            <!-- Logo Comune → images/comune.png -->
+            <img src="images/comune.png" alt="Comune di Civita Castellana" class="exp-logo" />
             <p class="card-eyebrow">Luglio – Agosto 2024</p>
             <h3 class="exp-company">Comune di Civita Castellana</h3>
             <p class="card-text" style="margin-bottom:1rem;">
@@ -758,7 +760,7 @@
         </div>
       </div>
 
-      <!-- ── CGT Elettronica ── -->
+      <!-- ── CGT Elettronica ────────────────── -->
       <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
         <div class="exp-inner">
           <div class="exp-timeline">
@@ -766,7 +768,8 @@
             <div class="exp-line"></div>
           </div>
           <div>
-            <img src="images/logo_cgt_elettronica.png" alt="CGT Elettronica" class="exp-logo" />
+            <!-- Logo CGT → images/cgt.png -->
+            <img src="images/cgt.png" alt="CGT Elettronica" class="exp-logo" />
             <p class="card-eyebrow">Febbraio · 1 settimana &nbsp;·&nbsp; Viterbo / Roma</p>
             <h3 class="exp-company">CGT Elettronica</h3>
             <p class="card-text" style="margin-bottom:1rem;">
@@ -793,7 +796,7 @@
         </div>
       </div>
 
-      <!-- ── Orientamento Universitario ── -->
+      <!-- ── Orientamento Universitario ────── -->
       <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
         <div class="exp-inner">
           <div class="exp-timeline">
@@ -872,10 +875,10 @@
         </div>
       </div>
 
-      <!-- Destra: video player con fallback animato -->
+      <!-- Destra: video con fallback animato -->
       <div data-aos="fade-left" data-aos-delay="200">
         <!--
-          Crea una cartella "video" accanto a questo file HTML
+          Crea una cartella "video/" accanto a questo HTML
           e inserisci il file: video/ocr-demo.mp4
           Il player si attiva automaticamente quando il file è presente.
         -->
@@ -1010,8 +1013,8 @@
           padding:1.25rem 2rem 1.75rem;
         `;
         links.querySelectorAll('a').forEach(a => {
-          a.style.padding   = '0.75rem 0';
-          a.style.fontSize  = '0.95rem';
+          a.style.padding  = '0.75rem 0';
+          a.style.fontSize = '0.95rem';
         });
       } else {
         links.removeAttribute('style');
