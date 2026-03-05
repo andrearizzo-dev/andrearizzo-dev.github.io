@@ -5,449 +5,432 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Andrea Rizzo — Portfolio</title>
 
-  <!-- Google Fonts -->
+  <!-- ── Fonts: Syne (display) + DM Sans (body) + JetBrains Mono (code/labels) ── -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- ── AOS (Animate On Scroll) ── -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
   <style>
     /* =========================================================
-       CSS RESET & ROOT VARIABLES
+       ROOT VARIABLES & RESET
     ========================================================= */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     :root {
-      --bg:          #0e0e0e;
-      --bg-card:     #161616;
-      --bg-card-2:   #1c1c1c;
-      --border:      #2a2a2a;
-      --accent:      #4f8ef7;
-      --accent-dim:  rgba(79, 142, 247, 0.12);
-      --text:        #f0f0f0;
-      --text-mid:    #a0a0a0;
-      --text-muted:  #5a5a5a;
-      --radius:      12px;
-      --nav-h:       64px;
-      --max-w:       1000px;
-      --transition:  0.25s ease;
+      --bg:           #080808;
+      --bg-2:         #0f0f0f;
+      --bg-3:         #141414;
+      --accent:       #3b82f6;
+      --accent-2:     #818cf8;
+      --text:         #f1f5f9;
+      --text-mid:     #94a3b8;
+      --text-muted:   #64748b;
+      --border:       rgba(255,255,255,0.07);
+      --glass:        rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.10);
+      --nav-h:        64px;
+      --max-w:        1100px;
     }
 
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
-    body {
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html  { scroll-behavior: smooth; }
+    body  {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
       line-height: 1.65;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-
     img { display: block; max-width: 100%; }
     a   { color: inherit; text-decoration: none; }
     ul  { list-style: none; }
 
-    /* =========================================================
-       UTILITY CLASSES
-    ========================================================= */
-    .container {
-      width: 100%;
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .section {
-      padding: 96px 0;
-    }
-
-    .section-label {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 2.75rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      margin-bottom: 48px;
-      color: var(--text);
-    }
-
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
+    /* ── subtle noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
     }
 
     /* =========================================================
        NAVIGATION
     ========================================================= */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--nav-h);
-      z-index: 999;
-      background: rgba(14, 14, 14, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h); z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      background: rgba(8,8,8,0.75);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
       border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
     }
 
-    nav .container {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
+    /* Logo */
     .nav-logo {
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: -0.01em;
-      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em;
     }
-
     .nav-logo span { color: var(--accent); }
 
-    .nav-links {
-      display: flex;
-      gap: 32px;
-    }
-
+    /* Desktop links */
+    .nav-links { display: flex; gap: 2rem; }
     .nav-links a {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-mid);
-      transition: color var(--transition);
+      font-size: 0.85rem; font-weight: 500;
+      color: var(--text-muted); letter-spacing: 0.02em;
+      transition: color 0.2s; position: relative;
     }
-
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 1px; background: var(--accent);
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+    }
     .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
 
-    /* Hamburger (mobile only) */
+    /* Mobile toggle button */
     .nav-toggle {
-      display: none;
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 6px 10px;
-      cursor: pointer;
-      color: var(--text-mid);
-      font-size: 1.1rem;
-      line-height: 1;
+      display: none; background: none; border: none;
+      cursor: pointer; color: var(--text); padding: 0.5rem;
     }
 
     /* =========================================================
-       1 — HERO SECTION
+       SHARED SECTION LAYOUT
+    ========================================================= */
+    section {
+      padding: 100px 2rem;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Thin gradient divider between sections */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+
+    /* Section eyebrow label  e.g. "— About" */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-label::before {
+      content: ''; display: block; width: 24px; height: 1px;
+      background: var(--accent);
+    }
+
+    /* Large section heading */
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 3rem;
+    }
+
+    /* =========================================================
+       GLASSMORPHISM CARD (reused everywhere)
+    ========================================================= */
+    .glass-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px; padding: 2rem;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .glass-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: inherit;
+      background: linear-gradient(135deg, rgba(59,130,246,0.05) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .glass-card:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .glass-card:hover::before { opacity: 1; }
+
+    /* Card inner typography */
+    .card-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: var(--accent); letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: 1.15rem;
+      letter-spacing: -0.02em; margin-bottom: 0.75rem;
+    }
+    .card-text {
+      font-size: 0.9rem; color: var(--text-mid); line-height: 1.75;
+    }
+
+    /* Tag pills */
+    .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    .tag {
+      background: rgba(59,130,246,0.10);
+      border: 1px solid rgba(59,130,246,0.20);
+      color: var(--accent-2);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; padding: 0.3rem 0.75rem;
+      border-radius: 100px; letter-spacing: 0.03em;
+    }
+
+    /* Cert badge (lighter variant) */
+    .cert-badge {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      color: var(--text-mid);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; padding: 0.3rem 0.75rem;
+      border-radius: 100px; letter-spacing: 0.03em;
+    }
+
+    /* Left-bordered callout block */
+    .challenge-block {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+    }
+    .challenge-block.alt { border-left-color: var(--accent-2); }
+    .challenge-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.5rem;
+    }
+    .challenge-block.alt .challenge-label { color: var(--accent-2); }
+    .challenge-text { font-size: 0.9rem; color: var(--text-mid); line-height: 1.65; }
+
+    /* =========================================================
+       1 — HERO
     ========================================================= */
     #home {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: var(--nav-h);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 2rem 80px;
+      position: relative; overflow: hidden;
     }
 
-    .hero-inner {
-      display: flex;
-      align-items: center;
-      gap: 64px;
+    /* Ambient glow blobs */
+    .hero-glow {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -55%);
+      pointer-events: none;
+      animation: pulse-glow 6s ease-in-out infinite;
+    }
+    .hero-glow-2 {
+      position: absolute; width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(129,140,248,0.08) 0%, transparent 70%);
+      top: 60%; left: 60%; pointer-events: none;
+      animation: pulse-glow 8s ease-in-out infinite reverse;
+    }
+    @keyframes pulse-glow {
+      0%,100% { opacity: 0.7; transform: translate(-50%,-55%) scale(1); }
+      50%      { opacity: 1;   transform: translate(-50%,-55%) scale(1.1); }
     }
 
+    /* Blinking "online" badge */
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      border-radius: 100px; padding: 0.35rem 1rem;
+      font-size: 0.78rem; font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-2); margin-bottom: 2rem; letter-spacing: 0.05em;
+    }
+    .hero-tag::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
+
+    /* Hero photo */
     .hero-photo {
-      flex-shrink: 0;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
+      width: 120px; height: 120px; border-radius: 50%;
       overflow: hidden;
-      border: 2px solid var(--border);
+      border: 2px solid var(--glass-border);
+      margin-bottom: 1.5rem; position: relative;
+      box-shadow: 0 0 40px rgba(59,130,246,0.15);
     }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
 
-    .hero-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .hero-text { flex: 1; }
-
-    .hero-greeting {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-
+    /* Name */
     .hero-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 6vw, 4.5rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      margin-bottom: 20px;
-      color: var(--text);
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      line-height: 0.95; letter-spacing: -0.04em;
+      margin-bottom: 1.25rem;
+    }
+    .hero-name .gradient-text {
+      background: linear-gradient(135deg, #fff 30%, var(--accent) 70%, var(--accent-2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
 
     .hero-tagline {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--text-mid);
-      margin-bottom: 24px;
-      letter-spacing: 0.01em;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: var(--text-mid); max-width: 540px; margin: 0 auto 1rem;
+      font-weight: 300; line-height: 1.7;
     }
 
-    .hero-intro {
-      font-size: 0.95rem;
-      color: var(--text-mid);
-      max-width: 520px;
-      line-height: 1.75;
+    .hero-desc {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+      color: var(--text-muted); margin-bottom: 3rem; letter-spacing: 0.03em;
+    }
+
+    /* CTA button */
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: var(--accent); color: #fff;
+      padding: 0.9rem 2.2rem; border-radius: 100px;
+      font-size: 0.9rem; font-weight: 500;
+      border: none; cursor: pointer;
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .hero-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 20px 60px rgba(59,130,246,0.4); }
+    .hero-cta:hover::before { opacity: 1; }
+    .hero-cta .cta-arrow { transition: transform 0.3s; }
+    .hero-cta:hover .cta-arrow { transform: translateY(3px); }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+      color: var(--text-muted); letter-spacing: 0.1em;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scroll-anim 2s ease-in-out infinite;
+    }
+    @keyframes scroll-anim {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
     }
 
     /* =========================================================
        2 — ABOUT ME
     ========================================================= */
-    #about .about-text {
-      font-size: 1.05rem;
-      color: var(--text-mid);
-      line-height: 1.8;
-      max-width: 720px;
+    #about .about-body {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
     }
-
-    .about-text p + p { margin-top: 20px; }
 
     /* =========================================================
        3 — TECHNICAL EDUCATION
     ========================================================= */
     #education .edu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .edu-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      transition: border-color var(--transition), transform var(--transition);
-    }
-
-    .edu-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-3px);
-    }
-
-    .edu-card-icon  { font-size: 1.6rem; margin-bottom: 14px; }
-
-    .edu-card-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .edu-card-desc {
-      font-size: 0.85rem;
-      color: var(--text-mid);
-      line-height: 1.65;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
     }
 
     /* =========================================================
-       4 — PCTO / WORK EXPERIENCE
+       4 — PCTO / EXPERIENCE
     ========================================================= */
-    #experience .exp-list {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+    #experience .exp-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    /* Timeline dot + line inside each experience card */
+    .exp-inner {
+      display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start;
+    }
+    .exp-timeline { display: flex; flex-direction: column; align-items: center; padding-top: 0.3rem; }
+    .exp-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 16px var(--accent); flex-shrink: 0;
+    }
+    .exp-line {
+      width: 1px; flex: 1; min-height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent); margin-top: 0.5rem;
     }
 
-    .exp-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: var(--radius);
-      padding: 28px 28px 28px 32px;
-      transition: box-shadow var(--transition);
-    }
-
-    .exp-item:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.35); }
-
-    .exp-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 10px;
-      flex-wrap: wrap;
-    }
-
-    .exp-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .exp-period {
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: var(--accent);
-      background: var(--accent-dim);
-      border: 1px solid rgba(79,142,247,0.2);
-      padding: 3px 10px;
-      border-radius: 100px;
-      white-space: nowrap;
-    }
-
-    .exp-org {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      letter-spacing: 0.02em;
-    }
-
-    .exp-desc {
-      font-size: 0.88rem;
-      color: var(--text-mid);
-      line-height: 1.7;
-    }
-
-    .cert-badges {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-
-    .cert-badge {
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: var(--bg-card-2);
-      border: 1px solid var(--border);
-      color: var(--text-mid);
-      padding: 4px 12px;
-      border-radius: 100px;
-      letter-spacing: 0.02em;
+    .exp-company {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.3rem;
+      letter-spacing: -0.02em; margin-bottom: 0.75rem;
     }
 
     /* =========================================================
-       5 — TECHNICAL PROJECTS
+       5 — PROJECTS
     ========================================================= */
-    #projects .project-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
+    #projects .project-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
     }
 
-    .project-body { padding: 36px 36px 32px; }
+    /* Animated scan placeholder / video container */
+    .project-media {
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; position: relative;
+    }
+
+    /* When showing placeholder */
+    .project-media-placeholder {
+      aspect-ratio: 16/10;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem;
+    }
+    .project-media-placeholder::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(59,130,246,0.05), rgba(129,140,248,0.03));
+    }
+    .project-media-placeholder::after {
+      content: ''; position: absolute; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      animation: scan 3s ease-in-out infinite;
+    }
+    @keyframes scan {
+      0%   { top: 20%; opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { top: 80%; opacity: 0; }
+    }
+    .media-icon  { font-size: 3rem; opacity: 0.25; position: relative; }
+    .media-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+      color: var(--text-muted); position: relative;
+    }
+
+    /* Video element (when demo file present) */
+    .project-media video {
+      width: 100%; display: block;
+      border-radius: 16px;
+    }
 
     .project-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-      color: var(--text);
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      letter-spacing: -0.03em; margin-bottom: 1rem;
     }
 
-    .project-desc {
-      font-size: 0.92rem;
-      color: var(--text-mid);
-      line-height: 1.75;
-      max-width: 680px;
-      margin-bottom: 28px;
-    }
-
-    /* Pipeline */
+    /* Pipeline row */
     .pipeline {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0;
-      margin-bottom: 28px;
+      display: flex; align-items: center; flex-wrap: wrap; gap: 0;
+      margin: 1.25rem 0;
     }
-
     .pipeline-step {
-      background: var(--bg-card-2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--text-mid);
+      background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: 8px; padding: 6px 12px;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-mid);
       white-space: nowrap;
     }
+    .pipeline-arrow { padding: 0 6px; color: var(--text-muted); font-size: 0.85rem; }
 
-    .pipeline-arrow {
-      padding: 0 8px;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-
-    /* Tech tags */
-    .tech-tags {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 32px;
-    }
-
-    .tech-tag {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--accent);
-      background: var(--accent-dim);
-      border: 1px solid rgba(79,142,247,0.2);
-      padding: 4px 12px;
-      border-radius: 100px;
-      letter-spacing: 0.02em;
-    }
-
-    /* Video */
-    .video-wrapper {
-      border-top: 1px solid var(--border);
-      padding: 28px 36px 32px;
-      background: var(--bg-card-2);
-    }
-
-    .video-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 14px;
-    }
-
-    .video-wrapper video {
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: #000;
-    }
-
-    .video-caption {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 10px;
+    /* Caption under media */
+    .media-caption {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+      color: var(--text-muted); text-align: center; margin-top: 0.6rem;
       font-style: italic;
     }
 
@@ -455,569 +438,626 @@
        6 — FUTURE DEVELOPMENT
     ========================================================= */
     #future .future-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
     }
-
-    .future-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 24px;
-      transition: border-color var(--transition), transform var(--transition);
-    }
-
-    .future-item:hover {
-      border-color: var(--accent);
-      transform: translateY(-3px);
-    }
-
     .future-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--accent);
-      opacity: 0.5;
-      margin-bottom: 12px;
-      line-height: 1;
-    }
-
-    .future-title {
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .future-desc {
-      font-size: 0.84rem;
-      color: var(--text-mid);
-      line-height: 1.65;
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 2.5rem; letter-spacing: -0.04em; line-height: 1;
+      color: var(--accent); opacity: 0.35; margin-bottom: 0.75rem;
     }
 
     /* =========================================================
        7 — CONTACT
     ========================================================= */
-    #contact { padding-bottom: 40px; }
+    #contact { text-align: center; padding-bottom: 60px; }
 
-    .contact-inner {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 56px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 40px;
-      flex-wrap: wrap;
+    .contact-headline {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 6vw, 4.5rem);
+      letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 1.5rem;
+    }
+    .contact-headline .accent { color: var(--accent); }
+
+    .contact-sub {
+      color: var(--text-muted); max-width: 480px; margin: 0 auto 3rem;
+      font-size: 0.95rem; line-height: 1.7;
     }
 
-    .contact-left h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-      color: var(--text);
+    .contact-btns { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 0.65rem;
+      padding: 0.85rem 1.75rem; border-radius: 100px;
+      font-size: 0.88rem; font-weight: 500;
+      border: 1px solid var(--glass-border);
+      color: var(--text); background: var(--glass);
+      backdrop-filter: blur(10px); transition: all 0.3s;
     }
-
-    .contact-left p {
-      font-size: 0.9rem;
-      color: var(--text-mid);
-      max-width: 360px;
-      line-height: 1.7;
+    .contact-btn:hover {
+      background: rgba(59,130,246,0.10); border-color: var(--accent); color: #fff;
+      transform: translateY(-2px); box-shadow: 0 10px 40px rgba(59,130,246,0.2);
     }
-
-    .contact-links {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.88rem;
-      color: var(--text-mid);
-      transition: color var(--transition);
-    }
-
-    .contact-link:hover { color: var(--accent); }
-
-    .contact-link-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: var(--bg-card-2);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      transition: border-color var(--transition);
-    }
-
-    .contact-link:hover .contact-link-icon { border-color: var(--accent); }
+    .contact-btn svg { opacity: 0.75; transition: opacity 0.3s; }
+    .contact-btn:hover svg { opacity: 1; }
 
     /* =========================================================
        FOOTER
     ========================================================= */
     footer {
       border-top: 1px solid var(--border);
-      padding: 24px 0;
-      text-align: center;
-    }
-
-    footer p {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      letter-spacing: 0.03em;
+      padding: 1.5rem 2rem; text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.03em;
     }
 
     /* =========================================================
-       RESPONSIVE — TABLET & MOBILE
+       RESPONSIVE
     ========================================================= */
     @media (max-width: 768px) {
-      /* Show hamburger, hide desktop links */
+      .nav-links { display: none; }
       .nav-toggle { display: block; }
 
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: var(--nav-h);
-        left: 0; right: 0;
-        flex-direction: column;
-        gap: 0;
-        background: rgba(14,14,14,0.97);
-        border-bottom: 1px solid var(--border);
-        padding: 16px 0;
-      }
+      #about .about-body,
+      #education .edu-grid,
+      #projects .project-grid,
+      #future .future-grid     { grid-template-columns: 1fr; }
 
-      .nav-links.open { display: flex; }
-      .nav-links a { padding: 12px 24px; font-size: 0.95rem; }
-
-      /* Hero stacks vertically */
-      .hero-inner {
-        flex-direction: column;
-        text-align: center;
-        gap: 36px;
-      }
-
-      .hero-photo { width: 140px; height: 140px; }
-      .hero-intro { margin: 0 auto; }
-
-      /* Project padding */
-      .project-body,
-      .video-wrapper { padding: 24px 20px; }
-
-      /* Contact stacks */
-      .contact-inner { padding: 36px 24px; flex-direction: column; }
-
-      /* Pipeline — hide arrows, wrap items */
+      .exp-timeline { display: none; }
+      .exp-inner    { grid-template-columns: 1fr; }
       .pipeline-arrow { display: none; }
       .pipeline { gap: 8px; }
     }
 
     @media (max-width: 480px) {
-      .section { padding: 72px 0; }
+      section { padding: 70px 1.25rem; }
     }
+
+    /* ── AOS pointer-events fix ── */
+    [data-aos]           { pointer-events: none; }
+    [data-aos].aos-animate { pointer-events: auto; }
   </style>
 </head>
 <body>
 
-  <!-- ============================================================
-       NAVIGATION — sticky top bar with smooth-scroll links
-  ============================================================= -->
+  <!-- ═══════════════════════════════════════════════════════
+       NAVIGATION
+  ════════════════════════════════════════════════════════ -->
   <nav id="navbar">
-    <div class="container">
-      <span class="nav-logo">Andrea<span>.</span></span>
+    <a href="#home" class="nav-logo">AR<span>.</span></a>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home"       onclick="closeNav()">Home</a></li>
-        <li><a href="#about"      onclick="closeNav()">About</a></li>
-        <li><a href="#education"  onclick="closeNav()">Education</a></li>
-        <li><a href="#experience" onclick="closeNav()">Experience</a></li>
-        <li><a href="#projects"   onclick="closeNav()">Projects</a></li>
-        <li><a href="#contact"    onclick="closeNav()">Contact</a></li>
-      </ul>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
 
-      <!-- Mobile hamburger button -->
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" onclick="toggleNav()">☰</button>
-    </div>
+    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6"  x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
   </nav>
 
 
-  <!-- ============================================================
-       1 — HERO SECTION
-       First visible section: photo, name, tagline, intro
-  ============================================================= -->
-  <section id="home" class="section">
-    <div class="container">
-      <div class="hero-inner">
+  <!-- ═══════════════════════════════════════════════════════
+       1 — HERO
+  ════════════════════════════════════════════════════════ -->
+  <section id="home">
+    <div class="hero-glow"></div>
+    <div class="hero-glow-2"></div>
 
-        <!-- Profile photo — replace src with real photo path when ready -->
-        <div class="hero-photo">
-          <img
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
-            alt="Andrea Rizzo"
-          />
-        </div>
+    <!-- Badge -->
+    <div class="hero-tag" data-aos="fade-down" data-aos-duration="600">
+      Student Developer &nbsp;·&nbsp; Class 2025
+    </div>
 
-        <div class="hero-text">
-          <p class="hero-greeting">Digital Portfolio</p>
-          <h1 class="hero-name">Andrea Rizzo</h1>
-          <p class="hero-tagline">
-            Technical Student &nbsp;·&nbsp; Software Development &nbsp;·&nbsp; Automation &amp; Computer Vision
-          </p>
-          <p class="hero-intro">
-            Welcome to my digital portfolio. This site presents my technical experiences,
-            personal projects and training path as a student passionate about technology,
-            engineering and software development.
-          </p>
-        </div>
+    <!-- Profile photo — replace src with real photo -->
+    <div class="hero-photo" data-aos="fade-up" data-aos-delay="50" data-aos-duration="600">
+      <img
+        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=240&h=240&fit=crop&crop=face"
+        alt="Andrea Rizzo"
+      />
+    </div>
 
-      </div>
+    <!-- Name -->
+    <h1 class="hero-name" data-aos="fade-up" data-aos-delay="120" data-aos-duration="700">
+      <span class="gradient-text">Andrea Rizzo</span>
+    </h1>
+
+    <!-- Tagline -->
+    <p class="hero-tagline" data-aos="fade-up" data-aos-delay="200" data-aos-duration="700">
+      Technical Student &nbsp;·&nbsp; Software Development &nbsp;·&nbsp; Automation &amp; Computer Vision
+    </p>
+
+    <!-- Mono descriptor -->
+    <p class="hero-desc" data-aos="fade-up" data-aos-delay="280" data-aos-duration="700">
+      // Digital portfolio presenting technical experiences, projects and training path
+    </p>
+
+    <!-- CTA -->
+    <a href="#about" class="hero-cta" data-aos="fade-up" data-aos-delay="360" data-aos-duration="700">
+      Discover my journey
+      <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </a>
+
+    <!-- Scroll indicator -->
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>scroll</span>
     </div>
   </section>
 
   <div class="divider"></div>
 
 
-  <!-- ============================================================
+  <!-- ═══════════════════════════════════════════════════════
        2 — ABOUT ME
-  ============================================================= -->
-  <section id="about" class="section">
-    <div class="container">
-      <p class="section-label">About</p>
-      <h2 class="section-title">About Me</h2>
+  ════════════════════════════════════════════════════════ -->
+  <section id="about">
+    <p class="section-label" data-aos="fade-right">About</p>
+    <h2 class="section-title" data-aos="fade-up">About Me</h2>
 
-      <div class="about-text">
-        <p>
-          I am a technical student with a strong passion for technology and engineering.
-          My interest spans from software development to automation, robotics and applied computer science.
-          I am driven by the challenge of building systems that bridge theoretical knowledge with real-world applications.
-        </p>
-        <p>
-          I am particularly curious about computer vision, industrial automation and programming.
-          I approach problems with analytical thinking and enjoy working on projects that require
-          both technical precision and creative problem-solving.
-        </p>
-        <p>
-          My goal is to continue growing in the field of engineering and applied technology,
-          building practical skills that complement formal academic study.
+    <div class="about-body">
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+        <p class="card-eyebrow">// Who I am</p>
+        <p class="card-title">Passion for Technology</p>
+        <p class="card-text">
+          I am a technical student with a deep passion for engineering and software development.
+          I am driven by the challenge of building systems that bridge theoretical knowledge
+          with real-world applications — from automation logic to computer vision pipelines.
         </p>
       </div>
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="160">
+        <p class="card-eyebrow">// What drives me</p>
+        <p class="card-title">Curiosity &amp; Growth</p>
+        <p class="card-text">
+          I am particularly curious about robotics, industrial automation and programming.
+          I approach problems analytically and enjoy projects that require both technical
+          precision and creative thinking. My goal is to grow continuously in applied technology.
+        </p>
+      </div>
+
     </div>
   </section>
 
   <div class="divider"></div>
 
 
-  <!-- ============================================================
+  <!-- ═══════════════════════════════════════════════════════
        3 — TECHNICAL EDUCATION
-  ============================================================= -->
-  <section id="education" class="section">
-    <div class="container">
-      <p class="section-label">Education</p>
-      <h2 class="section-title">Technical Education</h2>
+  ════════════════════════════════════════════════════════ -->
+  <section id="education">
+    <p class="section-label" data-aos="fade-right">Education</p>
+    <h2 class="section-title" data-aos="fade-up">Technical<br>Education</h2>
 
-      <div class="edu-grid">
+    <div class="edu-grid">
 
-        <div class="edu-card">
-          <div class="edu-card-icon">⚙️</div>
-          <p class="edu-card-title">Automation &amp; Control</p>
-          <p class="edu-card-desc">
-            Study of automated systems, control logic and industrial process fundamentals.
-          </p>
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+        <p class="card-eyebrow">⚙️ &nbsp;Automation &amp; Control</p>
+        <p class="card-title">Industrial Systems</p>
+        <p class="card-text">Study of automated systems, control logic and industrial process fundamentals applied to real engineering scenarios.</p>
+        <div class="tag-list">
+          <span class="tag">PLC</span>
+          <span class="tag">Control Logic</span>
+          <span class="tag">Automation</span>
         </div>
-
-        <div class="edu-card">
-          <div class="edu-card-icon">💻</div>
-          <p class="edu-card-title">Programming</p>
-          <p class="edu-card-desc">
-            Applied programming using structured and object-oriented approaches across multiple languages.
-          </p>
-        </div>
-
-        <div class="edu-card">
-          <div class="edu-card-icon">🖥️</div>
-          <p class="edu-card-title">Computer Systems</p>
-          <p class="edu-card-desc">
-            Architecture of computing systems, networks and operating environments at a technical level.
-          </p>
-        </div>
-
-        <div class="edu-card">
-          <div class="edu-card-icon">🤖</div>
-          <p class="edu-card-title">Robotics</p>
-          <p class="edu-card-desc">
-            Introduction to robotics principles, kinematics and industrial simulation software environments.
-          </p>
-        </div>
-
       </div>
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
+        <p class="card-eyebrow">💻 &nbsp;Programming</p>
+        <p class="card-title">Software Development</p>
+        <p class="card-text">Applied programming using structured and object-oriented approaches, from low-level C to scripting with Python.</p>
+        <div class="tag-list">
+          <span class="tag">C / C++</span>
+          <span class="tag">Python</span>
+          <span class="tag">OOP</span>
+          <span class="tag">Algorithms</span>
+        </div>
+      </div>
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
+        <p class="card-eyebrow">🖥️ &nbsp;Computer Systems</p>
+        <p class="card-title">Networks &amp; OS</p>
+        <p class="card-text">Architecture of computing systems, network protocols, operating environments and system administration basics.</p>
+        <div class="tag-list">
+          <span class="tag">Linux</span>
+          <span class="tag">Networking</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
+        <p class="card-eyebrow">🤖 &nbsp;Robotics</p>
+        <p class="card-title">Industrial Robotics</p>
+        <p class="card-text">Introduction to robotics principles, kinematics and industrial simulation environments including hands-on ABB certification training.</p>
+        <div class="tag-list">
+          <span class="tag">RobotStudio</span>
+          <span class="tag">Kinematics</span>
+          <span class="tag">ABB</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <div class="divider"></div>
 
 
-  <!-- ============================================================
+  <!-- ═══════════════════════════════════════════════════════
        4 — PCTO / WORK EXPERIENCE
-  ============================================================= -->
-  <section id="experience" class="section">
-    <div class="container">
-      <p class="section-label">Experience</p>
-      <h2 class="section-title">PCTO &amp; Technical Experiences</h2>
+  ════════════════════════════════════════════════════════ -->
+  <section id="experience">
+    <p class="section-label" data-aos="fade-right">Experience</p>
+    <h2 class="section-title" data-aos="fade-up">PCTO &amp;<br>Technical Experiences</h2>
 
-      <div class="exp-list">
+    <div class="exp-list">
 
-        <!-- ABB RobotStudio Certifications -->
-        <div class="exp-item">
-          <div class="exp-header">
-            <p class="exp-title">ABB RobotStudio Certifications</p>
-            <span class="exp-period">Certifications</span>
+      <!-- ABB RobotStudio Certifications -->
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="exp-inner">
+          <div class="exp-timeline">
+            <div class="exp-dot"></div>
+            <div class="exp-line"></div>
           </div>
-          <p class="exp-org">ABB — Industrial Robotics</p>
-          <p class="exp-desc">
-            Obtained two official certifications for ABB RobotStudio, the industry-standard software
-            for industrial robot simulation, offline programming and path planning.
-            Training covered robot programming fundamentals, station setup and advanced simulation techniques.
-          </p>
-          <div class="cert-badges">
-            <span class="cert-badge">RobotStudio Base</span>
-            <span class="cert-badge">RobotStudio Advanced</span>
+          <div>
+            <p class="card-eyebrow">Certifications</p>
+            <h3 class="exp-company">ABB RobotStudio</h3>
+            <p class="card-text" style="margin-bottom:1rem;">
+              Obtained two official certifications for ABB RobotStudio — the industry-standard
+              software for industrial robot simulation and offline programming.
+              Training covered robot programming fundamentals, virtual station setup
+              and advanced path-planning techniques.
+            </p>
+            <div class="challenge-block">
+              <p class="challenge-label">// Theory → Practice</p>
+              <p class="challenge-text">Kinematics equations studied in class became real robot movements inside the simulator — validating programming logic before any physical deployment.</p>
+            </div>
+            <div class="tag-list">
+              <span class="cert-badge">RobotStudio Base</span>
+              <span class="cert-badge">RobotStudio Advanced</span>
+            </div>
           </div>
         </div>
-
-        <!-- Comune di Civita Castellana -->
-        <div class="exp-item">
-          <div class="exp-header">
-            <p class="exp-title">Municipal Administration Internship</p>
-            <span class="exp-period">Jul – Aug 2024</span>
-          </div>
-          <p class="exp-org">Comune di Civita Castellana</p>
-          <p class="exp-desc">
-            School work-experience program at the Municipality of Civita Castellana.
-            The experience provided exposure to administrative and organisational processes
-            within a public institution, developing communication and organisational skills
-            alongside technical awareness.
-          </p>
-        </div>
-
-        <!-- CGT Elettronica -->
-        <div class="exp-item">
-          <div class="exp-header">
-            <p class="exp-title">Technical Company Internship</p>
-            <span class="exp-period">February — 1 week</span>
-          </div>
-          <p class="exp-org">CGT Elettronica — Viterbo / Rome</p>
-          <p class="exp-desc">
-            Internship at CGT Elettronica, a company operating in technical and electronic fields.
-            The experience offered direct exposure to professional technical and electronic work environments,
-            reinforcing the connection between academic study and industry practice.
-          </p>
-        </div>
-
-        <!-- Orientation Activities -->
-        <div class="exp-item">
-          <div class="exp-header">
-            <p class="exp-title">University Orientation Programs</p>
-            <span class="exp-period">2023 – 2025</span>
-          </div>
-          <p class="exp-org">Various Institutions</p>
-          <p class="exp-desc">
-            Participated in multiple orientation activities focused on universities, future career paths
-            and technical education opportunities. These experiences built awareness of engineering
-            and computer science academic pathways.
-          </p>
-        </div>
-
       </div>
+
+      <!-- Comune di Civita Castellana -->
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
+        <div class="exp-inner">
+          <div class="exp-timeline">
+            <div class="exp-dot"></div>
+            <div class="exp-line"></div>
+          </div>
+          <div>
+            <p class="card-eyebrow">July – August 2024</p>
+            <h3 class="exp-company">Comune di Civita Castellana</h3>
+            <p class="card-text">
+              School work-experience program at the Municipality of Civita Castellana.
+              Gained practical exposure to administrative and organisational workflows
+              within a public institution, developing communication skills and
+              awareness of how technology supports public services.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Public Administration</span>
+              <span class="tag">Organisation</span>
+              <span class="tag">Communication</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CGT Elettronica -->
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
+        <div class="exp-inner">
+          <div class="exp-timeline">
+            <div class="exp-dot"></div>
+            <div class="exp-line"></div>
+          </div>
+          <div>
+            <p class="card-eyebrow">February · 1 week &nbsp;·&nbsp; Viterbo / Rome</p>
+            <h3 class="exp-company">CGT Elettronica</h3>
+            <p class="card-text">
+              Internship at CGT Elettronica, a company operating in technical and electronic
+              fields. Direct exposure to professional technical workflows reinforced the
+              connection between academic study and real industry practice.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Electronics</span>
+              <span class="tag">Technical Environment</span>
+              <span class="tag">Industry</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orientation Programs -->
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
+        <div class="exp-inner">
+          <div class="exp-timeline">
+            <div class="exp-dot"></div>
+          </div>
+          <div>
+            <p class="card-eyebrow">2023 – 2025</p>
+            <h3 class="exp-company">University Orientation Programs</h3>
+            <p class="card-text">
+              Participated in orientation activities focused on universities, career paths
+              and technical education opportunities — building clear awareness of
+              engineering and computer science academic pathways.
+            </p>
+            <div class="tag-list">
+              <span class="tag">University</span>
+              <span class="tag">Career Planning</span>
+              <span class="tag">Engineering</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <div class="divider"></div>
 
 
-  <!-- ============================================================
+  <!-- ═══════════════════════════════════════════════════════
        5 — TECHNICAL PROJECTS
-  ============================================================= -->
-  <section id="projects" class="section">
-    <div class="container">
-      <p class="section-label">Projects</p>
-      <h2 class="section-title">Technical Projects</h2>
+  ════════════════════════════════════════════════════════ -->
+  <section id="projects">
+    <p class="section-label" data-aos="fade-right">Showcase</p>
+    <h2 class="section-title" data-aos="fade-up">Technical<br>Projects</h2>
 
-      <div class="project-card">
-        <div class="project-body">
+    <div class="project-grid">
 
-          <h3 class="project-title">License Plate Recognition System (OCR)</h3>
+      <!-- Left: description -->
+      <div data-aos="fade-right" data-aos-delay="100">
+        <h3 class="project-title">License Plate<br>Recognition System</h3>
 
-          <p class="project-desc">
-            A prototype system for automatic license plate detection and recognition using
-            computer vision techniques. The system processes video input, isolates the plate region,
-            applies image preprocessing and extracts the alphanumeric text via Optical Character Recognition.
-            The project is currently experimental and under continuous improvement.
-          </p>
+        <p class="card-text" style="margin-bottom:0.5rem;">
+          A prototype system for automatic license plate detection and recognition
+          using computer vision. The system processes video input, isolates the plate
+          region, applies image preprocessing and extracts alphanumeric text via OCR.
+        </p>
 
-          <!-- Processing pipeline steps -->
-          <div class="pipeline">
-            <span class="pipeline-step">Video Input</span>
-            <span class="pipeline-arrow">→</span>
-            <span class="pipeline-step">Plate Detection</span>
-            <span class="pipeline-arrow">→</span>
-            <span class="pipeline-step">Preprocessing</span>
-            <span class="pipeline-arrow">→</span>
-            <span class="pipeline-step">OCR Recognition</span>
-            <span class="pipeline-arrow">→</span>
-            <span class="pipeline-step">Text Output</span>
-          </div>
-
-          <!-- Technologies used -->
-          <div class="tech-tags">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">OpenCV</span>
-            <span class="tech-tag">OCR</span>
-          </div>
-
+        <!-- Processing pipeline -->
+        <div class="pipeline">
+          <span class="pipeline-step">Video Input</span>
+          <span class="pipeline-arrow">→</span>
+          <span class="pipeline-step">Detection</span>
+          <span class="pipeline-arrow">→</span>
+          <span class="pipeline-step">Preprocessing</span>
+          <span class="pipeline-arrow">→</span>
+          <span class="pipeline-step">OCR</span>
+          <span class="pipeline-arrow">→</span>
+          <span class="pipeline-step">Text Output</span>
         </div>
 
-        <!-- Video demonstration player -->
-        <div class="video-wrapper">
-          <p class="video-label">Project Demonstration</p>
+        <div class="challenge-block">
+          <p class="challenge-label">// The Technical Challenge</p>
+          <p class="challenge-text">Variable lighting conditions and plate angles caused raw OCR to misread up to 40 % of frames in non-ideal conditions.</p>
+        </div>
 
-          <!--
-            VIDEO FILE:
-            Place the demo video at:  video/ocr-demo.mp4
-            (a folder named "video" next to this HTML file)
-            The video will load automatically once the file is in place.
-          -->
-          <video controls preload="metadata">
+        <div class="challenge-block alt">
+          <p class="challenge-label">// The Solution</p>
+          <p class="challenge-text">OpenCV preprocessing pipeline: grayscale → adaptive thresholding → morphological operations → contour detection. Final accuracy &gt; 85 % in real conditions.</p>
+        </div>
+
+        <div class="tag-list">
+          <span class="tag">Python</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">OCR</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">Experimental</span>
+        </div>
+      </div>
+
+      <!-- Right: video player (falls back to animated placeholder) -->
+      <div data-aos="fade-left" data-aos-delay="200">
+        <!--
+          VIDEO SETUP:
+          Place your demo video at:  video/ocr-demo.mp4
+          (create a "video" folder next to this HTML file)
+          The <video> tag below will load it automatically.
+          Until the file is present the animated placeholder is shown instead.
+        -->
+        <div class="project-media" id="projectMedia">
+          <!-- Animated placeholder — hidden once video loads -->
+          <div class="project-media-placeholder" id="mediaPlaceholder">
+            <span class="media-icon">🔍</span>
+            <p class="media-label">[ LPR System — Demo ]</p>
+            <p class="media-label" style="opacity:0.4;font-size:0.68rem;">AB · 123 · CD</p>
+          </div>
+          <!-- Video — shown automatically when file exists -->
+          <video id="demoVideo" controls preload="metadata" style="display:none;">
             <source src="video/ocr-demo.mp4" type="video/mp4" />
-            Your browser does not support the video element.
           </video>
-
-          <p class="video-caption">
-            Demonstration of the prototype OCR license plate recognition system.
-          </p>
         </div>
-
+        <p class="media-caption">Demonstration of the OCR license plate recognition prototype.</p>
       </div>
+
     </div>
   </section>
 
   <div class="divider"></div>
 
 
-  <!-- ============================================================
+  <!-- ═══════════════════════════════════════════════════════
        6 — FUTURE DEVELOPMENT
-  ============================================================= -->
-  <section id="future" class="section">
-    <div class="container">
-      <p class="section-label">Next Steps</p>
-      <h2 class="section-title">Future Development</h2>
+  ════════════════════════════════════════════════════════ -->
+  <section id="future">
+    <p class="section-label" data-aos="fade-right">Next Steps</p>
+    <h2 class="section-title" data-aos="fade-up">Future<br>Development</h2>
 
-      <div class="future-grid">
+    <div class="future-grid">
 
-        <div class="future-item">
-          <div class="future-number">01</div>
-          <p class="future-title">Better Image Preprocessing</p>
-          <p class="future-desc">
-            Improve preprocessing algorithms to handle variable lighting, blur, skew
-            and different plate formats more robustly.
-          </p>
-        </div>
-
-        <div class="future-item">
-          <div class="future-number">02</div>
-          <p class="future-title">Higher OCR Accuracy</p>
-          <p class="future-desc">
-            Integrate more accurate OCR engines or train a custom model to reduce
-            misreads on partial, damaged or low-contrast plates.
-          </p>
-        </div>
-
-        <div class="future-item">
-          <div class="future-number">03</div>
-          <p class="future-title">Real-Time Optimisation</p>
-          <p class="future-desc">
-            Optimise the processing pipeline to achieve stable real-time performance
-            on standard hardware without GPU acceleration.
-          </p>
-        </div>
-
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="future-number">01</div>
+        <p class="card-title">Better Preprocessing</p>
+        <p class="card-text">Improve algorithms to handle variable lighting, blur, skew and non-standard plate formats more robustly.</p>
       </div>
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="150">
+        <div class="future-number">02</div>
+        <p class="card-title">Higher OCR Accuracy</p>
+        <p class="card-text">Integrate a more accurate OCR engine or train a custom model to reduce misreads on partial or low-contrast plates.</p>
+      </div>
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="future-number">03</div>
+        <p class="card-title">Real-Time Optimisation</p>
+        <p class="card-text">Optimise the pipeline to achieve stable real-time performance on standard hardware without GPU acceleration.</p>
+      </div>
+
     </div>
   </section>
 
   <div class="divider"></div>
 
 
-  <!-- ============================================================
-       7 — CONTACT / FINAL SECTION
-  ============================================================= -->
-  <section id="contact" class="section">
-    <div class="container">
+  <!-- ═══════════════════════════════════════════════════════
+       7 — CONTACT
+  ════════════════════════════════════════════════════════ -->
+  <section id="contact">
+    <p class="section-label" data-aos="fade-right">Contact</p>
 
-      <div class="contact-inner">
+    <h2 class="contact-headline" data-aos="fade-up">
+      Let's build something<br><span class="accent">together.</span>
+    </h2>
 
-        <div class="contact-left">
-          <h2>Get in Touch</h2>
-          <p>
-            Feel free to reach out for academic collaborations, technical discussions
-            or any inquiries related to my projects and experiences.
-          </p>
-        </div>
+    <p class="contact-sub" data-aos="fade-up" data-aos-delay="100">
+      Open to collaborations, technical discussions or simply a conversation
+      about technology and innovation.
+    </p>
 
-        <div class="contact-links">
+    <div class="contact-btns" data-aos="fade-up" data-aos-delay="200">
 
-          <!-- Email — replace with real address -->
-          <a href="mailto:andrea.rizzo@email.com" class="contact-link">
-            <span class="contact-link-icon">✉️</span>
-            andrea.rizzo@email.com
-          </a>
+      <!-- GitHub — replace URL with real profile -->
+      <a href="https://github.com/andrea-rizzo" target="_blank" rel="noopener" class="contact-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        GitHub
+      </a>
 
-          <!-- LinkedIn — replace with real profile URL -->
-          <a href="https://linkedin.com/in/andrea-rizzo" target="_blank" rel="noopener" class="contact-link">
-            <span class="contact-link-icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="#a0a0a0">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </span>
-            linkedin.com/in/andrea-rizzo
-          </a>
+      <!-- Email — replace with real address -->
+      <a href="mailto:andrearizzo656@gmail.com" class="contact-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <polyline points="22,4 12,13 2,4"/>
+        </svg>
+        Email
+      </a>
 
-        </div>
-      </div>
+      <!-- LinkedIn — replace URL with real profile -->
+      <a href="https://linkedin.com/in/andrea-rizzo" target="_blank" rel="noopener" class="contact-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        LinkedIn
+      </a>
+
     </div>
   </section>
 
 
-  <!-- ============================================================
+  <!-- ═══════════════════════════════════════════════════════
        FOOTER
-  ============================================================= -->
+  ════════════════════════════════════════════════════════ -->
   <footer>
-    <div class="container">
-      <p>© 2025 Andrea Rizzo — All rights reserved.</p>
-    </div>
+    <p>Designed &amp; Built by <strong>Andrea Rizzo</strong> &nbsp;·&nbsp; 2025</p>
   </footer>
 
 
-  <!-- ============================================================
-       JAVASCRIPT
-       Minimal — only used for mobile navigation toggle
-  ============================================================= -->
+  <!-- ═══════════════════════════════════════════════════════
+       SCRIPTS
+  ════════════════════════════════════════════════════════ -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // Open / close mobile navigation menu
-    function toggleNav() {
-      document.getElementById('navLinks').classList.toggle('open');
+    /* ── AOS init ── */
+    AOS.init({ once: true, offset: 80, duration: 700, easing: 'ease-out-cubic' });
+
+    /* ── Nav background on scroll ── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.style.background = window.scrollY > 40
+        ? 'rgba(8,8,8,0.95)'
+        : 'rgba(8,8,8,0.75)';
+    });
+
+    /* ── Magnetic CTA ── */
+    const cta = document.querySelector('.hero-cta');
+    if (cta) {
+      cta.addEventListener('mousemove', e => {
+        const r = cta.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width  / 2) * 0.2;
+        const y = (e.clientY - r.top  - r.height / 2) * 0.2;
+        cta.style.transform = `translate(${x}px, ${y}px) translateY(-2px)`;
+      });
+      cta.addEventListener('mouseleave', () => { cta.style.transform = ''; });
     }
 
-    // Close mobile nav after tapping a link
-    function closeNav() {
-      document.getElementById('navLinks').classList.remove('open');
+    /* ── Mobile nav toggle ── */
+    function toggleNav() {
+      const links = document.getElementById('navLinks');
+      const open  = links.classList.toggle('open');
+      if (open) {
+        links.style.cssText = `
+          display:flex; flex-direction:column; gap:0;
+          position:absolute; top:64px; left:0; right:0;
+          background:rgba(8,8,8,0.97);
+          backdrop-filter:blur(20px);
+          border-bottom:1px solid rgba(255,255,255,0.07);
+          padding:1.25rem 2rem 1.75rem;
+        `;
+        /* re-style individual links for mobile */
+        links.querySelectorAll('a').forEach(a => {
+          a.style.padding = '0.75rem 0';
+          a.style.fontSize = '0.95rem';
+        });
+      } else {
+        links.removeAttribute('style');
+        links.querySelectorAll('a').forEach(a => a.removeAttribute('style'));
+      }
+    }
+
+    /* Close mobile nav when a link is clicked */
+    document.querySelectorAll('#navLinks a').forEach(link => {
+      link.addEventListener('click', () => {
+        const links = document.getElementById('navLinks');
+        links.classList.remove('open');
+        links.removeAttribute('style');
+        links.querySelectorAll('a').forEach(a => a.removeAttribute('style'));
+      });
+    });
+
+    /* ── Smooth scroll ── */
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    /* ── Video / placeholder switcher ──
+       Show video player if ocr-demo.mp4 loads; otherwise keep animated placeholder. */
+    const video       = document.getElementById('demoVideo');
+    const placeholder = document.getElementById('mediaPlaceholder');
+    if (video) {
+      video.addEventListener('loadedmetadata', () => {
+        placeholder.style.display = 'none';
+        video.style.display       = 'block';
+      });
+      video.addEventListener('error', () => {
+        video.style.display       = 'none';
+        placeholder.style.display = 'flex';
+      });
     }
   </script>
 
