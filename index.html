@@ -253,15 +253,15 @@
     }
 
     .hero-content {
-      display: flex; align-items: center; gap: 2.8rem;
+      display: flex; align-items: center; gap: 2.2rem;
       max-width: var(--max-w); width: 100%;
       position: relative; z-index: 1;
     }
 
     .hero-photo-wrap {
-      width: 38%; min-width: 240px; display: flex; justify-content: flex-start;
+      width: 42%; min-width: 260px; display: flex; justify-content: flex-start;
       position: relative;
-      animation: photo-sling 1.4s cubic-bezier(0.22,1,0.36,1) forwards;
+      animation: photo-sling 1.8s cubic-bezier(0.22,1,0.36,1) forwards;
       opacity: 0;
     }
     .hero-photo-wrap::after {
@@ -272,25 +272,25 @@
     }
 
     .hero-photo {
-      width: 180px; height: 180px; border-radius: 28px;
+      width: 220px; height: 220px; border-radius: 32px;
       overflow: hidden;
       border: 2px solid var(--glass-border);
       position: relative;
-      box-shadow: 0 20px 60px rgba(59,130,246,0.28);
+      box-shadow: 0 26px 70px rgba(59,130,246,0.30);
       backdrop-filter: blur(4px);
       z-index: 1;
     }
     .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
 
     .hero-text {
-      flex: 1; text-align: left;
-      animation: text-lift 1.2s 0.1s cubic-bezier(0.23,1,0.32,1) forwards;
+      flex: 1; max-width: 520px; text-align: left;
+      animation: text-lift 1.6s 0.15s cubic-bezier(0.23,1,0.32,1) forwards;
       opacity: 0; transform: translateX(-80px) translateY(12px);
     }
 
     .hero-name {
       font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-size: clamp(3.2rem, 9vw, 6.4rem);
       line-height: 0.95; letter-spacing: -0.04em;
       margin-bottom: 1rem;
     }
@@ -300,14 +300,14 @@
     }
 
     .hero-tagline {
-      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      font-size: clamp(0.9rem, 1.9vw, 1.08rem);
       color: var(--text-mid); max-width: 640px; margin: 0 0 1rem;
       font-weight: 300; line-height: 1.7;
     }
 
     .hero-desc {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
-      color: var(--text-muted); margin-bottom: 2.4rem; letter-spacing: 0.03em;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.80rem;
+      color: var(--text-muted); margin-bottom: 2.2rem; letter-spacing: 0.03em;
       max-width: 520px;
     }
 
