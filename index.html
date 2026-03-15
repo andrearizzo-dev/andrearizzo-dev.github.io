@@ -665,18 +665,10 @@
         <p class="card-eyebrow">// Informatica &amp; Elettronica</p>
         <p class="card-title">Una passione nata da subito</p>
         <p class="card-text">
-          Fin da piccolo ho avuto una curiosità inesauribile per tutto ciò che riguarda
-          l'informatica e l'elettronica. Non mi è mai bastato sapere che le cose funzionano —
-          ho sempre voluto capire <em>come</em> e <em>perché</em>.
-          Questa spinta mi ha portato a scegliere un percorso tecnico e a costruire,
-          nel tempo, competenze reali in programmazione, automazione e sviluppo software.
-          <br><br>
-          Viviamo in un momento storico unico: l'intelligenza artificiale sta ridefinendo
-          profondamente il modo di lavorare, creare e risolvere problemi. Non si tratta
-          solo di tecnologia — è un cambiamento culturale e sociale che trasformerà
-          ogni settore nei prossimi anni. Essere curiosi, aggiornarsi continuamente
-          e saper collaborare con questi strumenti non è più un'opzione: è la competenza
-          fondamentale del futuro. Ed è esattamente la direzione verso cui sto crescendo.
+          Curiosità per circuiti e codice fin da bambino: ho scelto il percorso tecnico
+          per capire davvero <em>come</em> funziona ciò che usiamo ogni giorno. Oggi studio
+          programmazione, automazione e AI perché credo che saper collaborare con queste
+          tecnologie sia la skill chiave del futuro — e voglio esserci da protagonista.
         </p>
       </div>
 
@@ -1110,14 +1102,18 @@
       });
     });
 
-    /* Smooth scroll */
+    /* Smooth scroll with nav offset */
+    const nav      = document.getElementById('navbar');
+    const navH     = () => (nav ? nav.getBoundingClientRect().height : 0);
+    const anchorGap = 18; /* spazio extra sotto il nav */
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', e => {
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        const id = link.getAttribute('href');
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - navH() - anchorGap;
+        window.scrollTo({ top, behavior: 'smooth' });
       });
     });
 
