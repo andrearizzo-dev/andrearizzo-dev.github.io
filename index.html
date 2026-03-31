@@ -930,6 +930,16 @@
         </p>
 
         <div class="challenge-block">
+          <p class="challenge-label">// Cos'&egrave; BrainyBuddy</p>
+          <p class="challenge-text">BrainyBuddy AI &egrave; un assistente allo studio basato su intelligenza artificiale progettato per aiutare gli studenti a comprendere, riassumere e approfondire argomenti in modo strutturato e interattivo. A differenza dei chatbot tradizionali, organizza ogni risposta in sezioni didattiche precise, trasformando l'AI in uno strumento di apprendimento attivo.</p>
+        </div>
+
+        <div class="challenge-block alt">
+          <p class="challenge-label">// Obiettivo del Progetto</p>
+          <p class="challenge-text">Creare un sistema intelligente in grado di spiegare concetti complessi, organizzare le informazioni per lo studio e stimolare la comprensione attiva attraverso un'interazione strutturata con l'utente.</p>
+        </div>
+
+        <div class="challenge-block">
           <p class="challenge-label">// Obiettivo del Progetto</p>
           <p class="challenge-text">L'obiettivo &egrave; quello di costruire un sistema intelligente capace di supportare l'utente nella gestione delle informazioni, migliorando produttivit&agrave; e comprensione attraverso l'automazione AI.</p>
         </div>
@@ -937,6 +947,16 @@
         <div class="challenge-block alt">
           <p class="challenge-label">// Tecnologie Utilizzate</p>
           <p class="challenge-text">Il progetto &egrave; basato su workflow automation con n8n, integrazione API e modelli di intelligenza artificiale per l'elaborazione del linguaggio naturale.</p>
+        </div>
+
+        <div class="challenge-block">
+          <p class="challenge-label">// Architettura Tecnica</p>
+          <p class="challenge-text">Il sistema &egrave; composto da un frontend web (HTML, CSS, JavaScript) e da un backend basato su workflow n8n, che gestisce l'orchestrazione delle richieste AI e la formattazione delle risposte.</p>
+        </div>
+
+        <div class="challenge-block alt">
+          <p class="challenge-label">// Sistema Multi-AI</p>
+          <p class="challenge-text">BrainyBuddy utilizza pi&ugrave; modelli AI tra cui Google Gemini, Cohere Command R e DeepSeek. Il sistema seleziona dinamicamente il modello per ogni richiesta, migliorando affidabilit&agrave;, disponibilit&agrave; e qualit&agrave; delle risposte.</p>
         </div>
 
         <div class="tag-list">
@@ -962,9 +982,64 @@
           </div>
         </div>
         <p class="media-caption">Video demo di BrainyBuddy AI dedicato all'analisi e rielaborazione di contenuti testuali.</p>
+
+        <div class="glass-card" style="margin-top:1.5rem;">
+          <p class="card-title">Struttura delle Risposte AI</p>
+
+          <div style="display:flex; flex-wrap:wrap; gap:0.6rem; align-items:center; margin-top:1rem;">
+            <span class="tag">Summary</span>
+            <p class="card-text" style="margin:0;">spiegazione chiara e completa</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:0.6rem; align-items:center; margin-top:0.75rem;">
+            <span class="tag">Key Concepts</span>
+            <p class="card-text" style="margin:0;">concetti chiave per memorizzazione</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:0.6rem; align-items:center; margin-top:0.75rem;">
+            <span class="tag">Study Questions</span>
+            <p class="card-text" style="margin:0;">domande per verifica attiva</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:0.6rem; align-items:center; margin-top:0.75rem;">
+            <span class="tag">Suggested Actions</span>
+            <p class="card-text" style="margin:0;">azioni pratiche di studio</p>
+          </div>
+        </div>
+
+        <div class="glass-card" style="margin-top:1.5rem;">
+          <p class="card-title">Flusso del Sistema</p>
+
+          <div class="pipeline" style="margin-top:1rem;">
+            <span class="pipeline-step">Input utente</span>
+            <span class="pipeline-arrow">&rarr;</span>
+            <span class="pipeline-step">HTTP POST</span>
+            <span class="pipeline-arrow">&rarr;</span>
+            <span class="pipeline-step">Webhook n8n</span>
+            <span class="pipeline-arrow">&rarr;</span>
+            <span class="pipeline-step">Modello AI</span>
+            <span class="pipeline-arrow">&rarr;</span>
+            <span class="pipeline-step">Generazione risposta</span>
+            <span class="pipeline-arrow">&rarr;</span>
+            <span class="pipeline-step">Output JSON</span>
+            <span class="pipeline-arrow">&rarr;</span>
+            <span class="pipeline-step">Rendering frontend</span>
+          </div>
+
+          <div class="divider" style="margin:1.5rem 0;"></div>
+
+          <p class="card-title" style="margin-bottom:1rem;">Formato JSON</p>
+          <pre style="margin:0; padding:1rem; border-radius:14px; background:var(--bg-3); border:1px solid var(--border); color:var(--text-mid); font-family:'JetBrains Mono', monospace; font-size:0.74rem; line-height:1.7; overflow:auto; white-space:pre-wrap;">{
+  "summary": "...",
+  "key_concepts": ["..."],
+  "questions": ["..."],
+  "suggested_actions": ["..."]
+}</pre>
+        </div>
       </div>
 
     </div>
+
+    <p class="card-text" data-aos="fade-up" style="margin:2rem auto 0; max-width:760px; text-align:center; color:var(--text);">
+      BrainyBuddy non &egrave; un semplice chatbot, ma un vero assistente allo studio progettato per migliorare il processo di apprendimento.
+    </p>
   </section>
 
   <div class="divider"></div>
