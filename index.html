@@ -921,65 +921,84 @@
 
       <!-- Sinistra: descrizione -->
       <div data-aos="fade-right" data-aos-delay="100">
-        <h3 class="project-title">License Plate<br>Recognition System</h3>
+        <h3 class="project-title">BrainyBuddy AI</h3>
 
         <p class="card-text" style="margin-bottom:0.5rem;">
-          Sistema prototipale per il rilevamento e il riconoscimento automatico delle targhe automobilistiche
-          tramite tecniche di computer vision. Il sistema elabora un flusso video in ingresso, isola la regione
-          della targa, applica un pre-processing dell'immagine ed estrae il testo alfanumerico tramite OCR.
+          BrainyBuddy AI &egrave; un assistente cognitivo basato su intelligenza artificiale progettato per analizzare,
+          comprendere e rielaborare contenuti testuali come email, appunti o richieste. Il sistema &egrave; in grado di
+          generare riassunti, individuare concetti chiave e suggerire risposte in modo automatico.
         </p>
 
-        <div class="pipeline">
-          <span class="pipeline-step">Video Input</span>
-          <span class="pipeline-arrow">→</span>
-          <span class="pipeline-step">Rilevamento</span>
-          <span class="pipeline-arrow">→</span>
-          <span class="pipeline-step">Pre-processing</span>
-          <span class="pipeline-arrow">→</span>
-          <span class="pipeline-step">OCR</span>
-          <span class="pipeline-arrow">→</span>
-          <span class="pipeline-step">Output Testo</span>
-        </div>
-
         <div class="challenge-block">
-          <p class="challenge-label">// La Sfida Tecnica</p>
-          <p class="challenge-text">Le variazioni delle condizioni di illuminazione e l'angolazione delle targhe causavano errori di lettura OCR fino al 40% dei frame in condizioni non ideali.</p>
+          <p class="challenge-label">// Obiettivo del Progetto</p>
+          <p class="challenge-text">L'obiettivo &egrave; quello di costruire un sistema intelligente capace di supportare l'utente nella gestione delle informazioni, migliorando produttivit&agrave; e comprensione attraverso l'automazione AI.</p>
         </div>
 
         <div class="challenge-block alt">
-          <p class="challenge-label">// La Soluzione</p>
-          <p class="challenge-text">Pipeline di pre-processing con OpenCV: grayscale → adaptive thresholding → operazioni morfologiche → contour detection. Accuratezza finale &gt; 85% in condizioni reali.</p>
+          <p class="challenge-label">// Tecnologie Utilizzate</p>
+          <p class="challenge-text">Il progetto &egrave; basato su workflow automation con n8n, integrazione API e modelli di intelligenza artificiale per l'elaborazione del linguaggio naturale.</p>
         </div>
 
         <div class="tag-list">
-          <span class="tag">Python</span>
-          <span class="tag">OpenCV</span>
-          <span class="tag">OCR</span>
-          <span class="tag">NumPy</span>
-          <span class="tag">Sperimentale</span>
+          <span class="tag">AI Automation</span>
+          <span class="tag">n8n</span>
+          <span class="tag">API Integration</span>
+          <span class="tag">Workflow Design</span>
+          <span class="tag">Problem Solving</span>
         </div>
       </div>
 
-      <!-- Destra: video con fallback animato -->
+      <!-- Destra: demo con scan effect -->
       <div data-aos="fade-left" data-aos-delay="200">
-        <!--
-          Crea una cartella "video/" accanto a questo HTML
-          e inserisci il file: video/ocr-demo.mp4
-          Il player si attiva automaticamente quando il file è presente.
-        -->
-        <div class="project-media" id="projectMedia">
-          <div class="project-media-placeholder" id="mediaPlaceholder">
-            <span class="media-icon">🔍</span>
-            <p class="media-label">[ LPR System — Demo ]</p>
-            <p class="media-label" style="opacity:0.4;font-size:0.68rem;">AB · 123 · CD</p>
+        <div class="project-media">
+          <div class="project-media-placeholder" style="padding:1.5rem;">
+            <p class="media-label">[ BrainyBuddy AI &mdash; Demo ]</p>
+            <div style="width:100%; max-width:420px; position:relative;">
+              <video controls style="width: 100%; border-radius: 12px;">
+                <source src="videos/brainybuddy-demo.mp4" type="video/mp4" />
+                Il tuo browser non supporta il video.
+              </video>
+            </div>
           </div>
-          <video id="demoVideo" controls preload="metadata" style="display:none;">
-            <source src="video/ocr-demo.mp4" type="video/mp4" />
-          </video>
         </div>
-        <p class="media-caption">Video demo del prototipo di riconoscimento targhe tramite OCR.</p>
+        <p class="media-caption">Video demo di BrainyBuddy AI dedicato all'analisi e rielaborazione di contenuti testuali.</p>
       </div>
 
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+
+  <section id="streetburger">
+    <p class="section-label" data-aos="fade-right">Experience</p>
+    <h2 class="section-title" data-aos="fade-up">Street Burger &mdash;<br>Esperienza Pratica</h2>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:3rem; align-items:start;">
+      <div data-aos="fade-right" data-aos-delay="100">
+        <p class="card-text" style="margin-bottom:0.5rem;">
+          Esperienza pratica nel contesto lavorativo di Street Burger, con coinvolgimento diretto nelle attivit&agrave;
+          operative e organizzative. Questo percorso ha permesso di sviluppare competenze trasversali legate al lavoro
+          in team, alla gestione del cliente e alla capacit&agrave; di adattamento in ambienti dinamici.
+        </p>
+      </div>
+
+      <div data-aos="fade-left" data-aos-delay="200">
+        <div class="glass-card">
+          <div class="challenge-block" style="margin:0 0 1.5rem 0;">
+            <p class="challenge-label">// Competenze Sviluppate</p>
+            <p class="challenge-text">L'attivit&agrave; ha contribuito a rafforzare soft skills fondamentali come problem solving, comunicazione, gestione dello stress e organizzazione del lavoro.</p>
+          </div>
+
+          <div class="tag-list" style="margin-top:0;">
+            <span class="tag">Team Work</span>
+            <span class="tag">Problem Solving</span>
+            <span class="tag">Customer Management</span>
+            <span class="tag">Organization</span>
+            <span class="tag">Adaptability</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
