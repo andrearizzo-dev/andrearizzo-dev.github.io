@@ -428,6 +428,24 @@
       margin-bottom: 0.75rem;
     }
 
+    .exp-logo.comune-logo {
+      background: linear-gradient(to bottom, #000000, #1f2937);
+      padding: 10px;
+      border-radius: 10px;
+      display: inline-block;
+      opacity: 1;
+      mix-blend-mode: normal;
+      filter: none;
+    }
+
+    .pcto-period {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      margin-top: 5px;
+      margin-bottom: 0.9rem;
+      color: var(--text-muted);
+    }
+
     .pcto-gallery {
       display: flex;
       gap: 10px;
@@ -466,53 +484,36 @@
     }
 
     .brainybuddy-title {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.9rem;
+      display: block;
+    }
+
+    .bb-logo {
+      max-width: 120px;
+      margin-bottom: 15px;
+      border-radius: 16px;
+      display: block;
+      background: rgba(255,255,255,0.9);
+      padding: 10px;
+      border: 1px solid rgba(148,163,184,0.20);
+      box-shadow: 0 12px 32px rgba(15,23,42,0.08);
+    }
+
+    .bb-gallery {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
       flex-wrap: wrap;
     }
 
-    .brainybuddy-logo {
-      width: 58px;
-      height: 58px;
-      flex-shrink: 0;
-      border-radius: 18px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 55%),
-        linear-gradient(135deg, rgba(59,130,246,0.16), rgba(129,140,248,0.18));
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 12px 32px rgba(15,23,42,0.28);
-      position: relative;
-      overflow: hidden;
-      animation: brainy-float 4.2s ease-in-out infinite;
+    .bb-gallery img {
+      width: 100%;
+      max-width: 180px;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
     }
 
-    .brainybuddy-logo::before {
-      content: '';
-      position: absolute;
-      inset: 7px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.08);
-      pointer-events: none;
-    }
-
-    .brainybuddy-logo svg {
-      width: 38px;
-      height: 38px;
-      display: block;
-      filter: drop-shadow(0 0 14px rgba(59,130,246,0.25));
-    }
-
-    .brainybuddy-wordmark {
-      display: inline-block;
-    }
-
-    @keyframes brainy-float {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-3px) scale(1.02); }
+    .bb-gallery img:hover {
+      transform: scale(1.05);
     }
 
     .project-section p {
@@ -608,8 +609,7 @@
       .exp-timeline   { display: none; }
       .exp-inner      { grid-template-columns: 1fr; }
       .project-section{ padding-top: 0; padding-bottom: 0; }
-      .brainybuddy-logo { width: 52px; height: 52px; border-radius: 16px; }
-      .brainybuddy-logo svg { width: 34px; height: 34px; }
+      .bb-logo { max-width: 100px; }
       .preview-box    { padding: 28px 20px; }
     }
 
@@ -649,9 +649,9 @@
     body {
       font-family: 'Inter', 'DM Sans', sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(59,130,246,0.14), transparent 28%),
-        radial-gradient(circle at top right, rgba(96,165,250,0.12), transparent 24%),
-        linear-gradient(180deg, #f8fafc 0%, #f1f5f9 54%, #eef2ff 100%);
+        radial-gradient(circle at top left, rgba(59,130,246,0.10), transparent 28%),
+        radial-gradient(circle at top right, rgba(96,165,250,0.08), transparent 24%),
+        linear-gradient(180deg, #eef2f7 0%, #e2e8f0 58%, #dbeafe 100%);
       color: var(--text);
       line-height: 1.6;
     }
@@ -977,10 +977,8 @@
       box-shadow: 0 14px 32px rgba(15,23,42,0.12);
     }
 
-    .brainybuddy-logo {
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.50), transparent 55%),
-        linear-gradient(135deg, rgba(59,130,246,0.18), rgba(129,140,248,0.18));
+    .bb-logo {
+      background: rgba(255,255,255,0.94);
       border: 1px solid rgba(148,163,184,0.24);
       box-shadow: 0 16px 40px rgba(59,130,246,0.12);
     }
@@ -1327,7 +1325,7 @@
         <div class="exp-line"></div>
       </div>
       <div>
-        <img src="images/logo_comune.png" alt="Comune di Civita Castellana" class="exp-logo" style="height:72px; max-width:220px;" />
+        <img src="images/logo_comune.png" alt="Comune di Civita Castellana" class="exp-logo comune-logo" style="height:72px; max-width:220px;" />
         <p class="card-eyebrow">Luglio – Agosto 2024</p>
         <h3 class="exp-company">Comune di Civita Castellana</h3>
         <p class="card-text" style="margin-bottom:1rem;">
@@ -1363,6 +1361,7 @@
       <div>
         <p class="card-eyebrow">Esperienza internazionale</p>
         <h3 class="exp-company">Erasmus PCTO – Dublino</h3>
+        <p class="pcto-period">Dicembre 2024 (1° dicembre – metà dicembre)</p>
         <p class="card-text" style="margin-bottom:1rem;">
           Esperienza formativa svolta nell'ambito del progetto Erasmus PCTO, della durata di circa due settimane, dal 1° dicembre a metà dicembre 2024.
           Durante questo periodo ho soggiornato presso una host house situata a Port Marnock, una località costiera vicino Dublino, vivendo così un'esperienza immersiva all'interno della cultura locale.
@@ -1441,25 +1440,8 @@
   </section>
 
   <section class="project-section">
-    <h2 class="brainybuddy-title">
-      <span class="brainybuddy-logo" aria-hidden="true">
-        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="brainyStroke" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#3B82F6"/>
-              <stop offset="1" stop-color="#818CF8"/>
-            </linearGradient>
-          </defs>
-          <rect x="8" y="8" width="48" height="48" rx="18" fill="rgba(15,23,42,0.22)"/>
-          <path d="M24 24C24 20.6863 26.6863 18 30 18C32.0645 18 33.8857 19.0432 34.9642 20.6313C35.6146 20.2278 36.3815 20 37.2016 20C39.575 20 41.5 21.925 41.5 24.2984C41.5 24.5348 41.4809 24.7668 41.4443 24.9928C44.0066 25.3058 46 27.4883 46 30.1354C46 32.9963 43.6806 35.3157 40.8197 35.3157H39.8C39.5667 40.1176 35.6032 43.9375 30.7448 43.9375C26.2451 43.9375 22.4891 40.6597 21.7931 36.3577C19.6189 35.7713 18 33.7857 18 31.4286C18 28.6346 20.2588 26.3597 23.0464 26.3346C22.6934 25.6433 22.5 24.8606 22.5 24.0312C22.5 23.6802 22.5346 23.3372 22.6004 23.0056" stroke="url(#brainyStroke)" stroke-width="2.8" stroke-linecap="round"/>
-          <path d="M26 29.5H38" stroke="#F8FAFC" stroke-width="2.4" stroke-linecap="round"/>
-          <path d="M26.5 35H35.5" stroke="#F8FAFC" stroke-width="2.4" stroke-linecap="round"/>
-          <circle cx="42.5" cy="22.5" r="3.5" fill="#818CF8"/>
-          <path d="M41 26L37.5 30" stroke="#818CF8" stroke-width="2.2" stroke-linecap="round"/>
-        </svg>
-      </span>
-      <span class="brainybuddy-wordmark">BrainyBuddy AI</span>
-    </h2>
+    <img src="images/logo_brainybuddy.jpg" alt="BrainyBuddy Logo" class="bb-logo">
+    <h2 class="brainybuddy-title">BrainyBuddy AI</h2>
 
     <p>
       BrainyBuddy AI è un assistente allo studio basato su intelligenza artificiale, progettato per supportare gli studenti nella comprensione, organizzazione e memorizzazione dei contenuti scolastici in modo strutturato ed efficace.
@@ -1485,6 +1467,10 @@
       <div class="preview-box">
         Demo interattiva di BrainyBuddy AI (video dimostrativo)
       </div>
+    </div>
+
+    <div class="bb-gallery">
+      <img src="images/home_brainybuddy.jpg" alt="Anteprima Home BrainyBuddy">
     </div>
   </section>
 
