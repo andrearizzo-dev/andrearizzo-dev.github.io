@@ -459,6 +459,56 @@
       margin-bottom: 1.5rem;
     }
 
+    .brainybuddy-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .brainybuddy-logo {
+      width: 58px;
+      height: 58px;
+      flex-shrink: 0;
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 55%),
+        linear-gradient(135deg, rgba(59,130,246,0.16), rgba(129,140,248,0.18));
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 12px 32px rgba(15,23,42,0.28);
+      position: relative;
+      overflow: hidden;
+      animation: brainy-float 4.2s ease-in-out infinite;
+    }
+
+    .brainybuddy-logo::before {
+      content: '';
+      position: absolute;
+      inset: 7px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+
+    .brainybuddy-logo svg {
+      width: 38px;
+      height: 38px;
+      display: block;
+      filter: drop-shadow(0 0 14px rgba(59,130,246,0.25));
+    }
+
+    .brainybuddy-wordmark {
+      display: inline-block;
+    }
+
+    @keyframes brainy-float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-3px) scale(1.02); }
+    }
+
     .project-section p {
       max-width: 720px;
       color: var(--text-mid);
@@ -552,6 +602,8 @@
       .exp-timeline   { display: none; }
       .exp-inner      { grid-template-columns: 1fr; }
       .project-section{ padding-top: 0; padding-bottom: 0; }
+      .brainybuddy-logo { width: 52px; height: 52px; border-radius: 16px; }
+      .brainybuddy-logo svg { width: 34px; height: 34px; }
       .preview-box    { padding: 28px 20px; }
     }
 
@@ -846,9 +898,9 @@
           Questa esperienza mi ha permesso non solo di potenziare la conoscenza della lingua inglese, ma anche di sviluppare una maggiore autonomia personale, adattabilità e apertura verso nuove culture e tradizioni.
         </p>
         <div class="pcto-gallery">
-          <img src="placeholder1.jpg" alt="Erasmus Dublino 1">
-          <img src="placeholder2.jpg" alt="Erasmus Dublino 2">
-          <img src="placeholder3.jpg" alt="Erasmus Dublino 3">
+          <img src="images/image_1.jpg" alt="Erasmus Dublino 1">
+          <img src="images/image_2.jpg" alt="Erasmus Dublino 2">
+          <img src="images/image_3.jpg" alt="Erasmus Dublino 3">
         </div>
       </div>
     </div>
@@ -917,7 +969,25 @@
   </section>
 
   <section class="project-section">
-    <h2>BrainyBuddy AI</h2>
+    <h2 class="brainybuddy-title">
+      <span class="brainybuddy-logo" aria-hidden="true">
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="brainyStroke" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#3B82F6"/>
+              <stop offset="1" stop-color="#818CF8"/>
+            </linearGradient>
+          </defs>
+          <rect x="8" y="8" width="48" height="48" rx="18" fill="rgba(15,23,42,0.22)"/>
+          <path d="M24 24C24 20.6863 26.6863 18 30 18C32.0645 18 33.8857 19.0432 34.9642 20.6313C35.6146 20.2278 36.3815 20 37.2016 20C39.575 20 41.5 21.925 41.5 24.2984C41.5 24.5348 41.4809 24.7668 41.4443 24.9928C44.0066 25.3058 46 27.4883 46 30.1354C46 32.9963 43.6806 35.3157 40.8197 35.3157H39.8C39.5667 40.1176 35.6032 43.9375 30.7448 43.9375C26.2451 43.9375 22.4891 40.6597 21.7931 36.3577C19.6189 35.7713 18 33.7857 18 31.4286C18 28.6346 20.2588 26.3597 23.0464 26.3346C22.6934 25.6433 22.5 24.8606 22.5 24.0312C22.5 23.6802 22.5346 23.3372 22.6004 23.0056" stroke="url(#brainyStroke)" stroke-width="2.8" stroke-linecap="round"/>
+          <path d="M26 29.5H38" stroke="#F8FAFC" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M26.5 35H35.5" stroke="#F8FAFC" stroke-width="2.4" stroke-linecap="round"/>
+          <circle cx="42.5" cy="22.5" r="3.5" fill="#818CF8"/>
+          <path d="M41 26L37.5 30" stroke="#818CF8" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="brainybuddy-wordmark">BrainyBuddy AI</span>
+    </h2>
 
     <p>
       BrainyBuddy AI è un assistente allo studio basato su intelligenza artificiale, progettato per supportare gli studenti nella comprensione, organizzazione e memorizzazione dei contenuti scolastici in modo strutturato ed efficace.
