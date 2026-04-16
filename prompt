@@ -1,0 +1,138 @@
+You are working on a personal portfolio website for a final high school exam (maturità).
+
+Your task is to ADD new sections to the existing website structure without breaking the layout, styles, or existing functionality.
+
+⚠️ IMPORTANT RULES:
+- Do NOT rewrite the entire file
+- Do NOT remove existing sections
+- Maintain design consistency (colors, spacing, typography)
+- Modify only the necessary parts
+- Clearly indicate WHERE to insert the new code
+- Write clean, readable HTML structure
+
+---
+
+🎯 OBJECTIVE
+
+Add three new sections in this exact order:
+
+1️⃣ PCTO – Add Dublin Experience  
+2️⃣ Street Burger Project Section  
+3️⃣ BrainyBuddy AI Project Section  
+
+---
+
+## 1️⃣ PCTO SECTION – DUBLIN EXPERIENCE
+
+📍 Find the existing PCTO section.
+
+👉 Inside this section, ADD a new experience block for:
+
+- Erasmus PCTO abroad
+- Location: Dublin
+- Duration: 2 weeks
+
+Structure example:
+
+<div class="pcto-item">
+  <h3>Erasmus PCTO – Dublin</h3>
+  <p>Esperienza formativa all'estero della durata di due settimane svolta a Dublino...</p>
+</div>
+
+⚠️ NOTES:
+- Keep same style as other PCTO items
+- Do NOT over-expand text (placeholder content is fine)
+- Maintain visual consistency
+
+---
+
+## 2️⃣ STREET BURGER PROJECT SECTION
+
+📍 AFTER the PCTO section, ADD a NEW section dedicated to this project.
+
+SECTION STRUCTURE:
+
+<section class="project-section">
+  <h2>Street Burger – Progetto Web</h2>
+
+  <p>
+    Questo progetto riguarda la progettazione e lo sviluppo di un sito web per l’attività Street Burger.
+    L’obiettivo è stato creare un’interfaccia moderna, intuitiva e accattivante per rappresentare al meglio il brand.
+  </p>
+
+  <!-- Preview container -->
+  <div class="project-preview">
+    <!-- Placeholder for website preview -->
+    <div class="preview-box">
+      Anteprima del sito (inserire qui immagine o iframe)
+    </div>
+  </div>
+</section>
+
+---
+
+🎨 STYLE REQUIREMENTS:
+
+- Same spacing as other sections
+- Centered or aligned layout consistent with rest of site
+- Responsive preview box
+
+Example CSS (only if needed, minimal):
+
+.preview-box {
+  border: 2px dashed #ccc;
+  padding: 40px;
+  text-align: center;
+  border-radius: 12px;
+}
+
+---
+
+## 3️⃣ BRAINYBUDDY AI SECTION
+
+📍 AFTER the Street Burger section, ADD another section.
+
+SECTION STRUCTURE:
+
+<section class="project-section">
+  <h2>BrainyBuddy AI</h2>
+
+  <p>
+    BrainyBuddy AI è un assistente allo studio basato su intelligenza artificiale,
+    progettato per fornire spiegazioni strutturate e interattive.
+  </p>
+
+  <p>
+    Il sistema utilizza un’architettura basata su workflow n8n e modelli AI multipli,
+    con output organizzato in summary, concetti chiave, domande di studio e azioni suggerite.
+  </p>
+
+  <!-- Video demo placeholder -->
+  <div class="project-preview">
+    <div class="preview-box">
+      Demo video BrainyBuddy (inserire video qui)
+    </div>
+  </div>
+</section>
+
+---
+
+🎯 FINAL RESULT EXPECTED
+
+- Clean, professional portfolio structure
+- Logical progression:
+  PCTO → Street Burger → BrainyBuddy AI
+- Fully responsive layout
+- No broken UI
+- No conflicts with existing code
+
+---
+
+⚠️ FINAL INSTRUCTION
+
+Return ONLY:
+- the exact HTML blocks to insert
+- where to insert them (e.g. "after PCTO section")
+- minimal CSS if required
+
+Do NOT rewrite the entire file.
