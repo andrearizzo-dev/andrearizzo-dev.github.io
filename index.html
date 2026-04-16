@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
@@ -6,15 +7,18 @@
   <title>Andrea Rizzo — Portfolio</title>
 
   <!-- Favicon -->
+
   <link rel="icon" type="image/png" sizes="512x512" href="images/logo_portfolio_512.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="images/logo_portfolio_512.png" />
   <link rel="shortcut icon" type="image/x-icon" href="images/logo_portfolio.ico" />
 
   <!-- Fonts -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <!-- AOS – Animate On Scroll -->
+
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
   <style>
@@ -506,579 +510,390 @@
       .hero-cta { padding: 0.95rem 1.7rem; font-size: 1rem; }
     }
 
-    /* =========================================================
-       PROGETTI PERSONALI
-    ========================================================= */
-    #projects .project-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
-    }
-
-    .project-title {
-      font-family: 'Syne', sans-serif; font-weight: 800;
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      letter-spacing: -0.03em; margin-bottom: 1rem;
-    }
-
-    .pipeline {
-      display: flex; align-items: center; flex-wrap: wrap; gap: 0;
-      margin: 1.25rem 0;
-    }
-    .pipeline-step {
-      background: var(--bg-3); border: 1px solid var(--border);
-      border-radius: 8px; padding: 6px 12px;
-      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-mid);
-      white-space: nowrap;
-    }
-    .pipeline-arrow { padding: 0 6px; color: var(--text-muted); font-size: 0.85rem; }
-
-    /* Anteprima sito / video placeholder */
-    .preview-box {
-      border: 1px dashed rgba(59,130,246,0.35);
-      border-radius: 16px;
-      overflow: hidden;
-      background: var(--bg-3);
-      min-height: 320px;
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-    }
-    .preview-box iframe {
-      width: 100%; height: 480px; border: none; display: block;
-    }
-    .preview-box img {
-      width: 100%; height: auto; display: block; border-radius: 16px;
-    }
-    .preview-placeholder {
-      display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
-      padding: 3rem 2rem; text-align: center;
-    }
-    .preview-placeholder span {
-      font-size: 2.5rem; opacity: 0.3;
-    }
-    .preview-placeholder p {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
-      color: var(--text-muted); letter-spacing: 0.05em;
-    }
-    .preview-caption {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
-      color: var(--text-muted); text-align: center; margin-top: 0.6rem;
-      font-style: italic;
-    }
-
-    @media (max-width: 768px) {
-      #projects .project-grid { grid-template-columns: 1fr; }
-      .pipeline-arrow { display: none; }
-      .pipeline { gap: 8px; }
-      .preview-box iframe { height: 300px; }
-    }
-
     /* AOS fix */
     [data-aos]             { pointer-events: none; }
     [data-aos].aos-animate { pointer-events: auto; }
   </style>
+
 </head>
 <body>
 
   <!-- ═══════════════════════════════════════
        NAVIGAZIONE
   ══════════════════════════════════════════ -->
+
   <nav id="navbar">
     <a href="#home" class="nav-logo">AR<span>.</span></a>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">Chi sono</a></li>
-      <li><a href="#education">Formazione</a></li>
-      <li><a href="#experience">Esperienze</a></li>
-      <li><a href="#projects">Progetti</a></li>
-      <li><a href="#contact">Contatti</a></li>
-    </ul>
+```
+<ul class="nav-links" id="navLinks">
+  <li><a href="#home">Home</a></li>
+  <li><a href="#about">Chi sono</a></li>
+  <li><a href="#education">Formazione</a></li>
+  <li><a href="#experience">Esperienze</a></li>
+  <li><a href="#contact">Contatti</a></li>
+</ul>
 
-    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="3" y1="6"  x2="21" y2="6"/>
-        <line x1="3" y1="12" x2="21" y2="12"/>
-        <line x1="3" y1="18" x2="21" y2="18"/>
-      </svg>
-    </button>
+<button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <line x1="3" y1="6"  x2="21" y2="6"/>
+    <line x1="3" y1="12" x2="21" y2="12"/>
+    <line x1="3" y1="18" x2="21" y2="18"/>
+  </svg>
+</button>
+```
+
   </nav>
-
 
   <!-- ═══════════════════════════════════════
        1 — HERO
   ══════════════════════════════════════════ -->
+
   <section id="home">
     <div class="hero-glow"></div>
     <div class="hero-glow-2"></div>
 
-    <div class="hero-content">
-      <div class="hero-photo-wrap">
-        <div class="hero-photo">
-          <img src="images/foto_andrea_portfolio.jpg" alt="Andrea Rizzo" />
-        </div>
-      </div>
+```
+<div class="hero-content">
+  <div class="hero-photo-wrap">
+    <div class="hero-photo">
+      <img src="images/foto_andrea_portfolio.jpg" alt="Andrea Rizzo" />
+    </div>
+  </div>
 
-      <div class="hero-text">
-        <div class="hero-tag">
-          Studente Tecnico &nbsp;·&nbsp; Maturità 2026
-        </div>
-
-        <h1 class="hero-name">
-          <span class="gradient-text">Andrea Rizzo</span>
-        </h1>
-
-        <p class="hero-tagline">
-          Curiosità, tecnica e sport — il mio modo di stare al mondo.
-        </p>
-
-        <p class="hero-desc">
-          // Portfolio digitale — formazione tecnica, esperienze e progetti personali
-        </p>
-
-        <a href="#about" class="hero-cta">
-          Scopri il mio percorso
-          <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="6 9 12 15 18 9"/>
-          </svg>
-        </a>
-      </div>
+  <div class="hero-text">
+    <div class="hero-tag">
+      Studente Tecnico &nbsp;·&nbsp; Maturità 2026
     </div>
 
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      <span>scorri</span>
-    </div>
+    <h1 class="hero-name">
+      <span class="gradient-text">Andrea Rizzo</span>
+    </h1>
+
+    <p class="hero-tagline">
+      Curiosità, tecnica e sport — il mio modo di stare al mondo.
+    </p>
+
+    <p class="hero-desc">
+      // Portfolio digitale — formazione tecnica, esperienze e progetti personali
+    </p>
+
+    <a href="#about" class="hero-cta">
+      Scopri il mio percorso
+      <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<div class="hero-scroll">
+  <div class="scroll-line"></div>
+  <span>scorri</span>
+</div>
+```
+
   </section>
 
   <div class="divider"></div>
-
 
   <!-- ═══════════════════════════════════════
        2 — CHI SONO
   ══════════════════════════════════════════ -->
+
   <section id="about">
     <p class="section-label" data-aos="fade-right">Chi sono</p>
     <h2 class="section-title" data-aos="fade-up">Chi sono</h2>
 
-    <div class="about-body">
+```
+<div class="about-body">
 
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
-        <p class="card-eyebrow">// Informatica &amp; Elettronica</p>
-        <p class="card-title">Una passione nata da subito</p>
-        <p class="card-text">
-          Curiosità per circuiti e codice fin da bambino: ho scelto il percorso tecnico
-          per capire davvero <em>come</em> funziona ciò che usiamo ogni giorno. Oggi studio
-          programmazione, automazione e AI perché credo che saper collaborare con queste
-          tecnologie sia la skill chiave del futuro — e voglio esserci da protagonista.
-        </p>
-      </div>
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+    <p class="card-eyebrow">// Informatica &amp; Elettronica</p>
+    <p class="card-title">Una passione nata da subito</p>
+    <p class="card-text">
+      Curiosità per circuiti e codice fin da bambino: ho scelto il percorso tecnico
+      per capire davvero <em>come</em> funziona ciò che usiamo ogni giorno. Oggi studio
+      programmazione, automazione e AI perché credo che saper collaborare con queste
+      tecnologie sia la skill chiave del futuro — e voglio esserci da protagonista.
+    </p>
+  </div>
 
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="160">
-        <p class="card-eyebrow">// Sport &amp; Benessere</p>
-        <p class="card-title">Lo sport come stile di vita</p>
-        <p class="card-text">
-          Pratico calcio da sempre e lo sport è parte integrante di chi sono.
-          Mi ha insegnato disciplina, spirito di squadra e la capacità di rialzarsi
-          dopo una sconfitta — valori che porto con me anche nello studio e nei progetti.
-          Il benessere fisico e mentale è la mia priorità: un equilibrio sano
-          tra impegno, passione e vita è ciò che mi permette di dare il massimo
-          in tutto quello che faccio.
-        </p>
-      </div>
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="160">
+    <p class="card-eyebrow">// Sport &amp; Benessere</p>
+    <p class="card-title">Lo sport come stile di vita</p>
+    <p class="card-text">
+      Pratico calcio da sempre e lo sport è parte integrante di chi sono.
+      Mi ha insegnato disciplina, spirito di squadra e la capacità di rialzarsi
+      dopo una sconfitta — valori che porto con me anche nello studio e nei progetti.
+      Il benessere fisico e mentale è la mia priorità: un equilibrio sano
+      tra impegno, passione e vita è ciò che mi permette di dare il massimo
+      in tutto quello che faccio.
+    </p>
+  </div>
 
-    </div>
+</div>
+```
+
   </section>
 
   <div class="divider"></div>
-
 
   <!-- ═══════════════════════════════════════
        3 — FORMAZIONE TECNICA
   ══════════════════════════════════════════ -->
+
   <section id="education">
     <p class="section-label" data-aos="fade-right">Formazione</p>
     <h2 class="section-title" data-aos="fade-up">Formazione<br>Tecnica</h2>
 
-    <div class="edu-grid">
+```
+<div class="edu-grid">
 
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
-        <p class="card-eyebrow">⚙️ &nbsp;Automazione e Controllo</p>
-        <p class="card-title">Sistemi Industriali</p>
-        <p class="card-text">Studio dei sistemi automatizzati, della logica di controllo e dei fondamenti dei processi industriali applicati a scenari ingegneristici reali.</p>
-        <div class="tag-list">
-          <span class="tag">PLC</span>
-          <span class="tag">Logica di Controllo</span>
-          <span class="tag">Automation</span>
-        </div>
-      </div>
-
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
-        <p class="card-eyebrow">💻 &nbsp;Programmazione</p>
-        <p class="card-title">Sviluppo Software</p>
-        <p class="card-text">Programmazione applicata con approcci strutturati e orientati agli oggetti, dal C di basso livello allo scripting con Python.</p>
-        <div class="tag-list">
-          <span class="tag">C / C++</span>
-          <span class="tag">Python</span>
-          <span class="tag">OOP</span>
-          <span class="tag">Algoritmi</span>
-        </div>
-      </div>
-
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
-        <p class="card-eyebrow">🖥️ &nbsp;Sistemi Informatici</p>
-        <p class="card-title">Reti e Sistemi Operativi</p>
-        <p class="card-text">Architettura dei sistemi di calcolo, protocolli di rete, ambienti operativi e nozioni fondamentali di amministrazione di sistema.</p>
-        <div class="tag-list">
-          <span class="tag">Linux</span>
-          <span class="tag">Networking</span>
-          <span class="tag">SQL</span>
-        </div>
-      </div>
-
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
-        <p class="card-eyebrow">🤖 &nbsp;Robotica</p>
-        <p class="card-title">Robotica Industriale</p>
-        <p class="card-text">Introduzione ai principi della robotica, alla cinematica e agli ambienti di simulazione industriale, con formazione pratica e certificazioni ABB.</p>
-        <div class="tag-list">
-          <span class="tag">RobotStudio</span>
-          <span class="tag">Cinematica</span>
-          <span class="tag">ABB</span>
-        </div>
-      </div>
-
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+    <p class="card-eyebrow">⚙️ &nbsp;Automazione e Controllo</p>
+    <p class="card-title">Sistemi Industriali</p>
+    <p class="card-text">Studio dei sistemi automatizzati, della logica di controllo e dei fondamenti dei processi industriali applicati a scenari ingegneristici reali.</p>
+    <div class="tag-list">
+      <span class="tag">PLC</span>
+      <span class="tag">Logica di Controllo</span>
+      <span class="tag">Automation</span>
     </div>
+  </div>
+
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
+    <p class="card-eyebrow">💻 &nbsp;Programmazione</p>
+    <p class="card-title">Sviluppo Software</p>
+    <p class="card-text">Programmazione applicata con approcci strutturati e orientati agli oggetti, dal C di basso livello allo scripting con Python.</p>
+    <div class="tag-list">
+      <span class="tag">C / C++</span>
+      <span class="tag">Python</span>
+      <span class="tag">OOP</span>
+      <span class="tag">Algoritmi</span>
+    </div>
+  </div>
+
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
+    <p class="card-eyebrow">🖥️ &nbsp;Sistemi Informatici</p>
+    <p class="card-title">Reti e Sistemi Operativi</p>
+    <p class="card-text">Architettura dei sistemi di calcolo, protocolli di rete, ambienti operativi e nozioni fondamentali di amministrazione di sistema.</p>
+    <div class="tag-list">
+      <span class="tag">Linux</span>
+      <span class="tag">Networking</span>
+      <span class="tag">SQL</span>
+    </div>
+  </div>
+
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
+    <p class="card-eyebrow">🤖 &nbsp;Robotica</p>
+    <p class="card-title">Robotica Industriale</p>
+    <p class="card-text">Introduzione ai principi della robotica, alla cinematica e agli ambienti di simulazione industriale, con formazione pratica e certificazioni ABB.</p>
+    <div class="tag-list">
+      <span class="tag">RobotStudio</span>
+      <span class="tag">Cinematica</span>
+      <span class="tag">ABB</span>
+    </div>
+  </div>
+
+</div>
+```
+
   </section>
 
   <div class="divider"></div>
-
 
   <!-- ═══════════════════════════════════════
        4 — ESPERIENZE PCTO
   ══════════════════════════════════════════ -->
+
   <section id="experience">
     <p class="section-label" data-aos="fade-right">Esperienze</p>
     <h2 class="section-title" data-aos="fade-up">Esperienze<br>PCTO</h2>
 
-    <div class="exp-list">
+```
+<div class="exp-list">
 
-      <!-- ABB RobotStudio -->
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="exp-inner">
-          <div class="exp-timeline">
-            <div class="exp-dot"></div>
-            <div class="exp-line"></div>
-          </div>
-          <div>
-            <img src="images/logo_abb.png" alt="ABB" class="exp-logo" />
-            <p class="card-eyebrow">Certificazioni ufficiali ABB</p>
-            <h3 class="exp-company">ABB RobotStudio</h3>
-            <p class="card-text" style="margin-bottom:1rem;">
-              Ho conseguito due certificazioni ufficiali rilasciate da ABB per l'utilizzo di RobotStudio,
-              il software leader nel settore per la simulazione e la programmazione offline di robot industriali.
-              Il percorso formativo si è articolato in due livelli progressivi, ciascuno con obiettivi e contenuti distinti.
-            </p>
-            <div class="challenge-block">
-              <p class="challenge-label">// Certificazione Base</p>
-              <p class="challenge-text">Il modulo base ha introdotto i fondamenti della simulazione robotica industriale: interfaccia del software, creazione e configurazione di stazioni virtuali, importazione di componenti CAD e programmazione di traiettorie elementari. Ho imparato a muovermi nell'ambiente di lavoro di RobotStudio e a comprendere la struttura logica di un programma robotico.</p>
-            </div>
-            <div class="challenge-block alt">
-              <p class="challenge-label">// Certificazione Advanced</p>
-              <p class="challenge-text">Il modulo avanzato ha approfondito la logica di programmazione RAPID, la gestione degli eventi di sistema, la simulazione di flussi di lavoro industriali complessi e l'ottimizzazione dei percorsi. Questo livello ha permesso di avvicinarsi concretamente alla programmazione robotica applicata a contesti produttivi reali, rafforzando la comprensione del legame tra cinematica teorica e movimento fisico del robot.</p>
-            </div>
-            <div class="challenge-block">
-              <p class="challenge-label">// Teoria → Pratica</p>
-              <p class="challenge-text">Le equazioni di cinematica studiate in classe si sono trasformate in movimenti reali del robot all'interno del simulatore — validando la logica di programmazione prima di qualsiasi installazione fisica.</p>
-            </div>
-            <div class="tag-list">
-              <span class="cert-badge">RobotStudio Base</span>
-              <span class="cert-badge">RobotStudio Advanced</span>
-            </div>
-          </div>
-        </div>
+  <!-- ABB RobotStudio -->
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+    <div class="exp-inner">
+      <div class="exp-timeline">
+        <div class="exp-dot"></div>
+        <div class="exp-line"></div>
       </div>
-
-      <!-- Comune di Civita Castellana -->
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
-        <div class="exp-inner">
-          <div class="exp-timeline">
-            <div class="exp-dot"></div>
-            <div class="exp-line"></div>
-          </div>
-          <div>
-            <img src="images/logo_comune.png" alt="Comune di Civita Castellana" class="exp-logo" style="height:72px; max-width:220px;" />
-            <p class="card-eyebrow">Luglio – Agosto 2024</p>
-            <h3 class="exp-company">Comune di Civita Castellana</h3>
-            <p class="card-text" style="margin-bottom:1rem;">
-              Ho svolto un'esperienza PCTO presso il Comune di Civita Castellana, un ente pubblico locale
-              che gestisce servizi amministrativi, sociali e tecnici per il territorio.
-              È stata la mia prima esposizione a un ambiente lavorativo strutturato e formale,
-              molto diverso dal contesto scolastico.
-            </p>
-            <div class="challenge-block">
-              <p class="challenge-label">// Attività svolte</p>
-              <p class="challenge-text">Ho affiancato il personale degli uffici nell'organizzazione e archiviazione di documenti, nella gestione di pratiche amministrative e nel supporto alle attività operative quotidiane. Ho avuto modo di osservare come i diversi uffici collaborino tra loro e come vengano gestiti i flussi di comunicazione interna.</p>
-            </div>
-            <div class="challenge-block alt">
-              <p class="challenge-label">// Cosa ho imparato</p>
-              <p class="challenge-text">L'esperienza mi ha permesso di sviluppare senso di responsabilità, puntualità e capacità di lavorare all'interno di una struttura organizzativa definita. Ho anche compreso come la digitalizzazione dei processi sia sempre più centrale anche nella pubblica amministrazione, e quanto sia importante la comunicazione chiara in un contesto professionale.</p>
-            </div>
-            <div class="tag-list">
-              <span class="tag">Pubblica Amministrazione</span>
-              <span class="tag">Organizzazione</span>
-              <span class="tag">Comunicazione</span>
-              <span class="tag">Digitalizzazione</span>
-            </div>
-          </div>
+      <div>
+        <img src="images/logo_abb.png" alt="ABB" class="exp-logo" />
+        <p class="card-eyebrow">Certificazioni ufficiali ABB</p>
+        <h3 class="exp-company">ABB RobotStudio</h3>
+        <p class="card-text" style="margin-bottom:1rem;">
+          Ho conseguito due certificazioni ufficiali rilasciate da ABB per l'utilizzo di RobotStudio,
+          il software leader nel settore per la simulazione e la programmazione offline di robot industriali.
+          Il percorso formativo si è articolato in due livelli progressivi, ciascuno con obiettivi e contenuti distinti.
+        </p>
+        <div class="challenge-block">
+          <p class="challenge-label">// Certificazione Base</p>
+          <p class="challenge-text">Il modulo base ha introdotto i fondamenti della simulazione robotica industriale: interfaccia del software, creazione e configurazione di stazioni virtuali, importazione di componenti CAD e programmazione di traiettorie elementari. Ho imparato a muovermi nell'ambiente di lavoro di RobotStudio e a comprendere la struttura logica di un programma robotico.</p>
         </div>
-      </div>
-
-      <!-- Erasmus PCTO – Dublino -->
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="170">
-        <div class="exp-inner">
-          <div class="exp-timeline">
-            <div class="exp-dot"></div>
-            <div class="exp-line"></div>
-          </div>
-          <div>
-            <p class="card-eyebrow">Dicembre 2024 · 2 settimane &nbsp;·&nbsp; Dublino, Irlanda</p>
-            <h3 class="exp-company">Erasmus PCTO – Dublino</h3>
-            <p class="card-text" style="margin-bottom:1rem;">
-              Esperienza formativa all'estero della durata di due settimane svolta a Dublino,
-              nell'ambito del programma Erasmus+ organizzato dalla scuola.
-              Un'opportunità unica per crescere sia sul piano professionale che personale,
-              immergendosi completamente in un contesto internazionale e multiculturale.
-            </p>
-            <div class="challenge-block">
-              <p class="challenge-label">// Contesto e attività</p>
-              <p class="challenge-text">Durante le due settimane ho partecipato ad attività formative legate al mondo tecnico e digitale, interagendo con studenti e professionisti provenienti da tutta Europa. L'esperienza ha richiesto autonomia, adattabilità e capacità di comunicare efficacemente in lingua inglese in situazioni reali.</p>
-            </div>
-            <div class="challenge-block alt">
-              <p class="challenge-label">// Cosa ho portato a casa</p>
-              <p class="challenge-text">Oltre a un significativo miglioramento delle competenze linguistiche, ho sviluppato una visione più aperta e internazionale del mondo del lavoro. Confrontarsi con realtà diverse dalla propria è stato uno dei momenti più formativi dell'intero percorso scolastico.</p>
-            </div>
-            <div class="tag-list">
-              <span class="tag">Erasmus+</span>
-              <span class="tag">Dublino</span>
-              <span class="tag">Lingua Inglese</span>
-              <span class="tag">Internazionale</span>
-            </div>
-          </div>
+        <div class="challenge-block alt">
+          <p class="challenge-label">// Certificazione Advanced</p>
+          <p class="challenge-text">Il modulo avanzato ha approfondito la logica di programmazione RAPID, la gestione degli eventi di sistema, la simulazione di flussi di lavoro industriali complessi e l'ottimizzazione dei percorsi. Questo livello ha permesso di avvicinarsi concretamente alla programmazione robotica applicata a contesti produttivi reali, rafforzando la comprensione del legame tra cinematica teorica e movimento fisico del robot.</p>
         </div>
-      </div>
-
-      <!-- CGT Elettronica -->
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="190">
-        <div class="exp-inner">
-          <div class="exp-timeline">
-            <div class="exp-dot"></div>
-            <div class="exp-line"></div>
-          </div>
-          <div>
-            <img src="images/logo_cgt_elettronica.png" alt="CGT Elettronica" class="exp-logo" />
-            <p class="card-eyebrow">Febbraio · 1 settimana &nbsp;·&nbsp; Viterbo / Roma</p>
-            <h3 class="exp-company">CGT Elettronica</h3>
-            <p class="card-text" style="margin-bottom:1rem;">
-              Ho effettuato uno stage presso CGT Elettronica, un'azienda operante nel settore
-              dell'elettronica e dei sistemi tecnici, con clientela sia nel territorio di Viterbo
-              che nell'area romana. L'ambiente lavorativo era tecnico e dinamico, con personale
-              specializzato in elettronica applicata e manutenzione di sistemi.
-            </p>
-            <div class="challenge-block">
-              <p class="challenge-label">// Attività osservate e svolte</p>
-              <p class="challenge-text">Durante la settimana ho avuto l'opportunità di osservare da vicino i flussi di lavoro tecnici dell'azienda: dalla gestione e diagnosi di componenti elettronici, all'organizzazione delle commesse, fino all'interazione con i clienti in un contesto professionale strutturato. Ho assistito a operazioni di test e verifica su sistemi elettronici, comprendendo come le competenze tecniche si integrino con quelle organizzative in un'azienda reale.</p>
-            </div>
-            <div class="challenge-block alt">
-              <p class="challenge-label">// Cosa ho imparato</p>
-              <p class="challenge-text">L'esperienza mi ha dato una prospettiva concreta su come funziona un'azienda tecnica dall'interno. Ho capito che le competenze acquisite a scuola — elettronica, sistemi, logica — trovano applicazione diretta nel mondo del lavoro, ma richiedono anche capacità trasversali come precisione, attenzione al dettaglio e saper lavorare in team.</p>
-            </div>
-            <div class="tag-list">
-              <span class="tag">Elettronica</span>
-              <span class="tag">Sistemi Tecnici</span>
-              <span class="tag">Diagnostica</span>
-              <span class="tag">Ambiente Professionale</span>
-            </div>
-          </div>
+        <div class="challenge-block">
+          <p class="challenge-label">// Teoria → Pratica</p>
+          <p class="challenge-text">Le equazioni di cinematica studiate in classe si sono trasformate in movimenti reali del robot all'interno del simulatore — validando la logica di programmazione prima di qualsiasi installazione fisica.</p>
         </div>
-      </div>
-
-      <!-- Orientamento Universitario -->
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
-        <div class="exp-inner">
-          <div class="exp-timeline">
-            <div class="exp-dot"></div>
-          </div>
-          <div>
-            <p class="card-eyebrow">2023 – 2025</p>
-            <h3 class="exp-company">Orientamento Universitario</h3>
-            <p class="card-text">
-              Partecipazione a diverse attività di orientamento focalizzate su università, percorsi di carriera
-              e opportunità di formazione tecnica — acquisendo consapevolezza dei percorsi accademici
-              in ingegneria e informatica.
-            </p>
-            <div class="tag-list">
-              <span class="tag">Università</span>
-              <span class="tag">Orientamento</span>
-              <span class="tag">Ingegneria</span>
-            </div>
-          </div>
+        <div class="tag-list">
+          <span class="cert-badge">RobotStudio Base</span>
+          <span class="cert-badge">RobotStudio Advanced</span>
         </div>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-
-  <!-- ═══════════════════════════════════════
-       5 — PROGETTI PERSONALI
-  ══════════════════════════════════════════ -->
-  <section id="projects">
-    <p class="section-label" data-aos="fade-right">Showcase</p>
-    <h2 class="section-title" data-aos="fade-up">Progetti<br>Personali</h2>
-
-    <!-- ── BrainyBuddy AI ──────────────────── -->
-    <div style="margin-bottom: 5rem;">
-      <div class="project-grid" data-aos="fade-up" data-aos-delay="100">
-
-        <div>
-          <p class="card-eyebrow" style="margin-bottom:0.75rem;">// AI &amp; Automazione</p>
-          <h3 class="project-title">BrainyBuddy AI</h3>
-          <p class="card-text" style="margin-bottom:1rem;">
-            BrainyBuddy AI è un assistente allo studio basato su intelligenza artificiale,
-            progettato per fornire spiegazioni strutturate e interattive a partire da qualsiasi contenuto testuale.
-            Il sistema analizza il materiale fornito e restituisce un output organizzato in modo da facilitare
-            la comprensione e la memorizzazione dei concetti.
-          </p>
-          <div class="challenge-block">
-            <p class="challenge-label">// Come funziona</p>
-            <p class="challenge-text">L'architettura si basa su workflow n8n collegati a modelli AI multipli. L'utente invia un testo e il sistema risponde con un JSON strutturato contenente: sommario, concetti chiave, domande di studio e azioni suggerite.</p>
-          </div>
-          <div class="challenge-block alt">
-            <p class="challenge-label">// Output strutturato</p>
-            <p class="challenge-text">Ogni risposta del sistema è composta da quattro elementi: <strong>summary</strong> (sintesi del contenuto), <strong>key_concepts</strong> (concetti da memorizzare), <strong>questions</strong> (domande di autovalutazione) e <strong>suggested_actions</strong> (prossimi passi di studio).</p>
-          </div>
-          <div class="tag-list">
-            <span class="tag">n8n</span>
-            <span class="tag">AI</span>
-            <span class="tag">Automazione</span>
-            <span class="tag">JSON</span>
-            <span class="tag">Workflow</span>
-          </div>
-        </div>
-
-        <div>
-          <div class="preview-box">
-            <!--
-              VIDEO DEMO BRAINYBUDDY:
-              Inserisci il file in: video/brainybuddy-demo.mp4
-              oppure sostituisci con un <img> per uno screenshot.
-            -->
-            <div class="preview-placeholder">
-              <span>🤖</span>
-              <p>[ BrainyBuddy AI — Demo ]</p>
-              <p style="opacity:0.5; font-size:0.65rem;">video/brainybuddy-demo.mp4</p>
-            </div>
-          </div>
-          <p class="preview-caption">Demo del flusso di analisi e risposta strutturata di BrainyBuddy AI.</p>
-        </div>
-
       </div>
     </div>
+  </div>
 
-    <div class="divider" style="margin-bottom: 5rem;"></div>
-
-    <!-- ── Street Burger ───────────────────── -->
-    <div data-aos="fade-up" data-aos-delay="100">
-      <div class="project-grid">
-
-        <div>
-          <p class="card-eyebrow" style="margin-bottom:0.75rem;">// Web Design &amp; Sviluppo</p>
-          <h3 class="project-title">Street Burger</h3>
-          <p class="card-text" style="margin-bottom:1rem;">
-            Progettazione e sviluppo del sito web per l'attività Street Burger.
-            Il progetto ha riguardato l'intera pipeline di creazione: dall'analisi del brand e del target,
-            alla definizione dell'architettura delle informazioni, fino alla realizzazione grafica e tecnica
-            del sito finale.
-          </p>
-          <div class="challenge-block">
-            <p class="challenge-label">// Obiettivo del progetto</p>
-            <p class="challenge-text">Creare una presenza digitale moderna e coerente con l'identità visiva dell'attività, con focus sull'esperienza utente, la leggibilità del menu e la chiarezza delle informazioni per il cliente finale.</p>
-          </div>
-          <div class="challenge-block alt">
-            <p class="challenge-label">// Cosa ho progettato</p>
-            <p class="challenge-text">Il sito include una landing page con hero section, presentazione del menu, sezione contatti e mappa. Il design segue un'estetica moderna e dark, coerente con il brand dell'attività.</p>
-          </div>
-          <div class="tag-list">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Web Design</span>
-            <span class="tag">UI/UX</span>
-          </div>
+  <!-- Comune di Civita Castellana -->
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
+    <div class="exp-inner">
+      <div class="exp-timeline">
+        <div class="exp-dot"></div>
+        <div class="exp-line"></div>
+      </div>
+      <div>
+        <img src="images/logo_comune.png" alt="Comune di Civita Castellana" class="exp-logo" style="height:72px; max-width:220px;" />
+        <p class="card-eyebrow">Luglio – Agosto 2024</p>
+        <h3 class="exp-company">Comune di Civita Castellana</h3>
+        <p class="card-text" style="margin-bottom:1rem;">
+          Ho svolto un'esperienza PCTO presso il Comune di Civita Castellana, un ente pubblico locale
+          che gestisce servizi amministrativi, sociali e tecnici per il territorio.
+          È stata la mia prima esposizione a un ambiente lavorativo strutturato e formale,
+          molto diverso dal contesto scolastico.
+        </p>
+        <div class="challenge-block">
+          <p class="challenge-label">// Attività svolte</p>
+          <p class="challenge-text">Ho affiancato il personale degli uffici nell'organizzazione e archiviazione di documenti, nella gestione di pratiche amministrative e nel supporto alle attività operative quotidiane. Ho avuto modo di osservare come i diversi uffici collaborino tra loro e come vengano gestiti i flussi di comunicazione interna.</p>
         </div>
-
-        <div>
-          <div class="preview-box">
-            <!--
-              ANTEPRIMA SITO STREET BURGER:
-              Opzione A – Screenshot: <img src="images/preview_street_burger.jpg" alt="Street Burger" />
-              Opzione B – iframe live: <iframe src="https://tuo-sito-street-burger.it" title="Street Burger"></iframe>
-              Opzione C – placeholder attivo finché non hai il file
-            -->
-            <div class="preview-placeholder">
-              <span>🍔</span>
-              <p>[ Street Burger — Anteprima sito ]</p>
-              <p style="opacity:0.5; font-size:0.65rem;">images/preview_street_burger.jpg</p>
-            </div>
-          </div>
-          <p class="preview-caption">Anteprima del sito web progettato per Street Burger.</p>
+        <div class="challenge-block alt">
+          <p class="challenge-label">// Cosa ho imparato</p>
+          <p class="challenge-text">L'esperienza mi ha permesso di sviluppare senso di responsabilità, puntualità e capacità di lavorare all'interno di una struttura organizzativa definita. Ho anche compreso come la digitalizzazione dei processi sia sempre più centrale anche nella pubblica amministrazione, e quanto sia importante la comunicazione chiara in un contesto professionale.</p>
         </div>
-
+        <div class="tag-list">
+          <span class="tag">Pubblica Amministrazione</span>
+          <span class="tag">Organizzazione</span>
+          <span class="tag">Comunicazione</span>
+          <span class="tag">Digitalizzazione</span>
+        </div>
       </div>
     </div>
+  </div>
+
+  <!-- CGT Elettronica -->
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
+    <div class="exp-inner">
+      <div class="exp-timeline">
+        <div class="exp-dot"></div>
+        <div class="exp-line"></div>
+      </div>
+      <div>
+        <img src="images/logo_cgt_elettronica.png" alt="CGT Elettronica" class="exp-logo" />
+        <p class="card-eyebrow">Febbraio · 1 settimana &nbsp;·&nbsp; Viterbo / Roma</p>
+        <h3 class="exp-company">CGT Elettronica</h3>
+        <p class="card-text" style="margin-bottom:1rem;">
+          Ho effettuato uno stage presso CGT Elettronica, un'azienda operante nel settore
+          dell'elettronica e dei sistemi tecnici, con clientela sia nel territorio di Viterbo
+          che nell'area romana. L'ambiente lavorativo era tecnico e dinamico, con personale
+          specializzato in elettronica applicata e manutenzione di sistemi.
+        </p>
+        <div class="challenge-block">
+          <p class="challenge-label">// Attività osservate e svolte</p>
+          <p class="challenge-text">Durante la settimana ho avuto l'opportunità di osservare da vicino i flussi di lavoro tecnici dell'azienda: dalla gestione e diagnosi di componenti elettronici, all'organizzazione delle commesse, fino all'interazione con i clienti in un contesto professionale strutturato. Ho assistito a operazioni di test e verifica su sistemi elettronici, comprendendo come le competenze tecniche si integrino con quelle organizzative in un'azienda reale.</p>
+        </div>
+        <div class="challenge-block alt">
+          <p class="challenge-label">// Cosa ho imparato</p>
+          <p class="challenge-text">L'esperienza mi ha dato una prospettiva concreta su come funziona un'azienda tecnica dall'interno. Ho capito che le competenze acquisite a scuola — elettronica, sistemi, logica — trovano applicazione diretta nel mondo del lavoro, ma richiedono anche capacità trasversali come precisione, attenzione al dettaglio e saper lavorare in team.</p>
+        </div>
+        <div class="tag-list">
+          <span class="tag">Elettronica</span>
+          <span class="tag">Sistemi Tecnici</span>
+          <span class="tag">Diagnostica</span>
+          <span class="tag">Ambiente Professionale</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Orientamento Universitario -->
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
+    <div class="exp-inner">
+      <div class="exp-timeline">
+        <div class="exp-dot"></div>
+      </div>
+      <div>
+        <p class="card-eyebrow">2023 – 2025</p>
+        <h3 class="exp-company">Orientamento Universitario</h3>
+        <p class="card-text">
+          Partecipazione a diverse attività di orientamento focalizzate su università, percorsi di carriera
+          e opportunità di formazione tecnica — acquisendo consapevolezza dei percorsi accademici
+          in ingegneria e informatica.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Università</span>
+          <span class="tag">Orientamento</span>
+          <span class="tag">Ingegneria</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
 
   </section>
 
   <div class="divider"></div>
 
-
   <!-- ═══════════════════════════════════════
-       6 — CONTATTI
+       5 — CONTATTI
   ══════════════════════════════════════════ -->
+
   <section id="contact">
 
-    <h2 class="contact-headline" data-aos="fade-up">
-      Alea iacta<br><span class="accent">est.</span>
-    </h2>
+```
+<h2 class="contact-headline" data-aos="fade-up">
+  Alea iacta<br><span class="accent">est.</span>
+</h2>
 
-    <p class="section-label" data-aos="fade-up" style="justify-content:center; margin-bottom:0.5rem;">Contatti</p>
+<p class="section-label" data-aos="fade-up" style="justify-content:center; margin-bottom:0.5rem;">Contatti</p>
 
-    <p class="contact-sub" data-aos="fade-up" data-aos-delay="100">
-      Aperto a collaborazioni, confronti tecnici o semplicemente una chiacchierata
-      su tecnologia e innovazione.
-    </p>
+<p class="contact-sub" data-aos="fade-up" data-aos-delay="100">
+  Aperto a collaborazioni, confronti tecnici o semplicemente una chiacchierata
+  su tecnologia e innovazione.
+</p>
 
-    <div class="contact-btns" data-aos="fade-up" data-aos-delay="200">
-      <a href="mailto:andrearizzo656@gmail.com" class="contact-btn" aria-label="Scrivimi via email" style="font-size:1.6rem; padding:0.85rem 1.25rem;">
-        📧
-      </a>
-    </div>
+<div class="contact-btns" data-aos="fade-up" data-aos-delay="200">
+  <a href="mailto:andrearizzo656@gmail.com" class="contact-btn" aria-label="Scrivimi via email">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <polyline points="22,4 12,13 2,4"/>
+    </svg>
+    andrearizzo656@gmail.com
+  </a>
+</div>
+```
 
   </section>
-
 
   <!-- ═══════════════════════════════════════
        FOOTER
   ══════════════════════════════════════════ -->
+
   <footer>
     <p>Progettato e realizzato da <strong>Andrea Rizzo</strong> &nbsp;·&nbsp; 2026</p>
   </footer>
 
-
   <!-- ═══════════════════════════════════════
        SCRIPTS
   ══════════════════════════════════════════ -->
+
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
   <script>
     /* AOS */
     AOS.init({ once: true, offset: 80, duration: 700, easing: 'ease-out-cubic' });
@@ -1143,7 +958,7 @@
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', e => {
         const id = link.getAttribute('href');
-        const target = document.querySelector(id);        const target = document.querySelector(id);
+        const target = document.querySelector(id);
         if (!target) return;
         e.preventDefault();
         const top = target.getBoundingClientRect().top + window.scrollY - navH() - anchorGap;
