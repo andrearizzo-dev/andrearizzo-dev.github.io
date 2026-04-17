@@ -1142,41 +1142,347 @@
       }
     }
 
-    /* Global reveal + Street Burger */
+    /* Portfolio final polish */
+    :root {
+      --max-w: 1180px;
+      --section-space: clamp(84px, 10vw, 120px);
+      --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    h1, h2, h3 {
+      text-wrap: balance;
+    }
+
+    p {
+      text-wrap: pretty;
+    }
+
+    body {
+      line-height: 1.68;
+    }
+
+    section {
+      max-width: var(--max-w);
+      padding: var(--section-space) clamp(1.25rem, 3vw, 2rem);
+    }
+
+    #home {
+      padding-top: calc(var(--nav-h) + 64px);
+      padding-bottom: clamp(92px, 10vw, 120px);
+    }
+
+    .section-title {
+      margin-bottom: 0.9rem;
+      max-width: 10ch;
+    }
+
+    .section-intro {
+      max-width: 760px;
+      margin: 0 0 1.6rem;
+      color: var(--text-mid);
+      font-size: clamp(1rem, 1.2vw, 1.08rem);
+      line-height: 1.82;
+    }
+
+    .section-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin: 0 0 clamp(1.75rem, 3vw, 2.35rem);
+    }
+
+    .section-link-btn,
+    .project-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      min-height: 48px;
+      padding: 0.9rem 1.25rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition:
+        transform 0.28s var(--ease-premium),
+        box-shadow 0.28s var(--ease-premium),
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease;
+    }
+
+    .section-link-btn,
+    .project-action {
+      background: linear-gradient(135deg, #0f172a 0%, #2563eb 130%);
+      color: #ffffff;
+      box-shadow: 0 16px 34px rgba(37,99,235,0.18);
+    }
+
+    .section-link-btn:hover,
+    .project-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 38px rgba(15,23,42,0.16);
+    }
+
+    .project-action.secondary {
+      background: rgba(255,255,255,0.72);
+      color: var(--text);
+      border-color: rgba(148,163,184,0.26);
+      box-shadow: none;
+    }
+
+    .project-action.secondary:hover {
+      background: rgba(255,255,255,0.92);
+      border-color: rgba(59,130,246,0.22);
+    }
+
+    .section-link-btn:active,
+    .project-action:active,
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .glass-card,
+    .card,
+    .pcto-item,
+    .project-section {
+      transition:
+        transform 0.35s var(--ease-premium),
+        box-shadow 0.35s var(--ease-premium),
+        border-color 0.35s ease;
+    }
+
+    .glass-card:hover,
+    .card:hover,
+    .pcto-item:hover,
+    .project-section:hover {
+      transform: translateY(-4px);
+    }
+
     .hidden {
       opacity: 0;
-      transform: translateY(40px);
+      transform: translateY(28px);
       will-change: opacity, transform;
     }
 
     .show {
       opacity: 1;
       transform: translateY(0);
-      transition: all 0.7s ease;
+      transition:
+        opacity 0.72s var(--ease-premium),
+        transform 0.72s var(--ease-premium),
+        box-shadow 0.35s var(--ease-premium);
     }
 
-    .card,
-    .pcto-item,
+    .hero-photo-wrap {
+      animation: hero-photo-enter 1.15s var(--ease-premium) forwards;
+    }
+
+    .hero-text {
+      animation: hero-copy-enter 1.05s 0.08s var(--ease-premium) forwards;
+      transform: translateY(18px);
+    }
+
+    @keyframes hero-photo-enter {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.97);
+        filter: blur(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes hero-copy-enter {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    .about-body,
+    #education .edu-grid,
+    #experience .exp-list {
+      gap: clamp(1.4rem, 2vw, 1.9rem);
+    }
+
     .project-section {
-      transition: all 0.3s ease;
+      max-width: 1300px;
+      margin-top: clamp(48px, 8vw, 72px);
+      padding: clamp(1.8rem, 4vw, 2.9rem);
+      border-radius: 30px;
+      overflow: hidden;
     }
 
-    .card:hover,
-    .pcto-item:hover,
-    .project-section:hover {
-      transform: translateY(-6px);
+    .project-section-featured {
+      background: linear-gradient(180deg, rgba(255,255,255,0.84) 0%, rgba(236,245,255,0.94) 100%);
     }
 
-    button:active {
-      transform: scale(0.97);
+    .street-burger-section {
+      background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,247,237,0.94) 100%);
+      border-color: rgba(251,146,60,0.16);
+    }
+
+    .project-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: clamp(1.8rem, 4vw, 3rem);
+      align-items: start;
+    }
+
+    .project-copy,
+    .project-visual {
+      min-width: 0;
+    }
+
+    .project-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .project-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .project-kicker {
+      margin: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .project-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .project-title-row h2 {
+      margin: 0;
+      font-size: clamp(2.1rem, 4vw, 3.15rem);
+      line-height: 1.02;
+    }
+
+    .project-brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      min-width: 0;
+    }
+
+    .project-brand .bb-logo {
+      margin: 0;
+      max-width: 72px;
+      padding: 8px;
+      border-radius: 20px;
+    }
+
+    .bb-logo:hover,
+    .sb-logo:hover {
+      transform: none;
+    }
+
+    .project-summary {
+      color: var(--text) !important;
+      font-size: clamp(1.02rem, 1.25vw, 1.12rem);
+      line-height: 1.84;
+    }
+
+    .project-copy p {
+      max-width: none;
+      margin-bottom: 0;
+    }
+
+    .project-copy .tag-list {
+      gap: 0.6rem;
+      margin-top: 0.15rem;
+    }
+
+    .project-highlights {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.95rem;
+      margin-top: 0.2rem;
+    }
+
+    .project-highlight {
+      padding: 1rem 1.05rem;
+      border-radius: 20px;
+      border: 1px solid rgba(148,163,184,0.18);
+      background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(248,250,252,0.96));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.78);
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 0.55s var(--ease-premium),
+        transform 0.55s var(--ease-premium),
+        box-shadow 0.3s ease;
+    }
+
+    .project-section.hidden .project-highlight {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    .project-section.show .project-highlight {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-highlight:nth-child(1) { transition-delay: 0.05s; }
+    .project-highlight:nth-child(2) { transition-delay: 0.11s; }
+    .project-highlight:nth-child(3) { transition-delay: 0.17s; }
+    .project-highlight:nth-child(4) { transition-delay: 0.23s; }
+
+    .project-highlight:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px rgba(15,23,42,0.08);
+    }
+
+    .project-highlight strong {
+      display: block;
+      margin-bottom: 0.35rem;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .project-highlight span {
+      display: block;
+      color: var(--text-mid);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-top: 0.35rem;
     }
 
     .sb-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 1.25rem;
+      gap: 1rem;
+      margin-bottom: 0;
     }
 
     .sb-header h2 {
@@ -1184,14 +1490,24 @@
     }
 
     .sb-logo {
-      max-width: 80px;
+      max-width: 68px;
       height: auto;
       flex-shrink: 0;
     }
 
+    .preview-label {
+      margin: 0 0 0.65rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      opacity: 1;
+    }
+
     .sb-preview,
     .project-site-preview {
-      margin-top: 1.75rem;
+      margin-top: 0;
       border-radius: 24px;
       overflow: hidden;
       border: 1px solid rgba(148,163,184,0.22);
@@ -1255,41 +1571,25 @@
     .project-site-preview-window {
       position: relative;
       background: #ffffff;
-      aspect-ratio: 16 / 10;
-      min-height: clamp(360px, 68vh, 760px);
+      min-height: 0;
+      aspect-ratio: auto;
     }
 
     .sb-preview iframe,
     .project-site-preview iframe {
-      position: absolute;
-      inset: 0;
-      display: block;
-      width: 100%;
-      height: 100%;
       border: none;
       background: #ffffff;
     }
 
-    .project-section {
-      max-width: 1300px;
-    }
-
-    .preview-label {
-      font-size: 0.9rem;
-      opacity: 0.7;
-      margin: 1.5rem 0 0.75rem;
-    }
-
     .iframe-container {
       width: 100%;
-      max-width: 1200px;
-      margin: 30px auto;
-      border-radius: 16px;
+      max-width: none;
+      margin: 0;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-      background: #000;
+      box-shadow: 0 22px 48px rgba(2,6,23,0.16);
+      background: linear-gradient(180deg, #0f172a, #020617);
       padding: 10px;
-      aspect-ratio: auto;
       min-height: 0;
     }
 
@@ -1298,24 +1598,69 @@
       inset: auto;
       display: block;
       width: 100%;
-      height: 600px;
+      height: clamp(520px, 56vw, 720px);
       border: none;
-      border-radius: 10px;
+      border-radius: 16px;
       background: #ffffff;
     }
 
+    .bb-gallery {
+      margin-top: 0.2rem;
+    }
+
+    .bb-gallery img {
+      width: 100%;
+      max-width: none;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 1px solid rgba(148,163,184,0.16);
+      background: rgba(255,255,255,0.9);
+      padding: 0.35rem;
+      box-shadow: 0 18px 36px rgba(15,23,42,0.08);
+    }
+
+    @media (max-width: 980px) {
+      .project-shell {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+      }
+
+      .project-highlights {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 768px) {
+      .section-intro {
+        margin-bottom: 1.35rem;
+      }
+
+      .section-actions,
+      .project-actions {
+        justify-content: center;
+      }
+
+      .project-section {
+        padding: 1.4rem;
+        border-radius: 24px;
+      }
+
+      .project-title-row,
+      .project-brand,
       .sb-header {
         flex-direction: column;
         align-items: flex-start;
       }
 
+      .project-brand .bb-logo,
       .sb-logo {
-        max-width: 60px;
+        max-width: 64px;
       }
 
       .sb-preview,
-      .project-site-preview {
+      .project-site-preview,
+      .iframe-container {
         border-radius: 20px;
       }
 
@@ -1331,14 +1676,23 @@
         padding: 0.5rem 0.75rem;
       }
 
-      .sb-preview-window,
-      .project-site-preview-window {
-        aspect-ratio: 4 / 5;
-        min-height: 320px;
+      .iframe-container {
+        padding: 8px;
       }
 
       .iframe-container iframe {
-        height: 400px;
+        height: clamp(420px, 92vw, 560px);
+      }
+
+      .bb-gallery img {
+        aspect-ratio: 4 / 3;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .section-link-btn,
+      .project-action {
+        width: 100%;
       }
     }
 
@@ -1348,8 +1702,19 @@
       .card,
       .pcto-item,
       .project-section,
+      .project-highlight,
+      .section-link-btn,
+      .project-action,
       button {
         transition: none !important;
+      }
+
+      .hero-photo-wrap,
+      .hero-text {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+        filter: none;
       }
 
       .hidden {
@@ -1360,6 +1725,9 @@
       .card:hover,
       .pcto-item:hover,
       .project-section:hover,
+      .project-highlight:hover,
+      .section-link-btn:hover,
+      .project-action:hover,
       button:hover,
       button:active {
         transform: none;
@@ -1452,6 +1820,12 @@
   <section id="about">
     <p class="section-label" data-aos="fade-right">Chi sono</p>
     <h2 class="section-title" data-aos="fade-up">Chi sono</h2>
+    <p class="section-intro" data-aos="fade-up" data-aos-delay="60">
+      Un percorso costruito tra curiosita tecnica, disciplina sportiva e voglia di trasformare la teoria in competenze utili nel mondo reale.
+    </p>
+    <div class="section-actions" data-aos="fade-up" data-aos-delay="90">
+      <a href="#education" class="section-link-btn">Vedi la formazione tecnica</a>
+    </div>
 
 <div class="about-body">
 
@@ -1492,6 +1866,12 @@
   <section id="education">
     <p class="section-label" data-aos="fade-right">Formazione</p>
     <h2 class="section-title" data-aos="fade-up">Formazione<br>Tecnica</h2>
+    <p class="section-intro" data-aos="fade-up" data-aos-delay="60">
+      Automazione, software, sistemi e robotica: una base tecnica ampia, sviluppata con attenzione sia alla comprensione teorica sia all'applicazione pratica.
+    </p>
+    <div class="section-actions" data-aos="fade-up" data-aos-delay="90">
+      <a href="#experience" class="section-link-btn">Scopri le esperienze sul campo</a>
+    </div>
 
 <div class="edu-grid">
 
@@ -1553,6 +1933,12 @@
   <section id="experience">
     <p class="section-label" data-aos="fade-right">Esperienze</p>
     <h2 class="section-title" data-aos="fade-up">Esperienze<br>PCTO</h2>
+    <p class="section-intro" data-aos="fade-up" data-aos-delay="60">
+      Esperienze formative che mi hanno portato fuori dall'aula, tra aziende, certificazioni e contesti internazionali dove metodo, responsabilita e adattabilita contano davvero.
+    </p>
+    <div class="section-actions" data-aos="fade-up" data-aos-delay="90">
+      <a href="#projects" class="section-link-btn">Guarda i progetti digitali</a>
+    </div>
 
 <div class="exp-list">
 
@@ -1714,83 +2100,155 @@
 
   </section>
 
-  <section class="project-section">
-    <img src="images/logo_brainybuddy.jpg" alt="BrainyBuddy Logo" class="bb-logo">
-    <h2 class="brainybuddy-title">BrainyBuddy AI</h2>
-
-    <p>
-      BrainyBuddy AI è un assistente allo studio basato su intelligenza artificiale, progettato per supportare gli studenti nella comprensione, organizzazione e memorizzazione dei contenuti scolastici in modo strutturato ed efficace.
-    </p>
-
-    <p>
-      A differenza dei tradizionali chatbot, BrainyBuddy non fornisce semplici risposte testuali, ma organizza ogni output in sezioni didattiche ben definite: riassunto, concetti chiave, domande di studio e azioni consigliate, trasformando l'intelligenza artificiale in un vero strumento di apprendimento attivo.
-    </p>
-
-    <p>
-      Il sistema è sviluppato tramite un workflow automatizzato con n8n e utilizza un'architettura multi-modello AI, permettendo una gestione efficiente delle richieste, una maggiore disponibilità di risorse e una migliore qualità delle risposte.
-    </p>
-
-    <div class="tag-list">
-      <span class="tag">Risposte strutturate</span>
-      <span class="tag">Concetti chiave</span>
-      <span class="tag">Verifica automatica</span>
-      <span class="tag">Studio guidato</span>
-      <span class="tag">Multi-modello AI</span>
-    </div>
-
-    <p class="preview-label">Anteprima del sito</p>
-    <div class="project-site-preview">
-      <div class="project-site-preview-bar">
-        <div class="project-site-preview-dots" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
+  <section id="projects" class="project-section project-section-featured">
+    <div class="project-shell">
+      <div class="project-copy">
+        <p class="project-kicker">Prodotto AI per lo studio</p>
+        <div class="project-title-row">
+          <div class="project-brand">
+            <img src="images/logo_brainybuddy.jpg" alt="BrainyBuddy Logo" class="bb-logo">
+            <h2 class="brainybuddy-title">BrainyBuddy AI</h2>
+          </div>
         </div>
-        <span class="project-site-preview-url">brainybuddy-ai.vercel.app</span>
-      </div>
-      <div class="project-site-preview-window iframe-container">
-        <iframe
-          src="https://brainybuddy-ai.vercel.app/#"
-          title="Anteprima sito BrainyBuddy AI"
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin">
-        </iframe>
-      </div>
-    </div>
 
-    <div class="bb-gallery">
-      <img src="images/home_brainybuddy.jpg" alt="Anteprima Home BrainyBuddy">
+        <p class="project-summary">
+          BrainyBuddy AI e un assistente allo studio progettato come un vero prodotto digitale: aiuta a comprendere, organizzare e ripassare contenuti con un'esperienza piu guidata, chiara e utile di un chatbot tradizionale.
+        </p>
+
+        <p>
+          Ogni risposta viene strutturata in sezioni didattiche ben definite, come riassunto, concetti chiave, domande di studio e azioni consigliate, trasformando l'intelligenza artificiale in uno strumento di apprendimento attivo.
+        </p>
+
+        <p>
+          Il sistema utilizza workflow automatizzati con n8n e una logica multi-modello AI per migliorare disponibilita, qualita delle risposte e gestione delle richieste in modo piu scalabile.
+        </p>
+
+        <div class="project-highlights">
+          <article class="project-highlight">
+            <strong>Output strutturati</strong>
+            <span>Risposte organizzate per studiare meglio, non solo per leggere piu velocemente.</span>
+          </article>
+          <article class="project-highlight">
+            <strong>Workflow n8n</strong>
+            <span>Automazioni utili per orchestrare i passaggi e rendere il flusso piu affidabile.</span>
+          </article>
+          <article class="project-highlight">
+            <strong>Multi-modello AI</strong>
+            <span>Architettura pensata per bilanciare disponibilita, performance e qualita dell'output.</span>
+          </article>
+          <article class="project-highlight">
+            <strong>Studio guidato</strong>
+            <span>Esperienza pensata per accompagnare lo studente, non solo per rispondere a una domanda.</span>
+          </article>
+        </div>
+
+        <div class="tag-list">
+          <span class="tag">Risposte strutturate</span>
+          <span class="tag">Concetti chiave</span>
+          <span class="tag">Verifica automatica</span>
+          <span class="tag">Studio guidato</span>
+          <span class="tag">Multi-modello AI</span>
+        </div>
+
+        <div class="project-actions">
+          <a href="https://brainybuddy-ai.vercel.app/#" class="project-action" target="_blank" rel="noreferrer">Apri la piattaforma</a>
+          <a href="#contact" class="project-action secondary">Parliamone</a>
+        </div>
+      </div>
+
+      <div class="project-visual">
+        <p class="preview-label">Anteprima del prodotto</p>
+        <div class="project-site-preview">
+          <div class="project-site-preview-bar">
+            <div class="project-site-preview-dots" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <span class="project-site-preview-url">brainybuddy-ai.vercel.app</span>
+          </div>
+          <div class="project-site-preview-window iframe-container">
+            <iframe
+              src="https://brainybuddy-ai.vercel.app/#"
+              title="Anteprima sito BrainyBuddy AI"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="bb-gallery">
+          <img src="images/home_brainybuddy.jpg" alt="Anteprima Home BrainyBuddy">
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="project-section street-burger-section">
-    <div class="sb-header">
-      <h2>Street Burger &ndash; Progetto Web</h2>
-      <img src="images/streetburger-logo.png" alt="Street Burger Logo" class="sb-logo" loading="lazy" onerror="this.style.display='none'">
-    </div>
-
-    <p>
-      Progetto di progettazione e sviluppo di un sito web per l'attività Street Burger,
-      con focus su design moderno, esperienza utente e presentazione del brand.
-    </p>
-
-    <p class="preview-label">Anteprima del sito</p>
-    <div class="sb-preview">
-      <div class="sb-preview-bar">
-        <div class="sb-preview-dots" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
+    <div class="project-shell">
+      <div class="project-copy">
+        <p class="project-kicker">Case study web e brand experience</p>
+        <div class="project-title-row sb-header">
+          <h2>Street Burger &ndash; Progetto Web</h2>
+          <img src="images/streetburger-logo.png" alt="Street Burger Logo" class="sb-logo" loading="lazy" onerror="this.style.display='none'">
         </div>
-        <span class="sb-preview-url">streetburger-fastfood.vercel.app</span>
+
+        <p class="project-summary">
+          Un progetto di presentazione digitale pensato per valorizzare identita, atmosfera e offerta di Street Burger con un linguaggio visivo piu contemporaneo e orientato alla conversione.
+        </p>
+
+        <div class="project-highlights">
+          <article class="project-highlight">
+            <strong>Brand showcase</strong>
+            <span>Gerarchia visiva e tono grafico costruiti per rendere il brand subito riconoscibile.</span>
+          </article>
+          <article class="project-highlight">
+            <strong>Responsive first</strong>
+            <span>Layout leggibile e coerente su desktop e smartphone, senza perdere impatto visivo.</span>
+          </article>
+          <article class="project-highlight">
+            <strong>Menu e CTA</strong>
+            <span>Contenuti pensati per mettere in evidenza prodotti, punti forti e inviti all'azione.</span>
+          </article>
+          <article class="project-highlight">
+            <strong>Case study reale</strong>
+            <span>Un esempio concreto di come design, ritmo e chiarezza migliorano la percezione del progetto.</span>
+          </article>
+        </div>
+
+        <div class="tag-list">
+          <span class="tag">Brand identity</span>
+          <span class="tag">Responsive UI</span>
+          <span class="tag">Menu showcase</span>
+          <span class="tag">UX food web</span>
+        </div>
+
+        <div class="project-actions">
+          <a href="https://streetburger-fastfood.vercel.app/" class="project-action" target="_blank" rel="noreferrer">Apri sito completo</a>
+          <a href="#contact" class="project-action secondary">Richiedi un progetto</a>
+        </div>
       </div>
-      <div class="sb-preview-window iframe-container">
-        <iframe
-          src="https://streetburger-fastfood.vercel.app/"
-          title="Anteprima sito Street Burger"
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin">
-        </iframe>
+
+      <div class="project-visual">
+        <p class="preview-label">Anteprima del sito live</p>
+        <div class="sb-preview">
+          <div class="sb-preview-bar">
+            <div class="sb-preview-dots" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <span class="sb-preview-url">streetburger-fastfood.vercel.app</span>
+          </div>
+          <div class="sb-preview-window iframe-container">
+            <iframe
+              src="https://streetburger-fastfood.vercel.app/"
+              title="Anteprima sito Street Burger"
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin">
+            </iframe>
+          </div>
+        </div>
       </div>
     </div>
   </section>
