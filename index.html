@@ -1189,17 +1189,83 @@
       flex-shrink: 0;
     }
 
-    .sb-preview {
-      margin-top: 20px;
-      border-radius: 16px;
+    .sb-preview,
+    .project-site-preview {
+      margin-top: 1.75rem;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 1px solid rgba(148,163,184,0.22);
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 24px 60px rgba(15,23,42,0.12);
     }
 
-    .sb-preview iframe {
+    .sb-preview-bar,
+    .project-site-preview-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.9rem 1rem;
+      background: linear-gradient(180deg, rgba(248,250,252,0.98), rgba(241,245,249,0.92));
+      border-bottom: 1px solid rgba(148,163,184,0.18);
+    }
+
+    .sb-preview-dots,
+    .project-site-preview-dots {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-shrink: 0;
+    }
+
+    .sb-preview-dots span,
+    .project-site-preview-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      display: block;
+    }
+
+    .sb-preview-dots span:nth-child(1),
+    .project-site-preview-dots span:nth-child(1) { background: #fb7185; }
+
+    .sb-preview-dots span:nth-child(2),
+    .project-site-preview-dots span:nth-child(2) { background: #f59e0b; }
+
+    .sb-preview-dots span:nth-child(3),
+    .project-site-preview-dots span:nth-child(3) { background: #22c55e; }
+
+    .sb-preview-url,
+    .project-site-preview-url {
+      min-width: 0;
+      flex: 1;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.2);
+      background: rgba(255,255,255,0.88);
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sb-preview-window,
+    .project-site-preview-window {
+      position: relative;
+      background: #ffffff;
+      aspect-ratio: 16 / 10;
+      min-height: clamp(360px, 68vh, 760px);
+    }
+
+    .sb-preview iframe,
+    .project-site-preview iframe {
+      position: absolute;
+      inset: 0;
       display: block;
       width: 100%;
-      height: 400px;
+      height: 100%;
       border: none;
       background: #ffffff;
     }
@@ -1214,8 +1280,27 @@
         max-width: 60px;
       }
 
-      .sb-preview iframe {
-        height: 250px;
+      .sb-preview,
+      .project-site-preview {
+        border-radius: 20px;
+      }
+
+      .sb-preview-bar,
+      .project-site-preview-bar {
+        gap: 0.7rem;
+        padding: 0.8rem;
+      }
+
+      .sb-preview-url,
+      .project-site-preview-url {
+        font-size: 0.68rem;
+        padding: 0.5rem 0.75rem;
+      }
+
+      .sb-preview-window,
+      .project-site-preview-window {
+        aspect-ratio: 4 / 5;
+        min-height: 320px;
       }
     }
 
@@ -1615,9 +1700,22 @@
       <span class="tag">Multi-modello AI</span>
     </div>
 
-    <div class="project-preview">
-      <div class="preview-box">
-        Demo interattiva di BrainyBuddy AI (video dimostrativo)
+    <div class="project-site-preview">
+      <div class="project-site-preview-bar">
+        <div class="project-site-preview-dots" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="project-site-preview-url">brainybuddy-ai.vercel.app</span>
+      </div>
+      <div class="project-site-preview-window">
+        <iframe
+          src="https://brainybuddy-ai.vercel.app/#"
+          title="Anteprima sito BrainyBuddy AI"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
       </div>
     </div>
 
@@ -1638,11 +1736,22 @@
     </p>
 
     <div class="sb-preview">
-      <iframe
-        src="https://streetburger-fastfood.vercel.app/"
-        title="Anteprima sito Street Burger"
-        loading="lazy">
-      </iframe>
+      <div class="sb-preview-bar">
+        <div class="sb-preview-dots" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="sb-preview-url">streetburger-fastfood.vercel.app</span>
+      </div>
+      <div class="sb-preview-window">
+        <iframe
+          src="https://streetburger-fastfood.vercel.app/"
+          title="Anteprima sito Street Burger"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin">
+        </iframe>
+      </div>
     </div>
   </section>
 
