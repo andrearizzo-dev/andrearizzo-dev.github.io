@@ -1,35 +1,24 @@
 <!DOCTYPE html>
-
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Andrea Rizzo — Portfolio</title>
 
-  <!-- Favicon -->
-
   <link rel="icon" type="image/png" sizes="512x512" href="images/logo_portfolio_512.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="images/logo_portfolio_512.png" />
   <link rel="shortcut icon" type="image/x-icon" href="images/logo_portfolio.ico" />
 
-  <!-- Fonts -->
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-  <!-- AOS – Animate On Scroll -->
-
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
     /* =========================================================
        ROOT & RESET
     ========================================================= */
     :root {
       --bg:           #080808;
-      --bg-2:         #0f0f0f;
       --bg-3:         #141414;
       --accent:       #3b82f6;
       --accent-2:     #818cf8;
@@ -44,30 +33,32 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html  { scroll-behavior: smooth; width: 100%; max-width: 100%; overflow-x: hidden; }
-    body  {
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;   /* ROOT FIX: no horizontal scroll */
+    }
+    body {
       background: var(--bg);
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       font-size: 16px;
       line-height: 1.65;
       overflow-x: hidden;
-      width: 100%;
-      max-width: 100%;
       -webkit-font-smoothing: antialiased;
     }
-    img, video, svg, canvas { display: block; max-width: 100%; height: auto; }
+
+    /* FIX: height:auto prevents image distortion */
+    img, video, canvas { display: block; max-width: 100%; height: auto; }
+    svg { display: block; flex-shrink: 0; }
     a   { color: inherit; text-decoration: none; }
     ul  { list-style: none; }
 
-    /* Noise texture overlay */
     body::before {
       content: '';
       position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.4;
+      pointer-events: none; z-index: 0; opacity: 0.4;
     }
 
     /* =========================================================
@@ -84,7 +75,6 @@
       border-bottom: 1px solid var(--border);
       transition: background 0.3s;
     }
-
     .nav-logo {
       font-family: 'Syne', sans-serif;
       font-weight: 800; font-size: 1.7rem; letter-spacing: -0.01em;
@@ -111,14 +101,18 @@
     }
 
     /* =========================================================
-       SHARED SECTION LAYOUT
+       SECTION LAYOUT — unified for section + .project-section
     ========================================================= */
-    section {
+    section,
+    .project-section {
       padding: 100px 2rem;
       max-width: var(--max-w);
-      margin: 0 auto;
+      margin-left: auto;
+      margin-right: auto;
       position: relative;
       width: 100%;
+      /* FIX: explicit box-sizing prevents padding overflow */
+      box-sizing: border-box;
     }
 
     .divider {
@@ -134,7 +128,7 @@
     }
     .section-label::before {
       content: ''; display: block; width: 24px; height: 1px;
-      background: var(--accent);
+      background: var(--accent); flex-shrink: 0;
     }
 
     .section-title {
@@ -160,6 +154,7 @@
       content: ''; position: absolute; inset: 0; border-radius: inherit;
       background: linear-gradient(135deg, rgba(59,130,246,0.05) 0%, transparent 60%);
       opacity: 0; transition: opacity 0.3s;
+      pointer-events: none;
     }
     .glass-card:hover {
       border-color: rgba(59,130,246,0.3);
@@ -178,11 +173,8 @@
       font-weight: 700; font-size: 1.15rem;
       letter-spacing: -0.02em; margin-bottom: 0.75rem;
     }
-    .card-text {
-      font-size: 0.9rem; color: var(--text-mid); line-height: 1.75;
-    }
+    .card-text { font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; }
 
-    /* Tag pills */
     .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
     .tag {
       background: rgba(59,130,246,0.10);
@@ -201,7 +193,6 @@
       border-radius: 100px; letter-spacing: 0.03em;
     }
 
-    /* Challenge / callout blocks */
     .challenge-block {
       background: var(--glass);
       border: 1px solid var(--glass-border);
@@ -219,6 +210,9 @@
 
     /* =========================================================
        1 — HERO
+       FIX: removed filter:blur from keyframes (causes layout shifts)
+            removed skewX (unnecessary jitter)
+            will-change only on opacity+transform
     ========================================================= */
     #home {
       min-height: 100vh;
@@ -242,7 +236,7 @@
       animation: pulse-glow 8s ease-in-out infinite reverse;
     }
     @keyframes pulse-glow {
-      0%,100% { opacity: 0.7; transform: translate(-50%,-55%) scale(1);   }
+      0%,100% { opacity: 0.7; transform: translate(-50%,-55%) scale(1); }
       50%      { opacity: 1;   transform: translate(-50%,-55%) scale(1.1); }
     }
 
@@ -256,10 +250,9 @@
     .hero-tag::before {
       content: ''; width: 6px; height: 6px; border-radius: 50%;
       background: var(--accent); animation: blink 2s ease-in-out infinite;
+      flex-shrink: 0;
     }
-    @keyframes blink {
-      0%,100% { opacity: 1; } 50% { opacity: 0.3; }
-    }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 
     .hero-content {
       display: flex; align-items: center; gap: 2.2rem;
@@ -268,7 +261,9 @@
     }
 
     .hero-photo-wrap {
-      width: 42%; min-width: 260px; display: flex; justify-content: flex-start;
+      /* FIX: flex-shrink:0 prevents photo from squishing on narrow screens */
+      flex-shrink: 0;
+      width: 220px;
       position: relative;
       animation: photo-sling 2.6s cubic-bezier(0.18,1,0.24,1) forwards;
       opacity: 0;
@@ -285,17 +280,17 @@
       width: 220px; height: 220px; border-radius: 32px;
       overflow: hidden;
       border: 2px solid var(--glass-border);
-      position: relative;
+      position: relative; z-index: 1;
       box-shadow: 0 26px 70px rgba(59,130,246,0.30);
-      backdrop-filter: blur(4px);
-      z-index: 1;
     }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .hero-text {
-      flex: 1; max-width: 520px; text-align: left;
+      flex: 1;
+      min-width: 0; /* FIX: prevents flex child overflow */
+      max-width: 520px; text-align: left;
       animation: text-lift 2.2s 0.25s cubic-bezier(0.20,1,0.28,1) forwards;
-      opacity: 0; transform: translateX(-80px) translateY(12px);
+      opacity: 0;
       will-change: transform, opacity;
     }
 
@@ -328,7 +323,8 @@
       padding: 0.9rem 2.2rem; border-radius: 100px;
       font-size: 0.9rem; font-weight: 500;
       border: none; cursor: pointer;
-      transition: all 0.3s; position: relative; overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
     }
     .hero-cta::before {
       content: ''; position: absolute; inset: 0;
@@ -340,26 +336,26 @@
     .hero-cta .cta-arrow { transition: transform 0.3s; }
     .hero-cta:hover .cta-arrow { transform: translateY(3px); }
 
-    /* Hero entrance animations */
+    /* RESTORED ANIMATIONS — no filter:blur, no skewX, stable layout */
     @keyframes photo-sling {
-      0%   { opacity: 0; transform: translateX(120px) scale(0.9) rotate(6deg); filter: blur(8px); }
-      55%  { opacity: 1; transform: translateX(-12px) scale(1.04) rotate(-2deg); filter: blur(0); }
-      100% { opacity: 1; transform: translateX(0) scale(1) rotate(0deg); filter: blur(0); }
+      0%   { opacity: 0; transform: translateX(80px) scale(0.93) rotate(5deg); }
+      60%  { opacity: 1; transform: translateX(-8px) scale(1.03) rotate(-1.5deg); }
+      100% { opacity: 1; transform: translateX(0) scale(1) rotate(0deg); }
     }
     @keyframes text-lift {
-      0%   { opacity: 0; transform: translateX(-80px) translateY(10px) skewX(-1deg); filter: blur(6px); }
-      60%  { opacity: 1; transform: translateX(26px) translateY(-2px) skewX(0deg); filter: blur(0); }
+      0%   { opacity: 0; transform: translateX(-60px) translateY(12px); }
+      65%  { opacity: 1; transform: translateX(18px) translateY(-2px); }
       100% { opacity: 1; transform: translateX(0) translateY(0); }
     }
     @keyframes photo-sling-mobile {
-      0%   { opacity: 0; transform: translateX(60px) scale(0.96) rotate(4deg); filter: blur(6px); }
-      60%  { opacity: 1; transform: translateX(-8px) scale(1.02) rotate(-1deg); filter: blur(0); }
-      100% { opacity: 1; transform: translateX(0) scale(1) rotate(0deg); filter: blur(0); }
+      0%   { opacity: 0; transform: translateY(30px) scale(0.94); }
+      65%  { opacity: 1; transform: translateY(-5px) scale(1.02); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
     @keyframes text-lift-mobile {
-      0%   { opacity: 0; transform: translateX(-30px) translateY(18px) skewX(-1deg); filter: blur(5px); }
-      70%  { opacity: 1; transform: translateX(10px) translateY(-4px); filter: blur(0); }
-      100% { opacity: 1; transform: translateX(0) translateY(0); }
+      0%   { opacity: 0; transform: translateY(24px); }
+      70%  { opacity: 1; transform: translateY(-4px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .hero-scroll {
@@ -374,9 +370,9 @@
       animation: scroll-anim 2s ease-in-out infinite;
     }
     @keyframes scroll-anim {
-      0%   { transform: scaleY(0); transform-origin: top;    }
-      50%  { transform: scaleY(1); transform-origin: top;    }
-      51%  { transform-origin: bottom;                       }
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform-origin: bottom; }
       100% { transform: scaleY(0); transform-origin: bottom; }
     }
 
@@ -418,7 +414,6 @@
       letter-spacing: -0.02em; margin-bottom: 0.75rem;
     }
 
-    /* Loghi aziende PCTO */
     .exp-logo {
       display: block;
       height: 56px; width: auto; max-width: 180px;
@@ -428,92 +423,28 @@
       margin-bottom: 0.75rem;
     }
 
-    .exp-logo.comune-logo {
-      background: linear-gradient(to bottom, #000000, #1f2937);
-      padding: 10px;
-      border-radius: 10px;
-      display: inline-block;
-      opacity: 1;
-      mix-blend-mode: normal;
-      filter: none;
-    }
-
-    .pcto-period {
-      font-size: 0.9rem;
-      opacity: 0.7;
-      margin-top: 5px;
-      margin-bottom: 0.9rem;
-      color: var(--text-muted);
-    }
-
+    /* FIX: gallery uses aspect-ratio to prevent height instability */
     .pcto-gallery {
-      display: flex;
-      gap: 10px;
-      margin-top: 15px;
-      flex-wrap: wrap;
+      display: flex; gap: 10px; margin-top: 1.25rem; flex-wrap: wrap;
     }
-
     .pcto-gallery img {
-      flex: 1 1 150px;
-      width: 100%;
-      max-width: 170px;
-      aspect-ratio: 4 / 3;
-      display: block;
-      border-radius: 10px;
+      width: calc(33.333% - 7px);
+      aspect-ratio: 4/3;
       object-fit: cover;
-      object-position: center;
-      transition: transform 0.3s ease;
+      border-radius: 10px;
+      flex-shrink: 0;
+      transition: transform 0.3s;
     }
+    .pcto-gallery img:hover { transform: scale(1.05); }
 
-    .pcto-gallery img:hover {
-      transform: scale(1.05);
-    }
-
-    .project-section {
-      margin-top: 60px;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
+    /* =========================================================
+       PROGETTI — BrainyBuddy & Street Burger
+       FIX: project-section now fully consistent with section rules
+    ========================================================= */
     .project-section h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
+      font-family: 'Syne', sans-serif; font-weight: 700;
       font-size: clamp(2rem, 4vw, 2.8rem);
-      letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
-    }
-
-    .brainybuddy-title {
-      display: block;
-    }
-
-    .bb-logo {
-      max-width: 120px;
-      margin-bottom: 15px;
-      border-radius: 16px;
-      display: block;
-      background: rgba(255,255,255,0.9);
-      padding: 10px;
-      border: 1px solid rgba(148,163,184,0.20);
-      box-shadow: 0 12px 32px rgba(15,23,42,0.08);
-    }
-
-    .bb-gallery {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-
-    .bb-gallery img {
-      width: 100%;
-      max-width: 180px;
-      border-radius: 12px;
-      transition: transform 0.3s ease;
-    }
-
-    .bb-gallery img:hover {
-      transform: scale(1.05);
+      letter-spacing: -0.03em; margin-bottom: 1.25rem;
     }
 
     .project-section p {
@@ -521,23 +452,81 @@
       color: var(--text-mid);
       line-height: 1.75;
       margin-bottom: 1rem;
+      font-size: 0.9rem;
     }
 
-    .project-preview {
+    /* BrainyBuddy header */
+    .bb-header {
+      display: flex; align-items: center; gap: 15px;
+      margin-bottom: 1.25rem;
+    }
+    .bb-logo {
+      width: 55px; height: 55px; flex-shrink: 0;
+      object-fit: contain; border-radius: 12px;
+      filter: drop-shadow(0 0 10px rgba(59,130,246,0.35));
+    }
+
+    .bb-features {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 1.25rem; margin-bottom: 1.75rem;
+    }
+    .bb-feature {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text-mid);
+      padding: 6px 14px; border-radius: 100px;
+      font-size: 0.82rem; font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s;
+    }
+    .bb-feature:hover { transform: scale(1.04); }
+
+    /* FIX: iframe container uses aspect-ratio — no fixed heights, no overflow */
+    .iframe-wrap {
+      position: relative; width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px; overflow: hidden;
+      background: var(--bg-3);
+      border: 1px solid var(--glass-border);
+      margin-top: 1.75rem;
+    }
+    .iframe-wrap iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: none; display: block;
+    }
+
+    /* Placeholder when no media available */
+    .preview-placeholder {
+      width: 100%; aspect-ratio: 16/9;
+      border: 1px dashed rgba(59,130,246,0.3);
+      border-radius: 16px; background: var(--bg-3);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.75rem;
+      margin-top: 1.75rem;
+    }
+    .preview-placeholder span { font-size: 2.5rem; opacity: 0.3; }
+    .preview-placeholder p {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+      color: var(--text-muted); letter-spacing: 0.05em; margin: 0;
+    }
+
+    .preview-caption {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+      color: var(--text-muted); text-align: center; margin-top: 0.6rem;
+      font-style: italic;
+    }
+
+    /* Street Burger screenshot */
+    .site-preview-img {
+      width: 100%; border-radius: 16px;
+      border: 1px solid var(--glass-border);
+      display: block; object-fit: cover;
       margin-top: 1.75rem;
     }
 
-    .preview-box {
-      border: 2px dashed #ccc;
-      padding: 40px;
-      text-align: center;
-      border-radius: 12px;
-      color: var(--text-muted);
-      background: rgba(255,255,255,0.02);
-    }
-
     /* =========================================================
-       5 — CONTATTI
+       CONTATTI
     ========================================================= */
     #contact { text-align: center; padding-bottom: 60px; }
 
@@ -561,14 +550,13 @@
       font-size: 0.88rem; font-weight: 500;
       border: 1px solid var(--glass-border);
       color: var(--text); background: var(--glass);
-      backdrop-filter: blur(10px); transition: all 0.3s;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border-color 0.3s;
     }
     .contact-btn:hover {
       background: rgba(59,130,246,0.10); border-color: var(--accent); color: #fff;
       transform: translateY(-2px); box-shadow: 0 10px 40px rgba(59,130,246,0.2);
     }
-    .contact-btn svg { opacity: 0.75; transition: opacity 0.3s; }
-    .contact-btn:hover svg { opacity: 1; }
 
     /* =========================================================
        FOOTER
@@ -581,1784 +569,575 @@
     }
 
     /* =========================================================
-       RESPONSIVE
+       RESPONSIVE — mobile-first fixes
     ========================================================= */
     @media (max-width: 768px) {
       .nav-links  { display: none; }
       .nav-toggle { display: block; }
-
       nav         { padding: 0 1.25rem; }
       .nav-logo   { font-size: 1.4rem; }
-      .nav-links a{ font-size: 1rem; }
 
-      .hero-content    { flex-direction: column; text-align: center; gap: 2rem; }
-      .hero-photo-wrap { justify-content: center; width: 100%; animation: photo-sling-mobile 2.4s cubic-bezier(0.18,1,0.24,1) forwards; opacity: 0; }
-      .hero-photo      { width: 200px; height: 200px; }
-      .hero-text       { text-align: center; animation: text-lift-mobile 2s 0.2s cubic-bezier(0.20,1,0.28,1) forwards; opacity: 0; transform: translateY(10px); max-width: 92%; margin: 0 auto; }
-      .hero-tagline    { margin: 0 auto 1rem; }
-      .hero-desc       { margin: 0 auto 2rem; }
-      .hero-cta        { width: 100%; justify-content: center; }
-
-      section          { padding: 90px 1.5rem; }
-      .section-title   { font-size: clamp(2.1rem, 8vw, 2.6rem); }
-      .glass-card      { padding: 1.6rem; }
-
-      #about .about-body,
-      #education .edu-grid { grid-template-columns: 1fr; }
-
-      .exp-timeline   { display: none; }
-      .exp-inner      { grid-template-columns: 1fr; }
-      .project-section{ padding-top: 0; padding-bottom: 0; }
-      .bb-logo { max-width: 100px; }
-      .preview-box    { padding: 28px 20px; }
-    }
-
-    @media (max-width: 480px) {
-      nav       { padding: 0 1rem; }
-      .nav-logo { font-size: 1.25rem; }
-      section   { padding: 70px 1.25rem; }
-      .hero-photo { width: 180px; height: 180px; }
-      .hero-name  { font-size: clamp(2.6rem, 12vw, 3.4rem); }
-      .hero-tagline { font-size: clamp(0.9rem, 3.8vw, 1.05rem); }
-      .hero-cta { padding: 0.95rem 1.7rem; font-size: 1rem; }
-    }
-
-    /* =========================================================
-       PREMIUM UI UPGRADE
-    ========================================================= */
-    :root {
-      --bg: #f8fafc;
-      --bg-2: #ffffff;
-      --bg-3: #eef4ff;
-      --accent: #3b82f6;
-      --accent-2: #60a5fa;
-      --text: #0f172a;
-      --text-mid: #334155;
-      --text-muted: #64748b;
-      --border: rgba(15,23,42,0.08);
-      --glass: rgba(255,255,255,0.78);
-      --glass-border: rgba(148,163,184,0.28);
-      --nav-h: 80px;
-      --max-w: 1100px;
-    }
-
-    html {
-      background: var(--bg);
-    }
-
-    body {
-      font-family: 'Inter', 'DM Sans', sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(59,130,246,0.10), transparent 28%),
-        radial-gradient(circle at top right, rgba(96,165,250,0.08), transparent 24%),
-        linear-gradient(180deg, #eef2f7 0%, #e2e8f0 58%, #dbeafe 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    body::before {
-      opacity: 0.08;
-      mix-blend-mode: multiply;
-    }
-
-    a {
-      transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
-    }
-
-    h1, h2, h3 {
-      font-weight: 600;
-      letter-spacing: -0.5px;
-      color: var(--text);
-    }
-
-    section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 72px 20px;
-      scroll-margin-top: calc(var(--nav-h) + 18px);
-    }
-
-    .divider {
-      max-width: calc(var(--max-w) - 40px);
-      margin: 0 auto;
-      background: linear-gradient(90deg, transparent, rgba(148,163,184,0.55), transparent);
-    }
-
-    nav,
-    nav[style] {
-      background: rgba(248,250,252,0.82) !important;
-      border-bottom: 1px solid rgba(148,163,184,0.20);
-      box-shadow: 0 12px 36px rgba(15,23,42,0.06);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-    }
-
-    .nav-logo {
-      color: var(--text);
-      text-shadow: 0 1px 0 rgba(255,255,255,0.75);
-    }
-
-    .nav-links a {
-      color: var(--text-mid);
-      font-weight: 500;
-    }
-
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .nav-toggle {
-      color: var(--text);
-      border-radius: 12px;
-    }
-
-    .nav-toggle:hover {
-      background: rgba(59,130,246,0.08);
-      transform: translateY(-1px);
-    }
-
-    button {
-      border-radius: 10px;
-      padding: 10px 18px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-    }
-
-    .section-label {
-      color: var(--accent);
-    }
-
-    .section-label::before {
-      background: var(--accent);
-    }
-
-    .section-title {
-      font-size: clamp(2.4rem, 5vw, 3.9rem);
-      line-height: 1.02;
-      margin-bottom: 2.4rem;
-      max-width: 12ch;
-    }
-
-    .glass-card,
-    .card,
-    .pcto-item,
-    .bb-card {
-      background: rgba(255,255,255,0.82);
-      border: 1px solid rgba(148,163,184,0.22);
-      border-radius: 16px;
-      padding: clamp(1.25rem, 2vw, 1.75rem);
-      box-shadow: 0 18px 48px rgba(15,23,42,0.08);
-      backdrop-filter: blur(18px);
-    }
-
-    .glass-card::before {
-      opacity: 0.8;
-      background: linear-gradient(135deg, rgba(59,130,246,0.09) 0%, rgba(255,255,255,0) 65%);
-    }
-
-    .glass-card:hover,
-    .card:hover,
-    .pcto-item:hover,
-    .bb-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(59,130,246,0.24);
-      box-shadow: 0 24px 60px rgba(15,23,42,0.12);
-    }
-
-    .card-eyebrow {
-      color: var(--accent);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .card-title,
-    .exp-company,
-    .project-section h2,
-    .contact-headline {
-      color: var(--text);
-    }
-
-    .card-text,
-    .challenge-text,
-    .project-section p,
-    .contact-sub,
-    .hero-tagline {
-      color: var(--text-mid);
-    }
-
-    .tag {
-      background: rgba(59,130,246,0.10);
-      border: 1px solid rgba(59,130,246,0.16);
-      color: #1d4ed8;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.80);
-    }
-
-    .cert-badge {
-      background: rgba(248,250,252,0.92);
-      border: 1px solid rgba(148,163,184,0.22);
-      color: var(--text);
-    }
-
-    .challenge-block {
-      background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,250,252,0.92));
-      border: 1px solid rgba(148,163,184,0.18);
-      border-left: 4px solid var(--accent);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.80);
-    }
-
-    .challenge-block.alt {
-      border-left-color: var(--accent-2);
-    }
-
-    .challenge-label {
-      color: var(--accent);
-    }
-
-    .challenge-block.alt .challenge-label {
-      color: var(--accent-2);
-    }
-
-    #home {
-      padding-top: calc(var(--nav-h) + 64px);
-      padding-bottom: 96px;
-    }
-
-    .hero-glow {
-      background: radial-gradient(circle, rgba(59,130,246,0.18) 0%, transparent 72%);
-      filter: blur(4px);
-    }
-
-    .hero-glow-2 {
-      background: radial-gradient(circle, rgba(96,165,250,0.14) 0%, transparent 72%);
-      filter: blur(8px);
-    }
-
-    .hero-content {
-      gap: clamp(2rem, 4vw, 4rem);
-    }
-
-    .hero-tag {
-      background: rgba(255,255,255,0.82);
-      border: 1px solid rgba(148,163,184,0.24);
-      color: #1d4ed8;
-      box-shadow: 0 10px 30px rgba(15,23,42,0.05);
-    }
-
-    .hero-photo-wrap::after {
-      border-color: rgba(59,130,246,0.16);
-      background: radial-gradient(circle at 30% 30%, rgba(96,165,250,0.18), transparent 62%);
-    }
-
-    .hero-photo {
-      border: 6px solid rgba(255,255,255,0.86);
-      background: #ffffff;
-      box-shadow: 0 28px 80px rgba(59,130,246,0.18), 0 8px 24px rgba(15,23,42,0.08);
-    }
-
-    .hero-name .gradient-text {
-      background: linear-gradient(135deg, #0f172a 0%, #2563eb 55%, #60a5fa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-desc {
-      color: var(--text-muted);
-    }
-
-    .hero-cta {
-      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 58%, #60a5fa 100%);
-      box-shadow: 0 18px 44px rgba(37,99,235,0.24);
-    }
-
-    .hero-cta:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 24px 60px rgba(37,99,235,0.28);
-    }
-
-    .hero-scroll {
-      color: var(--text-muted);
-    }
-
-    .about-body,
-    #education .edu-grid {
-      gap: 1.75rem;
-    }
-
-    #experience .exp-list {
-      gap: 1.75rem;
-    }
-
-    .exp-inner {
-      gap: 1.6rem;
-    }
-
-    .exp-dot {
-      box-shadow: 0 0 0 7px rgba(59,130,246,0.10);
-    }
-
-    .exp-line {
-      background: linear-gradient(to bottom, rgba(59,130,246,0.45), transparent);
-    }
-
-    .exp-logo {
-      filter: none;
-      opacity: 0.92;
-      mix-blend-mode: multiply;
-    }
-
-    .exp-logo:hover {
-      transform: none;
-      box-shadow: none;
-    }
-
-    .pcto-gallery {
-      gap: 12px;
-      align-items: stretch;
-    }
-
-    .pcto-gallery img {
-      flex: 1 1 calc(33.333% - 8px);
-      max-width: none;
-      min-width: 0;
-      aspect-ratio: 4 / 3;
-      box-shadow: 0 16px 36px rgba(15,23,42,0.10);
-    }
-
-    .project-section {
-      margin-top: 56px;
-      padding: clamp(1.75rem, 3vw, 2.5rem);
-      background: rgba(255,255,255,0.76);
-      border: 1px solid rgba(148,163,184,0.18);
-      border-radius: 28px;
-      box-shadow: 0 24px 60px rgba(15,23,42,0.08);
-      backdrop-filter: blur(18px);
-    }
-
-    .project-section h2 {
-      margin-bottom: 1.25rem;
-      font-size: clamp(2rem, 4vw, 3rem);
-    }
-
-    .bb-hero {
-      display: flex;
-      gap: 50px;
-      align-items: stretch;
-    }
-
-    .project-preview {
-      margin-top: 1.5rem;
-    }
-
-    .preview-box {
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(226,232,240,0.70), rgba(239,246,255,0.98));
-      min-height: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px dashed rgba(59,130,246,0.28);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.90);
-    }
-
-    img {
-      border-radius: 12px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 14px 32px rgba(15,23,42,0.12);
-    }
-
-    .bb-logo {
-      background: rgba(255,255,255,0.94);
-      border: 1px solid rgba(148,163,184,0.24);
-      box-shadow: 0 16px 40px rgba(59,130,246,0.12);
-    }
-
-    .contact-headline {
-      font-size: clamp(2.4rem, 7vw, 4.8rem);
-    }
-
-    .contact-btn {
-      background: rgba(255,255,255,0.86);
-      border: 1px solid rgba(148,163,184,0.22);
-      color: var(--text);
-      box-shadow: 0 16px 40px rgba(15,23,42,0.06);
-    }
-
-    .contact-btn:hover {
-      background: linear-gradient(135deg, #2563eb, #3b82f6);
-      border-color: transparent;
-      box-shadow: 0 20px 48px rgba(37,99,235,0.24);
-    }
-
-    footer {
-      background: rgba(255,255,255,0.62);
-      color: var(--text-muted);
-      border-top: 1px solid rgba(148,163,184,0.16);
-      backdrop-filter: blur(12px);
-    }
-
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.6s ease forwards;
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 768px) {
-      section {
-        padding: 40px 15px;
-      }
-
-      h2,
-      .project-section h2 {
-        font-size: 1.6rem;
-      }
-
-      nav {
-        padding: 0 1rem;
-      }
-
+      /* HERO: stack vertically, center */
       .hero-content {
         flex-direction: column;
+        align-items: center;
         text-align: center;
-        gap: 2.25rem;
+        gap: 2rem;
       }
-
+      /* FIX: reset width so photo centers correctly */
       .hero-photo-wrap {
-        width: 100%;
-        justify-content: center;
+        width: auto;
+        animation: photo-sling-mobile 2.2s cubic-bezier(0.18,1,0.24,1) forwards;
+        opacity: 0;
       }
+      .hero-photo { width: 190px; height: 190px; }
 
       .hero-text {
         text-align: center;
+        animation: text-lift-mobile 2s 0.2s cubic-bezier(0.20,1,0.28,1) forwards;
+        opacity: 0;
         max-width: 100%;
         margin: 0 auto;
       }
+      .hero-tagline { margin: 0 auto 1rem; }
+      .hero-desc    { margin: 0 auto 2rem; }
+      .hero-cta     { width: 100%; justify-content: center; }
 
-      .hero-tagline,
-      .hero-desc {
-        margin-left: auto;
-        margin-right: auto;
-      }
+      section,
+      .project-section { padding: 80px 1.5rem; }
 
-      .hero-cta {
-        width: 100%;
-        justify-content: center;
-      }
+      .section-title { font-size: clamp(2.1rem, 8vw, 2.6rem); }
+      .glass-card    { padding: 1.6rem; }
 
-      .bb-hero {
-        flex-direction: column;
-      }
+      /* Grids collapse to 1 column */
+      #about .about-body,
+      #education .edu-grid { grid-template-columns: 1fr; }
 
-      .project-section {
-        padding: 1.5rem;
-        border-radius: 22px;
-      }
+      /* Timeline dots hidden on mobile — not needed for stacked layout */
+      .exp-timeline { display: none; }
+      .exp-inner    { grid-template-columns: 1fr; gap: 0; }
 
+      /* Gallery: 2 per row on tablet */
       .pcto-gallery img {
-        flex-basis: 100%;
-        max-width: 100%;
+        width: calc(50% - 5px);
       }
 
-      #navLinks[style] {
-        background: rgba(248,250,252,0.98) !important;
-        border-bottom: 1px solid rgba(148,163,184,0.16) !important;
-        box-shadow: 0 24px 44px rgba(15,23,42,0.08);
-      }
-
-      #navLinks[style] a {
-        color: var(--text) !important;
-      }
+      /* BrainyBuddy features wrap nicely */
+      .bb-features { gap: 8px; }
+      .bb-feature  { font-size: 0.78rem; padding: 5px 12px; }
     }
 
-    /* AOS fix */
+    @media (max-width: 480px) {
+      nav         { padding: 0 1rem; }
+      .nav-logo   { font-size: 1.25rem; }
+      section,
+      .project-section { padding: 70px 1.25rem; }
+      .hero-photo { width: 170px; height: 170px; }
+      .hero-name  { font-size: clamp(2.6rem, 12vw, 3.4rem); }
+      .hero-tagline { font-size: clamp(0.9rem, 3.8vw, 1.05rem); }
+      .hero-cta   { padding: 0.95rem 1.7rem; font-size: 1rem; }
+
+      /* Gallery: full width on small phones */
+      .pcto-gallery img { width: 100%; }
+    }
+
+    /* AOS: keep interactive elements clickable after animate */
     [data-aos]             { pointer-events: none; }
     [data-aos].aos-animate { pointer-events: auto; }
-
-    /* Formazione Tecnica - reveal + micro-interactions */
-    #education .edu-grid .tech-block {
-      transition:
-        opacity 0.6s ease,
-        transform 0.6s ease,
-        box-shadow 0.3s ease;
-      will-change: opacity, transform;
-    }
-
-    #education .edu-grid .tech-block.hidden {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    #education .edu-grid .tech-block.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    #education .edu-grid .tech-block:hover {
-      transform: translateY(-6px);
-    }
-
-    #education .edu-grid .tech-block:nth-child(1) { transition-delay: 0.05s; }
-    #education .edu-grid .tech-block:nth-child(2) { transition-delay: 0.1s; }
-    #education .edu-grid .tech-block:nth-child(3) { transition-delay: 0.15s; }
-    #education .edu-grid .tech-block:nth-child(4) { transition-delay: 0.2s; }
-    #education .edu-grid .tech-block:nth-child(5) { transition-delay: 0.25s; }
-
-    #education .edu-grid .tech-tags span {
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    #education .edu-grid .tech-tags span:hover {
-      transform: scale(1.08);
-      background: rgba(59,130,246,0.2);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      #education .edu-grid .tech-block,
-      #education .edu-grid .tech-tags span {
-        transition: none !important;
-      }
-
-      #education .edu-grid .tech-block.hidden,
-      #education .edu-grid .tech-block.visible {
-        opacity: 1;
-        transform: none;
-      }
-    }
-
-    /* Portfolio final polish */
-    :root {
-      --max-w: 1180px;
-      --section-space: clamp(84px, 10vw, 120px);
-      --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    h1, h2, h3 {
-      text-wrap: balance;
-    }
-
-    p {
-      text-wrap: pretty;
-    }
-
-    body {
-      line-height: 1.68;
-    }
-
-    section {
-      max-width: var(--max-w);
-      padding: var(--section-space) clamp(1.25rem, 3vw, 2rem);
-    }
-
-    #home {
-      padding-top: calc(var(--nav-h) + 64px);
-      padding-bottom: clamp(92px, 10vw, 120px);
-    }
-
-    .section-title {
-      margin-bottom: 0.9rem;
-      max-width: 10ch;
-    }
-
-    .section-intro {
-      max-width: 760px;
-      margin: 0 0 1.6rem;
-      color: var(--text-mid);
-      font-size: clamp(1rem, 1.2vw, 1.08rem);
-      line-height: 1.82;
-    }
-
-    .section-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.85rem;
-      margin: 0 0 clamp(1.75rem, 3vw, 2.35rem);
-    }
-
-    .section-link-btn,
-    .project-action {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      min-height: 48px;
-      padding: 0.9rem 1.25rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      font-size: 0.92rem;
-      font-weight: 600;
-      transition:
-        transform 0.28s var(--ease-premium),
-        box-shadow 0.28s var(--ease-premium),
-        background 0.25s ease,
-        border-color 0.25s ease,
-        color 0.25s ease;
-    }
-
-    .section-link-btn,
-    .project-action {
-      background: linear-gradient(135deg, #0f172a 0%, #2563eb 130%);
-      color: #ffffff;
-      box-shadow: 0 16px 34px rgba(37,99,235,0.18);
-    }
-
-    .section-link-btn:hover,
-    .project-action:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 38px rgba(15,23,42,0.16);
-    }
-
-    .project-action.secondary {
-      background: rgba(255,255,255,0.72);
-      color: var(--text);
-      border-color: rgba(148,163,184,0.26);
-      box-shadow: none;
-    }
-
-    .project-action.secondary:hover {
-      background: rgba(255,255,255,0.92);
-      border-color: rgba(59,130,246,0.22);
-    }
-
-    .section-link-btn:active,
-    .project-action:active,
-    button:active {
-      transform: scale(0.98);
-    }
-
-    .glass-card,
-    .card,
-    .pcto-item,
-    .project-section {
-      transition:
-        transform 0.35s var(--ease-premium),
-        box-shadow 0.35s var(--ease-premium),
-        border-color 0.35s ease;
-    }
-
-    .glass-card:hover,
-    .card:hover,
-    .pcto-item:hover,
-    .project-section:hover {
-      transform: translateY(-4px);
-    }
-
-    .hidden {
-      opacity: 0;
-      transform: translateY(28px);
-      will-change: opacity, transform;
-    }
-
-    .show {
-      opacity: 1;
-      transform: translateY(0);
-      transition:
-        opacity 0.72s var(--ease-premium),
-        transform 0.72s var(--ease-premium),
-        box-shadow 0.35s var(--ease-premium);
-    }
-
-    .hero-photo-wrap {
-      animation: hero-photo-enter 1.15s var(--ease-premium) forwards;
-    }
-
-    .hero-text {
-      animation: hero-copy-enter 1.05s 0.08s var(--ease-premium) forwards;
-      transform: translateY(18px);
-    }
-
-    @keyframes hero-photo-enter {
-      from {
-        opacity: 0;
-        transform: translateY(24px) scale(0.97);
-        filter: blur(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-      }
-    }
-
-    @keyframes hero-copy-enter {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-        filter: blur(6px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-      }
-    }
-
-    .about-body,
-    #education .edu-grid,
-    #experience .exp-list {
-      gap: clamp(1.4rem, 2vw, 1.9rem);
-    }
-
-    .project-section {
-      max-width: 1300px;
-      margin-top: clamp(48px, 8vw, 72px);
-      padding: clamp(1.8rem, 4vw, 2.9rem);
-      border-radius: 30px;
-      overflow: hidden;
-    }
-
-    .project-section-featured {
-      background: linear-gradient(180deg, rgba(255,255,255,0.84) 0%, rgba(236,245,255,0.94) 100%);
-    }
-
-    .street-burger-section {
-      background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,247,237,0.94) 100%);
-      border-color: rgba(251,146,60,0.16);
-    }
-
-    .project-shell {
-      display: grid;
-      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-      gap: clamp(1.8rem, 4vw, 3rem);
-      align-items: start;
-    }
-
-    .project-copy,
-    .project-visual {
-      min-width: 0;
-    }
-
-    .project-copy {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .project-visual {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .project-kicker {
-      margin: 0;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.74rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .project-title-row {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .project-title-row h2 {
-      margin: 0;
-      font-size: clamp(2.1rem, 4vw, 3.15rem);
-      line-height: 1.02;
-    }
-
-    .project-brand {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      min-width: 0;
-    }
-
-    .project-brand .bb-logo {
-      margin: 0;
-      max-width: 72px;
-      padding: 8px;
-      border-radius: 20px;
-    }
-
-    .bb-logo:hover,
-    .sb-logo:hover {
-      transform: none;
-    }
-
-    .project-summary {
-      color: var(--text) !important;
-      font-size: clamp(1.02rem, 1.25vw, 1.12rem);
-      line-height: 1.84;
-    }
-
-    .project-copy p {
-      max-width: none;
-      margin-bottom: 0;
-    }
-
-    .project-copy .tag-list {
-      gap: 0.6rem;
-      margin-top: 0.15rem;
-    }
-
-    .project-highlights {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.95rem;
-      margin-top: 0.2rem;
-    }
-
-    .project-highlight {
-      padding: 1rem 1.05rem;
-      border-radius: 20px;
-      border: 1px solid rgba(148,163,184,0.18);
-      background: linear-gradient(180deg, rgba(255,255,255,0.82), rgba(248,250,252,0.96));
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.78);
-      opacity: 1;
-      transform: translateY(0);
-      transition:
-        opacity 0.55s var(--ease-premium),
-        transform 0.55s var(--ease-premium),
-        box-shadow 0.3s ease;
-    }
-
-    .project-section.hidden .project-highlight {
-      opacity: 0;
-      transform: translateY(18px);
-    }
-
-    .project-section.show .project-highlight {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .project-highlight:nth-child(1) { transition-delay: 0.05s; }
-    .project-highlight:nth-child(2) { transition-delay: 0.11s; }
-    .project-highlight:nth-child(3) { transition-delay: 0.17s; }
-    .project-highlight:nth-child(4) { transition-delay: 0.23s; }
-
-    .project-highlight:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 32px rgba(15,23,42,0.08);
-    }
-
-    .project-highlight strong {
-      display: block;
-      margin-bottom: 0.35rem;
-      color: var(--text);
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      letter-spacing: -0.02em;
-    }
-
-    .project-highlight span {
-      display: block;
-      color: var(--text-mid);
-      font-size: 0.92rem;
-      line-height: 1.65;
-    }
-
-    .project-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.85rem;
-      margin-top: 0.35rem;
-    }
-
-    .sb-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 0;
-    }
-
-    .sb-header h2 {
-      margin-bottom: 0;
-    }
-
-    .sb-logo {
-      max-width: 68px;
-      height: auto;
-      flex-shrink: 0;
-    }
-
-    .preview-label {
-      margin: 0 0 0.65rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.76rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      opacity: 1;
-    }
-
-    .sb-preview,
-    .project-site-preview {
-      margin-top: 0;
-      border-radius: 24px;
-      overflow: hidden;
-      border: 1px solid rgba(148,163,184,0.22);
-      background: rgba(255,255,255,0.9);
-      box-shadow: 0 24px 60px rgba(15,23,42,0.12);
-    }
-
-    .sb-preview-bar,
-    .project-site-preview-bar {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      padding: 0.9rem 1rem;
-      background: linear-gradient(180deg, rgba(248,250,252,0.98), rgba(241,245,249,0.92));
-      border-bottom: 1px solid rgba(148,163,184,0.18);
-    }
-
-    .sb-preview-dots,
-    .project-site-preview-dots {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      flex-shrink: 0;
-    }
-
-    .sb-preview-dots span,
-    .project-site-preview-dots span {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      display: block;
-    }
-
-    .sb-preview-dots span:nth-child(1),
-    .project-site-preview-dots span:nth-child(1) { background: #fb7185; }
-
-    .sb-preview-dots span:nth-child(2),
-    .project-site-preview-dots span:nth-child(2) { background: #f59e0b; }
-
-    .sb-preview-dots span:nth-child(3),
-    .project-site-preview-dots span:nth-child(3) { background: #22c55e; }
-
-    .sb-preview-url,
-    .project-site-preview-url {
-      min-width: 0;
-      flex: 1;
-      padding: 0.55rem 0.9rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.2);
-      background: rgba(255,255,255,0.88);
-      color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .sb-preview-window,
-    .project-site-preview-window {
-      position: relative;
-      background: #ffffff;
-      min-height: 0;
-      aspect-ratio: auto;
-    }
-
-    .sb-preview iframe,
-    .project-site-preview iframe {
-      border: none;
-      background: #ffffff;
-    }
-
-    .iframe-container {
-      width: 100%;
-      max-width: none;
-      margin: 0;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 22px 48px rgba(2,6,23,0.16);
-      background: linear-gradient(180deg, #0f172a, #020617);
-      padding: 10px;
-      min-height: 0;
-    }
-
-    .iframe-container iframe {
-      position: static;
-      inset: auto;
-      display: block;
-      width: 100%;
-      height: clamp(520px, 56vw, 720px);
-      border: none;
-      border-radius: 16px;
-      background: #ffffff;
-    }
-
-    .bb-gallery {
-      margin-top: 0.2rem;
-    }
-
-    .bb-gallery img {
-      width: 100%;
-      max-width: none;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      border-radius: 20px;
-      border: 1px solid rgba(148,163,184,0.16);
-      background: rgba(255,255,255,0.9);
-      padding: 0.35rem;
-      box-shadow: 0 18px 36px rgba(15,23,42,0.08);
-    }
-
-    @media (max-width: 980px) {
-      .project-shell {
-        grid-template-columns: 1fr;
-        gap: 1.75rem;
-      }
-
-      .project-highlights {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .section-intro {
-        margin-bottom: 1.35rem;
-      }
-
-      .section-actions,
-      .project-actions {
-        justify-content: center;
-      }
-
-      .project-section {
-        padding: 1.4rem;
-        border-radius: 24px;
-      }
-
-      .project-title-row,
-      .project-brand,
-      .sb-header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .project-brand .bb-logo,
-      .sb-logo {
-        max-width: 64px;
-      }
-
-      .sb-preview,
-      .project-site-preview,
-      .iframe-container {
-        border-radius: 20px;
-      }
-
-      .sb-preview-bar,
-      .project-site-preview-bar {
-        gap: 0.7rem;
-        padding: 0.8rem;
-      }
-
-      .sb-preview-url,
-      .project-site-preview-url {
-        font-size: 0.68rem;
-        padding: 0.5rem 0.75rem;
-      }
-
-      .iframe-container {
-        padding: 8px;
-      }
-
-      .iframe-container iframe {
-        height: clamp(420px, 92vw, 560px);
-      }
-
-      .bb-gallery img {
-        aspect-ratio: 4 / 3;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .section-link-btn,
-      .project-action {
-        width: 100%;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hidden,
-      .show,
-      .card,
-      .pcto-item,
-      .project-section,
-      .project-highlight,
-      .section-link-btn,
-      .project-action,
-      button {
-        transition: none !important;
-      }
-
-      .hero-photo-wrap,
-      .hero-text {
-        animation: none !important;
-        opacity: 1;
-        transform: none;
-        filter: none;
-      }
-
-      .hidden {
-        opacity: 1;
-        transform: none;
-      }
-
-      .card:hover,
-      .pcto-item:hover,
-      .project-section:hover,
-      .project-highlight:hover,
-      .section-link-btn:hover,
-      .project-action:hover,
-      button:hover,
-      button:active {
-        transform: none;
-      }
-    }
   </style>
-
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════
-       NAVIGAZIONE
-  ══════════════════════════════════════════ -->
-
+  <!-- NAVIGAZIONE -->
   <nav id="navbar">
     <a href="#home" class="nav-logo">AR<span>.</span></a>
 
-<ul class="nav-links" id="navLinks">
-  <li><a href="#home">Home</a></li>
-  <li><a href="#about">Chi sono</a></li>
-  <li><a href="#education">Formazione</a></li>
-  <li><a href="#experience">Esperienze</a></li>
-  <li><a href="#contact">Contatti</a></li>
-</ul>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">Chi sono</a></li>
+      <li><a href="#education">Formazione</a></li>
+      <li><a href="#experience">Esperienze</a></li>
+      <li><a href="#projects">Progetti</a></li>
+      <li><a href="#contact">Contatti</a></li>
+    </ul>
 
-<button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <line x1="3" y1="6"  x2="21" y2="6"/>
-    <line x1="3" y1="12" x2="21" y2="12"/>
-    <line x1="3" y1="18" x2="21" y2="18"/>
-  </svg>
-</button>
-
+    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6"  x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
   </nav>
 
-  <!-- ═══════════════════════════════════════
-       1 — HERO
-  ══════════════════════════════════════════ -->
 
+  <!-- 1 — HERO -->
   <section id="home">
     <div class="hero-glow"></div>
     <div class="hero-glow-2"></div>
 
-<div class="hero-content">
-  <div class="hero-photo-wrap">
-    <div class="hero-photo">
-      <img src="images/foto_andrea_portfolio.jpg" alt="Andrea Rizzo" />
+    <div class="hero-content">
+      <div class="hero-photo-wrap">
+        <div class="hero-photo">
+          <img src="images/foto_andrea_portfolio.jpg" alt="Andrea Rizzo" />
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <div class="hero-tag">
+          Studente Tecnico &nbsp;·&nbsp; Maturità 2026
+        </div>
+        <h1 class="hero-name">
+          <span class="gradient-text">Andrea Rizzo</span>
+        </h1>
+        <p class="hero-tagline">
+          Curiosità, tecnica e sport — il mio modo di stare al mondo.
+        </p>
+        <p class="hero-desc">
+          // Portfolio digitale — formazione tecnica, esperienze e progetti personali
+        </p>
+        <a href="#about" class="hero-cta">
+          Scopri il mio percorso
+          <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </a>
+      </div>
     </div>
-  </div>
 
-  <div class="hero-text">
-    <div class="hero-tag">
-      Studente Tecnico &nbsp;·&nbsp; Maturità 2026
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>scorri</span>
     </div>
-
-    <h1 class="hero-name">
-      <span class="gradient-text">Andrea Rizzo</span>
-    </h1>
-
-    <p class="hero-tagline">
-      Curiosità, tecnica e sport — il mio modo di stare al mondo.
-    </p>
-
-    <p class="hero-desc">
-      // Portfolio digitale — formazione tecnica, esperienze e progetti personali
-    </p>
-
-    <a href="#about" class="hero-cta">
-      Scopri il mio percorso
-      <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <polyline points="6 9 12 15 18 9"/>
-      </svg>
-    </a>
-  </div>
-</div>
-
-<div class="hero-scroll">
-  <div class="scroll-line"></div>
-  <span>scorri</span>
-</div>
-
   </section>
 
   <div class="divider"></div>
 
-  <!-- ═══════════════════════════════════════
-       2 — CHI SONO
-  ══════════════════════════════════════════ -->
 
+  <!-- 2 — CHI SONO -->
   <section id="about">
     <p class="section-label" data-aos="fade-right">Chi sono</p>
     <h2 class="section-title" data-aos="fade-up">Chi sono</h2>
-    <p class="section-intro" data-aos="fade-up" data-aos-delay="60">
-      Un percorso costruito tra curiosita tecnica, disciplina sportiva e voglia di trasformare la teoria in competenze utili nel mondo reale.
-    </p>
-    <div class="section-actions" data-aos="fade-up" data-aos-delay="90">
-      <a href="#education" class="section-link-btn">Vedi la formazione tecnica</a>
+
+    <div class="about-body">
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+        <p class="card-eyebrow">// Informatica &amp; Elettronica</p>
+        <p class="card-title">Una passione nata da subito</p>
+        <p class="card-text">
+          Curiosità per circuiti e codice fin da bambino: ho scelto il percorso tecnico
+          per capire davvero <em>come</em> funziona ciò che usiamo ogni giorno. Oggi studio
+          programmazione, automazione e AI perché credo che saper collaborare con queste
+          tecnologie sia la skill chiave del futuro — e voglio esserci da protagonista.
+        </p>
+      </div>
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="160">
+        <p class="card-eyebrow">// Sport &amp; Benessere</p>
+        <p class="card-title">Lo sport come stile di vita</p>
+        <p class="card-text">
+          Pratico calcio da sempre e lo sport è parte integrante di chi sono.
+          Mi ha insegnato disciplina, spirito di squadra e la capacità di rialzarsi
+          dopo una sconfitta — valori che porto con me anche nello studio e nei progetti.
+          Il benessere fisico e mentale è la mia priorità: un equilibrio sano
+          tra impegno, passione e vita è ciò che mi permette di dare il massimo
+          in tutto quello che faccio.
+        </p>
+      </div>
+
     </div>
-
-<div class="about-body">
-
-  <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
-    <p class="card-eyebrow">// Informatica &amp; Elettronica</p>
-    <p class="card-title">Una passione nata da subito</p>
-    <p class="card-text">
-      Curiosità per circuiti e codice fin da bambino: ho scelto il percorso tecnico
-      per capire davvero <em>come</em> funziona ciò che usiamo ogni giorno. Oggi studio
-      programmazione, automazione e AI perché credo che saper collaborare con queste
-      tecnologie sia la skill chiave del futuro — e voglio esserci da protagonista.
-    </p>
-  </div>
-
-  <div class="glass-card" data-aos="fade-up" data-aos-delay="160">
-    <p class="card-eyebrow">// Sport &amp; Benessere</p>
-    <p class="card-title">Lo sport come stile di vita</p>
-    <p class="card-text">
-      Pratico calcio da sempre e lo sport è parte integrante di chi sono.
-      Mi ha insegnato disciplina, spirito di squadra e la capacità di rialzarsi
-      dopo una sconfitta — valori che porto con me anche nello studio e nei progetti.
-      Il benessere fisico e mentale è la mia priorità: un equilibrio sano
-      tra impegno, passione e vita è ciò che mi permette di dare il massimo
-      in tutto quello che faccio.
-    </p>
-  </div>
-
-</div>
-
   </section>
 
   <div class="divider"></div>
 
-  <!-- ═══════════════════════════════════════
-       3 — FORMAZIONE TECNICA
-  ══════════════════════════════════════════ -->
 
+  <!-- 3 — FORMAZIONE TECNICA -->
   <section id="education">
     <p class="section-label" data-aos="fade-right">Formazione</p>
     <h2 class="section-title" data-aos="fade-up">Formazione<br>Tecnica</h2>
-    <p class="section-intro" data-aos="fade-up" data-aos-delay="60">
-      Automazione, software, sistemi e robotica: una base tecnica ampia, sviluppata con attenzione sia alla comprensione teorica sia all'applicazione pratica.
-    </p>
-    <div class="section-actions" data-aos="fade-up" data-aos-delay="90">
-      <a href="#experience" class="section-link-btn">Scopri le esperienze sul campo</a>
+
+    <div class="edu-grid">
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+        <p class="card-eyebrow">⚙️ &nbsp;Automazione e Controllo</p>
+        <p class="card-title">Sistemi Industriali</p>
+        <p class="card-text">Studio dei sistemi automatizzati, della logica di controllo e dei fondamenti dei processi industriali applicati a scenari ingegneristici reali.</p>
+        <div class="tag-list">
+          <span class="tag">PLC</span>
+          <span class="tag">Logica di Controllo</span>
+          <span class="tag">Automation</span>
+        </div>
+      </div>
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
+        <p class="card-eyebrow">💻 &nbsp;Programmazione</p>
+        <p class="card-title">Sviluppo Software</p>
+        <p class="card-text">Programmazione applicata con approcci strutturati e orientati agli oggetti, dal C di basso livello allo scripting con Python.</p>
+        <div class="tag-list">
+          <span class="tag">C / C++</span>
+          <span class="tag">Python</span>
+          <span class="tag">OOP</span>
+          <span class="tag">Algoritmi</span>
+        </div>
+      </div>
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
+        <p class="card-eyebrow">🖥️ &nbsp;Sistemi Informatici</p>
+        <p class="card-title">Reti e Sistemi Operativi</p>
+        <p class="card-text">Architettura dei sistemi di calcolo, protocolli di rete, ambienti operativi e nozioni fondamentali di amministrazione di sistema.</p>
+        <div class="tag-list">
+          <span class="tag">Linux</span>
+          <span class="tag">Networking</span>
+          <span class="tag">SQL</span>
+        </div>
+      </div>
+
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
+        <p class="card-eyebrow">🤖 &nbsp;Robotica</p>
+        <p class="card-title">Robotica Industriale</p>
+        <p class="card-text">Introduzione ai principi della robotica, alla cinematica e agli ambienti di simulazione industriale, con formazione pratica e certificazioni ABB.</p>
+        <div class="tag-list">
+          <span class="tag">RobotStudio</span>
+          <span class="tag">Cinematica</span>
+          <span class="tag">ABB</span>
+        </div>
+      </div>
+
     </div>
-
-<div class="edu-grid">
-
-  <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
-    <p class="card-eyebrow">⚙️ &nbsp;Automazione e Controllo</p>
-    <p class="card-title">Sistemi Industriali</p>
-    <p class="card-text">Studio dei sistemi automatizzati, della logica di controllo e dei fondamenti dei processi industriali applicati a scenari ingegneristici reali.</p>
-    <div class="tag-list">
-      <span class="tag">PLC</span>
-      <span class="tag">Logica di Controllo</span>
-      <span class="tag">Automation</span>
-    </div>
-  </div>
-
-  <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
-    <p class="card-eyebrow">💻 &nbsp;Programmazione</p>
-    <p class="card-title">Sviluppo Software</p>
-    <p class="card-text">Programmazione applicata con approcci strutturati e orientati agli oggetti, dal C di basso livello allo scripting con Python.</p>
-    <div class="tag-list">
-      <span class="tag">C / C++</span>
-      <span class="tag">Python</span>
-      <span class="tag">OOP</span>
-      <span class="tag">Algoritmi</span>
-    </div>
-  </div>
-
-  <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
-    <p class="card-eyebrow">🖥️ &nbsp;Sistemi Informatici</p>
-    <p class="card-title">Reti e Sistemi Operativi</p>
-    <p class="card-text">Architettura dei sistemi di calcolo, protocolli di rete, ambienti operativi e nozioni fondamentali di amministrazione di sistema.</p>
-    <div class="tag-list">
-      <span class="tag">Linux</span>
-      <span class="tag">Networking</span>
-      <span class="tag">SQL</span>
-    </div>
-  </div>
-
-  <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
-    <p class="card-eyebrow">🤖 &nbsp;Robotica</p>
-    <p class="card-title">Robotica Industriale</p>
-    <p class="card-text">Introduzione ai principi della robotica, alla cinematica e agli ambienti di simulazione industriale, con formazione pratica e certificazioni ABB.</p>
-    <div class="tag-list">
-      <span class="tag">RobotStudio</span>
-      <span class="tag">Cinematica</span>
-      <span class="tag">ABB</span>
-    </div>
-  </div>
-
-</div>
-
   </section>
 
   <div class="divider"></div>
 
-  <!-- ═══════════════════════════════════════
-       4 — ESPERIENZE PCTO
-  ══════════════════════════════════════════ -->
 
+  <!-- 4 — ESPERIENZE PCTO -->
   <section id="experience">
     <p class="section-label" data-aos="fade-right">Esperienze</p>
     <h2 class="section-title" data-aos="fade-up">Esperienze<br>PCTO</h2>
-    <p class="section-intro" data-aos="fade-up" data-aos-delay="60">
-      Esperienze formative che mi hanno portato fuori dall'aula, tra aziende, certificazioni e contesti internazionali dove metodo, responsabilita e adattabilita contano davvero.
-    </p>
-    <div class="section-actions" data-aos="fade-up" data-aos-delay="90">
-      <a href="#projects" class="section-link-btn">Guarda i progetti digitali</a>
-    </div>
 
-<div class="exp-list">
+    <div class="exp-list">
 
-  <!-- ABB RobotStudio -->
-  <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
-    <div class="exp-inner">
-      <div class="exp-timeline">
-        <div class="exp-dot"></div>
-        <div class="exp-line"></div>
-      </div>
-      <div>
-        <img src="images/logo_abb.png" alt="ABB" class="exp-logo" />
-        <p class="card-eyebrow">Certificazioni ufficiali ABB</p>
-        <h3 class="exp-company">ABB RobotStudio</h3>
-        <p class="card-text" style="margin-bottom:1rem;">
-          Ho conseguito due certificazioni ufficiali rilasciate da ABB per l'utilizzo di RobotStudio,
-          il software leader nel settore per la simulazione e la programmazione offline di robot industriali.
-          Il percorso formativo si è articolato in due livelli progressivi, ciascuno con obiettivi e contenuti distinti.
-        </p>
-        <div class="challenge-block">
-          <p class="challenge-label">// Certificazione Base</p>
-          <p class="challenge-text">Il modulo base ha introdotto i fondamenti della simulazione robotica industriale: interfaccia del software, creazione e configurazione di stazioni virtuali, importazione di componenti CAD e programmazione di traiettorie elementari. Ho imparato a muovermi nell'ambiente di lavoro di RobotStudio e a comprendere la struttura logica di un programma robotico.</p>
-        </div>
-        <div class="challenge-block alt">
-          <p class="challenge-label">// Certificazione Advanced</p>
-          <p class="challenge-text">Il modulo avanzato ha approfondito la logica di programmazione RAPID, la gestione degli eventi di sistema, la simulazione di flussi di lavoro industriali complessi e l'ottimizzazione dei percorsi. Questo livello ha permesso di avvicinarsi concretamente alla programmazione robotica applicata a contesti produttivi reali, rafforzando la comprensione del legame tra cinematica teorica e movimento fisico del robot.</p>
-        </div>
-        <div class="challenge-block">
-          <p class="challenge-label">// Teoria → Pratica</p>
-          <p class="challenge-text">Le equazioni di cinematica studiate in classe si sono trasformate in movimenti reali del robot all'interno del simulatore — validando la logica di programmazione prima di qualsiasi installazione fisica.</p>
-        </div>
-        <div class="tag-list">
-          <span class="cert-badge">RobotStudio Base</span>
-          <span class="cert-badge">RobotStudio Advanced</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Comune di Civita Castellana -->
-  <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
-    <div class="exp-inner">
-      <div class="exp-timeline">
-        <div class="exp-dot"></div>
-        <div class="exp-line"></div>
-      </div>
-      <div>
-        <img src="images/logo_comune.png" alt="Comune di Civita Castellana" class="exp-logo comune-logo" style="height:72px; max-width:220px;" />
-        <p class="card-eyebrow">Luglio – Agosto 2024</p>
-        <h3 class="exp-company">Comune di Civita Castellana</h3>
-        <p class="card-text" style="margin-bottom:1rem;">
-          Ho svolto un'esperienza PCTO presso il Comune di Civita Castellana, un ente pubblico locale
-          che gestisce servizi amministrativi, sociali e tecnici per il territorio.
-          È stata la mia prima esposizione a un ambiente lavorativo strutturato e formale,
-          molto diverso dal contesto scolastico.
-        </p>
-        <div class="challenge-block">
-          <p class="challenge-label">// Attività svolte</p>
-          <p class="challenge-text">Ho affiancato il personale degli uffici nell'organizzazione e archiviazione di documenti, nella gestione di pratiche amministrative e nel supporto alle attività operative quotidiane. Ho avuto modo di osservare come i diversi uffici collaborino tra loro e come vengano gestiti i flussi di comunicazione interna.</p>
-        </div>
-        <div class="challenge-block alt">
-          <p class="challenge-label">// Cosa ho imparato</p>
-          <p class="challenge-text">L'esperienza mi ha permesso di sviluppare senso di responsabilità, puntualità e capacità di lavorare all'interno di una struttura organizzativa definita. Ho anche compreso come la digitalizzazione dei processi sia sempre più centrale anche nella pubblica amministrazione, e quanto sia importante la comunicazione chiara in un contesto professionale.</p>
-        </div>
-        <div class="tag-list">
-          <span class="tag">Pubblica Amministrazione</span>
-          <span class="tag">Organizzazione</span>
-          <span class="tag">Comunicazione</span>
-          <span class="tag">Digitalizzazione</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="glass-card" data-aos="fade-up" data-aos-delay="160">
-    <div class="exp-inner">
-      <div class="exp-timeline">
-        <div class="exp-dot"></div>
-        <div class="exp-line"></div>
-      </div>
-      <div>
-        <p class="card-eyebrow">Esperienza internazionale</p>
-        <h3 class="exp-company">Erasmus PCTO – Dublino</h3>
-        <p class="pcto-period">Dicembre 2024 (1° dicembre – metà dicembre)</p>
-        <p class="card-text" style="margin-bottom:1rem;">
-          Esperienza formativa svolta nell'ambito del progetto Erasmus PCTO, della durata di circa due settimane, dal 1° dicembre a metà dicembre 2024.
-          Durante questo periodo ho soggiornato presso una host house situata a Port Marnock, una località costiera vicino Dublino, vivendo così un'esperienza immersiva all'interno della cultura locale.
-          Ho frequentato una scuola di lingua inglese, migliorando significativamente le mie competenze linguistiche grazie a un contesto reale e quotidiano.
-          Questa esperienza mi ha permesso non solo di potenziare la conoscenza della lingua inglese, ma anche di sviluppare una maggiore autonomia personale, adattabilità e apertura verso nuove culture e tradizioni.
-        </p>
-        <div class="pcto-gallery">
-          <img src="images/image_1.jpg" alt="Erasmus Dublino 1">
-          <img src="images/image_2.jpg" alt="Erasmus Dublino 2">
-          <img src="images/image_3.jpg" alt="Erasmus Dublino 3">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CGT Elettronica -->
-  <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
-    <div class="exp-inner">
-      <div class="exp-timeline">
-        <div class="exp-dot"></div>
-        <div class="exp-line"></div>
-      </div>
-      <div>
-        <img src="images/logo_cgt_elettronica.png" alt="CGT Elettronica" class="exp-logo" />
-        <p class="card-eyebrow">Febbraio · 1 settimana &nbsp;·&nbsp; Viterbo / Roma</p>
-        <h3 class="exp-company">CGT Elettronica</h3>
-        <p class="card-text" style="margin-bottom:1rem;">
-          Ho effettuato uno stage presso CGT Elettronica, un'azienda operante nel settore
-          dell'elettronica e dei sistemi tecnici, con clientela sia nel territorio di Viterbo
-          che nell'area romana. L'ambiente lavorativo era tecnico e dinamico, con personale
-          specializzato in elettronica applicata e manutenzione di sistemi.
-        </p>
-        <div class="challenge-block">
-          <p class="challenge-label">// Attività osservate e svolte</p>
-          <p class="challenge-text">Durante la settimana ho avuto l'opportunità di osservare da vicino i flussi di lavoro tecnici dell'azienda: dalla gestione e diagnosi di componenti elettronici, all'organizzazione delle commesse, fino all'interazione con i clienti in un contesto professionale strutturato. Ho assistito a operazioni di test e verifica su sistemi elettronici, comprendendo come le competenze tecniche si integrino con quelle organizzative in un'azienda reale.</p>
-        </div>
-        <div class="challenge-block alt">
-          <p class="challenge-label">// Cosa ho imparato</p>
-          <p class="challenge-text">L'esperienza mi ha dato una prospettiva concreta su come funziona un'azienda tecnica dall'interno. Ho capito che le competenze acquisite a scuola — elettronica, sistemi, logica — trovano applicazione diretta nel mondo del lavoro, ma richiedono anche capacità trasversali come precisione, attenzione al dettaglio e saper lavorare in team.</p>
-        </div>
-        <div class="tag-list">
-          <span class="tag">Elettronica</span>
-          <span class="tag">Sistemi Tecnici</span>
-          <span class="tag">Diagnostica</span>
-          <span class="tag">Ambiente Professionale</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Orientamento Universitario -->
-  <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
-    <div class="exp-inner">
-      <div class="exp-timeline">
-        <div class="exp-dot"></div>
-      </div>
-      <div>
-        <p class="card-eyebrow">2023 – 2025</p>
-        <h3 class="exp-company">Orientamento Universitario</h3>
-        <p class="card-text">
-          Partecipazione a diverse attività di orientamento focalizzate su università, percorsi di carriera
-          e opportunità di formazione tecnica — acquisendo consapevolezza dei percorsi accademici
-          in ingegneria e informatica.
-        </p>
-        <div class="tag-list">
-          <span class="tag">Università</span>
-          <span class="tag">Orientamento</span>
-          <span class="tag">Ingegneria</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-  </section>
-
-  <section id="projects" class="project-section project-section-featured">
-    <div class="project-shell">
-      <div class="project-copy">
-        <p class="project-kicker">Prodotto AI per lo studio</p>
-        <div class="project-title-row">
-          <div class="project-brand">
-            <img src="images/logo_brainybuddy.jpg" alt="BrainyBuddy Logo" class="bb-logo">
-            <h2 class="brainybuddy-title">BrainyBuddy AI</h2>
+      <!-- ABB RobotStudio -->
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="exp-inner">
+          <div class="exp-timeline">
+            <div class="exp-dot"></div>
+            <div class="exp-line"></div>
           </div>
-        </div>
-
-        <p class="project-summary">
-          BrainyBuddy AI e un assistente allo studio progettato come un vero prodotto digitale: aiuta a comprendere, organizzare e ripassare contenuti con un'esperienza piu guidata, chiara e utile di un chatbot tradizionale.
-        </p>
-
-        <p>
-          Ogni risposta viene strutturata in sezioni didattiche ben definite, come riassunto, concetti chiave, domande di studio e azioni consigliate, trasformando l'intelligenza artificiale in uno strumento di apprendimento attivo.
-        </p>
-
-        <p>
-          Il sistema utilizza workflow automatizzati con n8n e una logica multi-modello AI per migliorare disponibilita, qualita delle risposte e gestione delle richieste in modo piu scalabile.
-        </p>
-
-        <div class="project-highlights">
-          <article class="project-highlight">
-            <strong>Output strutturati</strong>
-            <span>Risposte organizzate per studiare meglio, non solo per leggere piu velocemente.</span>
-          </article>
-          <article class="project-highlight">
-            <strong>Workflow n8n</strong>
-            <span>Automazioni utili per orchestrare i passaggi e rendere il flusso piu affidabile.</span>
-          </article>
-          <article class="project-highlight">
-            <strong>Multi-modello AI</strong>
-            <span>Architettura pensata per bilanciare disponibilita, performance e qualita dell'output.</span>
-          </article>
-          <article class="project-highlight">
-            <strong>Studio guidato</strong>
-            <span>Esperienza pensata per accompagnare lo studente, non solo per rispondere a una domanda.</span>
-          </article>
-        </div>
-
-        <div class="tag-list">
-          <span class="tag">Risposte strutturate</span>
-          <span class="tag">Concetti chiave</span>
-          <span class="tag">Verifica automatica</span>
-          <span class="tag">Studio guidato</span>
-          <span class="tag">Multi-modello AI</span>
-        </div>
-
-        <div class="project-actions">
-          <a href="https://brainybuddy-ai.vercel.app/#" class="project-action" target="_blank" rel="noreferrer">Apri la piattaforma</a>
-          <a href="#contact" class="project-action secondary">Parliamone</a>
-        </div>
-      </div>
-
-      <div class="project-visual">
-        <p class="preview-label">Anteprima del prodotto</p>
-        <div class="project-site-preview">
-          <div class="project-site-preview-bar">
-            <div class="project-site-preview-dots" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
+          <div>
+            <img src="images/logo_abb.png" alt="ABB" class="exp-logo" />
+            <p class="card-eyebrow">Certificazioni ufficiali ABB</p>
+            <h3 class="exp-company">ABB RobotStudio</h3>
+            <p class="card-text" style="margin-bottom:1rem;">
+              Ho conseguito due certificazioni ufficiali rilasciate da ABB per l'utilizzo di RobotStudio,
+              il software leader nel settore per la simulazione e la programmazione offline di robot industriali.
+              Il percorso formativo si è articolato in due livelli progressivi, ciascuno con obiettivi e contenuti distinti.
+            </p>
+            <div class="challenge-block">
+              <p class="challenge-label">// Certificazione Base</p>
+              <p class="challenge-text">Il modulo base ha introdotto i fondamenti della simulazione robotica industriale: interfaccia del software, creazione e configurazione di stazioni virtuali, importazione di componenti CAD e programmazione di traiettorie elementari.</p>
             </div>
-            <span class="project-site-preview-url">brainybuddy-ai.vercel.app</span>
-          </div>
-          <div class="project-site-preview-window iframe-container">
-            <iframe
-              src="https://brainybuddy-ai.vercel.app/#"
-              title="Anteprima sito BrainyBuddy AI"
-              loading="lazy"
-              referrerpolicy="strict-origin-when-cross-origin">
-            </iframe>
-          </div>
-        </div>
-
-        <div class="bb-gallery">
-          <img src="images/home_brainybuddy.jpg" alt="Anteprima Home BrainyBuddy">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="project-section street-burger-section">
-    <div class="project-shell">
-      <div class="project-copy">
-        <p class="project-kicker">Case study web e brand experience</p>
-        <div class="project-title-row sb-header">
-          <h2>Street Burger &ndash; Progetto Web</h2>
-          <img src="images/streetburger-logo.png" alt="Street Burger Logo" class="sb-logo" loading="lazy" onerror="this.style.display='none'">
-        </div>
-
-        <p class="project-summary">
-          Un progetto di presentazione digitale pensato per valorizzare identita, atmosfera e offerta di Street Burger con un linguaggio visivo piu contemporaneo e orientato alla conversione.
-        </p>
-
-        <div class="project-highlights">
-          <article class="project-highlight">
-            <strong>Brand showcase</strong>
-            <span>Gerarchia visiva e tono grafico costruiti per rendere il brand subito riconoscibile.</span>
-          </article>
-          <article class="project-highlight">
-            <strong>Responsive first</strong>
-            <span>Layout leggibile e coerente su desktop e smartphone, senza perdere impatto visivo.</span>
-          </article>
-          <article class="project-highlight">
-            <strong>Menu e CTA</strong>
-            <span>Contenuti pensati per mettere in evidenza prodotti, punti forti e inviti all'azione.</span>
-          </article>
-          <article class="project-highlight">
-            <strong>Case study reale</strong>
-            <span>Un esempio concreto di come design, ritmo e chiarezza migliorano la percezione del progetto.</span>
-          </article>
-        </div>
-
-        <div class="tag-list">
-          <span class="tag">Brand identity</span>
-          <span class="tag">Responsive UI</span>
-          <span class="tag">Menu showcase</span>
-          <span class="tag">UX food web</span>
-        </div>
-
-        <div class="project-actions">
-          <a href="https://streetburger-fastfood.vercel.app/" class="project-action" target="_blank" rel="noreferrer">Apri sito completo</a>
-          <a href="#contact" class="project-action secondary">Richiedi un progetto</a>
-        </div>
-      </div>
-
-      <div class="project-visual">
-        <p class="preview-label">Anteprima del sito live</p>
-        <div class="sb-preview">
-          <div class="sb-preview-bar">
-            <div class="sb-preview-dots" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
+            <div class="challenge-block alt">
+              <p class="challenge-label">// Certificazione Advanced</p>
+              <p class="challenge-text">Il modulo avanzato ha approfondito la logica di programmazione RAPID, la gestione degli eventi di sistema, la simulazione di flussi di lavoro industriali complessi e l'ottimizzazione dei percorsi.</p>
             </div>
-            <span class="sb-preview-url">streetburger-fastfood.vercel.app</span>
-          </div>
-          <div class="sb-preview-window iframe-container">
-            <iframe
-              src="https://streetburger-fastfood.vercel.app/"
-              title="Anteprima sito Street Burger"
-              loading="lazy"
-              referrerpolicy="strict-origin-when-cross-origin">
-            </iframe>
+            <div class="challenge-block">
+              <p class="challenge-label">// Teoria → Pratica</p>
+              <p class="challenge-text">Le equazioni di cinematica studiate in classe si sono trasformate in movimenti reali del robot all'interno del simulatore — validando la logica di programmazione prima di qualsiasi installazione fisica.</p>
+            </div>
+            <div class="tag-list">
+              <span class="cert-badge">RobotStudio Base</span>
+              <span class="cert-badge">RobotStudio Advanced</span>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Comune di Civita Castellana -->
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
+        <div class="exp-inner">
+          <div class="exp-timeline">
+            <div class="exp-dot"></div>
+            <div class="exp-line"></div>
+          </div>
+          <div>
+            <img src="images/logo_comune.png" alt="Comune di Civita Castellana" class="exp-logo" style="height:72px; max-width:220px;" />
+            <p class="card-eyebrow">Luglio – Agosto 2024</p>
+            <h3 class="exp-company">Comune di Civita Castellana</h3>
+            <p class="card-text" style="margin-bottom:1rem;">
+              Ho svolto un'esperienza PCTO presso il Comune di Civita Castellana, un ente pubblico locale
+              che gestisce servizi amministrativi, sociali e tecnici per il territorio.
+              È stata la mia prima esposizione a un ambiente lavorativo strutturato e formale,
+              molto diverso dal contesto scolastico.
+            </p>
+            <div class="challenge-block">
+              <p class="challenge-label">// Attività svolte</p>
+              <p class="challenge-text">Ho affiancato il personale degli uffici nell'organizzazione e archiviazione di documenti, nella gestione di pratiche amministrative e nel supporto alle attività operative quotidiane.</p>
+            </div>
+            <div class="challenge-block alt">
+              <p class="challenge-label">// Cosa ho imparato</p>
+              <p class="challenge-text">L'esperienza mi ha permesso di sviluppare senso di responsabilità, puntualità e capacità di lavorare all'interno di una struttura organizzativa definita.</p>
+            </div>
+            <div class="tag-list">
+              <span class="tag">Pubblica Amministrazione</span>
+              <span class="tag">Organizzazione</span>
+              <span class="tag">Comunicazione</span>
+              <span class="tag">Digitalizzazione</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Erasmus PCTO – Dublino -->
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="exp-inner">
+          <div class="exp-timeline">
+            <div class="exp-dot"></div>
+            <div class="exp-line"></div>
+          </div>
+          <div>
+            <p class="card-eyebrow">Dicembre 2024 · 2 settimane &nbsp;·&nbsp; Dublino, Irlanda ☘️</p>
+            <h3 class="exp-company">Erasmus PCTO – Dublino</h3>
+            <p class="card-text" style="margin-bottom:1rem;">
+              Esperienza formativa svolta nell'ambito del progetto Erasmus PCTO, della durata di circa due settimane,
+              dal 1° dicembre a metà dicembre 2024. Ho soggiornato presso una host house a Port Marnock,
+              una località costiera vicino Dublino, frequentando una scuola di lingua inglese
+              e vivendo un'esperienza completamente immersiva nella cultura locale.
+            </p>
+            <div class="challenge-block">
+              <p class="challenge-label">// Contesto e attività</p>
+              <p class="challenge-text">Ho partecipato a corsi di lingua inglese in una scuola internazionale, interagendo con studenti da tutta Europa. La convivenza in famiglia ospitante ha rafforzato la mia autonomia e adattabilità in contesti nuovi.</p>
+            </div>
+            <div class="challenge-block alt">
+              <p class="challenge-label">// Cosa ho portato a casa</p>
+              <p class="challenge-text">Un miglioramento concreto della lingua inglese, una visione più internazionale del mondo del lavoro e la consapevolezza che saper navigare contesti culturali diversi è una competenza fondamentale.</p>
+            </div>
+            <!--
+              Foto Dublino: sostituire i percorsi con quelli reali
+              es. src="images/dublino1.jpg"
+            -->
+            <div class="pcto-gallery">
+              <img src="images/dublino1.jpg" alt="Erasmus Dublino 1" />
+              <img src="images/dublino2.jpg" alt="Erasmus Dublino 2" />
+              <img src="images/dublino3.jpg" alt="Erasmus Dublino 3" />
+            </div>
+            <div class="tag-list" style="margin-top:1rem;">
+              <span class="tag">Erasmus+</span>
+              <span class="tag">Dublino</span>
+              <span class="tag">Lingua Inglese</span>
+              <span class="tag">Internazionale</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CGT Elettronica -->
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
+        <div class="exp-inner">
+          <div class="exp-timeline">
+            <div class="exp-dot"></div>
+            <div class="exp-line"></div>
+          </div>
+          <div>
+            <img src="images/logo_cgt_elettronica.png" alt="CGT Elettronica" class="exp-logo" />
+            <p class="card-eyebrow">Febbraio 2026 &nbsp;·&nbsp; Viterbo / Roma</p>
+            <h3 class="exp-company">CGT Elettronica</h3>
+            <p class="card-text" style="margin-bottom:1rem;">
+              Ho effettuato uno stage presso CGT Elettronica, un'azienda operante nel settore
+              dell'elettronica e dei sistemi tecnici, con clientela sia nel territorio di Viterbo
+              che nell'area romana. L'ambiente lavorativo era tecnico e dinamico, con personale
+              specializzato in elettronica applicata e manutenzione di sistemi.
+            </p>
+            <div class="challenge-block">
+              <p class="challenge-label">// Attività osservate e svolte</p>
+              <p class="challenge-text">Durante la settimana ho osservato i flussi di lavoro tecnici dell'azienda: dalla gestione e diagnosi di componenti elettronici, all'organizzazione delle commesse, fino all'interazione con i clienti in un contesto professionale strutturato.</p>
+            </div>
+            <div class="challenge-block alt">
+              <p class="challenge-label">// Cosa ho imparato</p>
+              <p class="challenge-text">L'esperienza mi ha dato una prospettiva concreta su come funziona un'azienda tecnica dall'interno. Le competenze scolastiche trovano applicazione diretta nel lavoro, ma richiedono anche capacità trasversali come precisione e spirito di squadra.</p>
+            </div>
+            <div class="tag-list">
+              <span class="tag">Elettronica</span>
+              <span class="tag">Sistemi Tecnici</span>
+              <span class="tag">Diagnostica</span>
+              <span class="tag">Ambiente Professionale</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Orientamento Universitario -->
+      <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="exp-inner">
+          <div class="exp-timeline">
+            <div class="exp-dot"></div>
+          </div>
+          <div>
+            <p class="card-eyebrow">2023 – 2025</p>
+            <h3 class="exp-company">Orientamento Universitario</h3>
+            <p class="card-text">
+              Partecipazione a diverse attività di orientamento focalizzate su università, percorsi di carriera
+              e opportunità di formazione tecnica — acquisendo consapevolezza dei percorsi accademici
+              in ingegneria e informatica.
+            </p>
+            <div class="tag-list">
+              <span class="tag">Università</span>
+              <span class="tag">Orientamento</span>
+              <span class="tag">Ingegneria</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- ═══════════════════════════════════════
-       5 — CONTATTI
-  ══════════════════════════════════════════ -->
 
-  <section id="contact">
-
-<h2 class="contact-headline" data-aos="fade-up">
-  Alea iacta<br><span class="accent">est.</span>
-</h2>
-
-<p class="section-label" data-aos="fade-up" style="justify-content:center; margin-bottom:0.5rem;">Contatti</p>
-
-<p class="contact-sub" data-aos="fade-up" data-aos-delay="100">
-  Aperto a collaborazioni, confronti tecnici o semplicemente una chiacchierata
-  su tecnologia e innovazione.
-</p>
-
-<div class="contact-btns" data-aos="fade-up" data-aos-delay="200">
-  <a href="mailto:andrearizzo656@gmail.com" class="contact-btn" aria-label="Scrivimi via email">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <rect x="2" y="4" width="20" height="16" rx="2"/>
-      <polyline points="22,4 12,13 2,4"/>
-    </svg>
-    andrearizzo656@gmail.com
-  </a>
-</div>
-
+  <!-- 5 — PROGETTI PERSONALI (label + title intro) -->
+  <section id="projects">
+    <p class="section-label" data-aos="fade-right">Showcase</p>
+    <h2 class="section-title" data-aos="fade-up">Progetti<br>Personali</h2>
   </section>
 
-  <!-- ═══════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════════ -->
+  <!-- BrainyBuddy AI -->
+  <div class="project-section" data-aos="fade-up">
+    <div class="bb-header">
+      <img src="images/logo_brainybuddy.jpg" alt="BrainyBuddy Logo" class="bb-logo" />
+      <h2>BrainyBuddy AI</h2>
+    </div>
 
+    <p>
+      BrainyBuddy AI è un assistente allo studio basato su intelligenza artificiale, progettato per supportare
+      gli studenti nella comprensione, organizzazione e memorizzazione dei contenuti scolastici
+      in modo strutturato ed efficace.
+    </p>
+    <p>
+      A differenza dei tradizionali chatbot, BrainyBuddy organizza ogni output in sezioni didattiche ben definite:
+      riassunto, concetti chiave, domande di studio e azioni consigliate — trasformando l'AI in un vero
+      strumento di apprendimento attivo.
+    </p>
+    <p>
+      Il sistema è sviluppato tramite un workflow automatizzato con n8n e utilizza un'architettura
+      multi-modello AI, permettendo una gestione efficiente delle richieste e una migliore qualità delle risposte.
+    </p>
+
+    <div class="bb-features">
+      <span class="bb-feature">✔ Risposte strutturate per lo studio</span>
+      <span class="bb-feature">✔ Concetti chiave interattivi</span>
+      <span class="bb-feature">✔ Domande di verifica automatiche</span>
+      <span class="bb-feature">✔ Azioni di studio consigliate</span>
+      <span class="bb-feature">✔ Sistema multi-modello AI</span>
+    </div>
+
+    <!--
+      VIDEO DEMO BRAINYBUDDY
+      Opzione A – video locale:
+        <video src="video/brainybuddy-demo.mp4" controls style="width:100%;border-radius:16px;margin-top:1.75rem;"></video>
+
+      Opzione B – YouTube embed:
+        <div class="iframe-wrap">
+          <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
+        </div>
+
+      Placeholder attivo finché non inserisci il video:
+    -->
+    <div class="preview-placeholder">
+      <span>🤖</span>
+      <p>BrainyBuddy AI — Demo</p>
+      <p style="opacity:0.5; font-size:0.65rem; margin-top:0.2rem;">Sostituire con video o iframe</p>
+    </div>
+    <p class="preview-caption">Demo del flusso di analisi e risposta strutturata di BrainyBuddy AI.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Street Burger -->
+  <div class="project-section" data-aos="fade-up">
+    <h2>Street Burger — Progetto Web</h2>
+
+    <p>
+      Progettazione e sviluppo del sito web per l'attività Street Burger. Il progetto ha coperto
+      l'intera pipeline: dall'analisi del brand e del target, alla definizione dell'architettura
+      delle informazioni, fino alla realizzazione grafica e tecnica del sito finale.
+    </p>
+    <p>
+      Il sito include landing page con hero section, presentazione del menu, sezione contatti e mappa.
+      Il design segue un'estetica moderna, coerente con l'identità visiva dell'attività.
+    </p>
+
+    <div class="tag-list" style="margin-bottom:0.5rem;">
+      <span class="tag">HTML</span>
+      <span class="tag">CSS</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">Web Design</span>
+      <span class="tag">UI/UX</span>
+    </div>
+
+    <!--
+      ANTEPRIMA STREET BURGER
+      Opzione A – screenshot: <img class="site-preview-img" src="images/preview_street_burger.jpg" alt="Street Burger" />
+      Opzione B – iframe live:
+        <div class="iframe-wrap">
+          <iframe src="https://tuo-sito-street-burger.it" title="Street Burger" sandbox="allow-scripts allow-same-origin"></iframe>
+        </div>
+
+      Placeholder:
+    -->
+    <div class="preview-placeholder">
+      <span>🍔</span>
+      <p>Street Burger — Anteprima sito</p>
+      <p style="opacity:0.5; font-size:0.65rem; margin-top:0.2rem;">Sostituire con screenshot o iframe</p>
+    </div>
+    <p class="preview-caption">Anteprima del sito web progettato per Street Burger.</p>
+  </div>
+
+  <div class="divider"></div>
+
+
+  <!-- 6 — CONTATTI -->
+  <section id="contact">
+    <h2 class="contact-headline" data-aos="fade-up">
+      Alea iacta<br><span class="accent">est.</span>
+    </h2>
+
+    <p class="section-label" data-aos="fade-up" style="justify-content:center; margin-bottom:0.5rem;">Contatti</p>
+
+    <p class="contact-sub" data-aos="fade-up" data-aos-delay="100">
+      Aperto a collaborazioni, confronti tecnici o semplicemente una chiacchierata
+      su tecnologia e innovazione.
+    </p>
+
+    <div class="contact-btns" data-aos="fade-up" data-aos-delay="200">
+      <a href="mailto:andrearizzo656@gmail.com" class="contact-btn" aria-label="Scrivimi via email"
+         style="font-size:1.6rem; padding:0.85rem 1.25rem;">
+        📧
+      </a>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
   <footer>
     <p>Progettato e realizzato da <strong>Andrea Rizzo</strong> &nbsp;·&nbsp; 2026</p>
   </footer>
 
-  <!-- ═══════════════════════════════════════
-       SCRIPTS
-  ══════════════════════════════════════════ -->
 
+  <!-- SCRIPTS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
   <script>
-    /* Formazione Tecnica */
-    const techBlocks = document.querySelectorAll('#education .edu-grid .glass-card');
-
-    techBlocks.forEach(block => {
-      block.classList.add('tech-block', 'hidden');
-      block.removeAttribute('data-aos');
-      block.removeAttribute('data-aos-delay');
-
-      const tagList = block.querySelector('.tag-list');
-      if (tagList) {
-        tagList.classList.add('tech-tags');
-      }
-    });
-
-    /* AOS */
+    /* AOS — once prevents re-trigger on scroll-up */
     AOS.init({ once: true, offset: 80, duration: 700, easing: 'ease-out-cubic' });
 
-    if (techBlocks.length) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2 });
-
-      techBlocks.forEach(block => {
-        observer.observe(block);
-      });
-    }
-
-    /* Global scroll reveal */
-    const revealElements = document.querySelectorAll('section, .card, .pcto-item, .project-section');
-
-    if (revealElements.length) {
-      const globalRevealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('show');
-            globalRevealObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15 });
-
-      revealElements.forEach(el => {
-        el.classList.add('hidden');
-        globalRevealObserver.observe(el);
-      });
-    }
-
-    /* Nav opacità su scroll */
+    /* Nav opacity on scroll — passive for performance */
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.style.background = window.scrollY > 40
         ? 'rgba(8,8,8,0.95)'
         : 'rgba(8,8,8,0.75)';
-    });
+    }, { passive: true });
 
-    /* Effetto magnetico CTA */
+    /* Magnetic CTA */
     const cta = document.querySelector('.hero-cta');
     if (cta) {
       cta.addEventListener('mousemove', e => {
@@ -2370,7 +1149,7 @@
       cta.addEventListener('mouseleave', () => { cta.style.transform = ''; });
     }
 
-    /* Menù mobile */
+    /* Mobile nav toggle */
     function toggleNav() {
       const links = document.getElementById('navLinks');
       const open  = links.classList.toggle('open');
@@ -2393,7 +1172,7 @@
       }
     }
 
-    /* Chiudi menù mobile al click su un link */
+    /* Close mobile nav on link click */
     document.querySelectorAll('#navLinks a').forEach(link => {
       link.addEventListener('click', () => {
         const links = document.getElementById('navLinks');
@@ -2404,16 +1183,15 @@
     });
 
     /* Smooth scroll with nav offset */
-    const nav      = document.getElementById('navbar');
-    const navH     = () => (nav ? nav.getBoundingClientRect().height : 0);
-    const anchorGap = 18;
+    const nav       = document.getElementById('navbar');
+    const navHeight = () => nav ? nav.getBoundingClientRect().height : 0;
+    const GAP       = 18;
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', e => {
-        const id = link.getAttribute('href');
-        const target = document.querySelector(id);
+        const target = document.querySelector(link.getAttribute('href'));
         if (!target) return;
         e.preventDefault();
-        const top = target.getBoundingClientRect().top + window.scrollY - navH() - anchorGap;
+        const top = target.getBoundingClientRect().top + window.scrollY - navHeight() - GAP;
         window.scrollTo({ top, behavior: 'smooth' });
       });
     });
