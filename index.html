@@ -1,16 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Andrea Rizzo — Portfolio</title>
 
+  <!-- Favicon -->
+
   <link rel="icon" type="image/png" sizes="512x512" href="images/logo_portfolio_512.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="images/logo_portfolio_512.png" />
   <link rel="shortcut icon" type="image/x-icon" href="images/logo_portfolio.ico" />
 
+  <!-- Fonts -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- AOS – Animate On Scroll -->
+
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
   <style>
@@ -19,6 +27,7 @@
     ========================================================= */
     :root {
       --bg:           #080808;
+      --bg-2:         #0f0f0f;
       --bg-3:         #141414;
       --accent:       #3b82f6;
       --accent-2:     #818cf8;
@@ -33,32 +42,30 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html {
-      scroll-behavior: smooth;
-      overflow-x: hidden;   /* ROOT FIX: no horizontal scroll */
-    }
-    body {
+    html  { scroll-behavior: smooth; width: 100%; max-width: 100%; overflow-x: hidden; }
+    body  {
       background: var(--bg);
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       font-size: 16px;
       line-height: 1.65;
       overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
       -webkit-font-smoothing: antialiased;
     }
-
-    /* FIX: height:auto prevents image distortion */
-    img, video, canvas { display: block; max-width: 100%; height: auto; }
-    svg { display: block; flex-shrink: 0; }
+    img, video, svg, canvas { display: block; max-width: 100%; height: auto; }
     a   { color: inherit; text-decoration: none; }
     ul  { list-style: none; }
 
+    /* Noise texture overlay */
     body::before {
       content: '';
       position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0; opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
     }
 
     /* =========================================================
@@ -75,6 +82,7 @@
       border-bottom: 1px solid var(--border);
       transition: background 0.3s;
     }
+
     .nav-logo {
       font-family: 'Syne', sans-serif;
       font-weight: 800; font-size: 1.7rem; letter-spacing: -0.01em;
@@ -101,18 +109,14 @@
     }
 
     /* =========================================================
-       SECTION LAYOUT — unified for section + .project-section
+       SHARED SECTION LAYOUT
     ========================================================= */
-    section,
-    .project-section {
+    section {
       padding: 100px 2rem;
       max-width: var(--max-w);
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
       position: relative;
       width: 100%;
-      /* FIX: explicit box-sizing prevents padding overflow */
-      box-sizing: border-box;
     }
 
     .divider {
@@ -128,7 +132,7 @@
     }
     .section-label::before {
       content: ''; display: block; width: 24px; height: 1px;
-      background: var(--accent); flex-shrink: 0;
+      background: var(--accent);
     }
 
     .section-title {
@@ -154,7 +158,6 @@
       content: ''; position: absolute; inset: 0; border-radius: inherit;
       background: linear-gradient(135deg, rgba(59,130,246,0.05) 0%, transparent 60%);
       opacity: 0; transition: opacity 0.3s;
-      pointer-events: none;
     }
     .glass-card:hover {
       border-color: rgba(59,130,246,0.3);
@@ -173,8 +176,11 @@
       font-weight: 700; font-size: 1.15rem;
       letter-spacing: -0.02em; margin-bottom: 0.75rem;
     }
-    .card-text { font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; }
+    .card-text {
+      font-size: 0.9rem; color: var(--text-mid); line-height: 1.75;
+    }
 
+    /* Tag pills */
     .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
     .tag {
       background: rgba(59,130,246,0.10);
@@ -193,6 +199,7 @@
       border-radius: 100px; letter-spacing: 0.03em;
     }
 
+    /* Challenge / callout blocks */
     .challenge-block {
       background: var(--glass);
       border: 1px solid var(--glass-border);
@@ -210,9 +217,6 @@
 
     /* =========================================================
        1 — HERO
-       FIX: removed filter:blur from keyframes (causes layout shifts)
-            removed skewX (unnecessary jitter)
-            will-change only on opacity+transform
     ========================================================= */
     #home {
       min-height: 100vh;
@@ -236,7 +240,7 @@
       animation: pulse-glow 8s ease-in-out infinite reverse;
     }
     @keyframes pulse-glow {
-      0%,100% { opacity: 0.7; transform: translate(-50%,-55%) scale(1); }
+      0%,100% { opacity: 0.7; transform: translate(-50%,-55%) scale(1);   }
       50%      { opacity: 1;   transform: translate(-50%,-55%) scale(1.1); }
     }
 
@@ -250,9 +254,10 @@
     .hero-tag::before {
       content: ''; width: 6px; height: 6px; border-radius: 50%;
       background: var(--accent); animation: blink 2s ease-in-out infinite;
-      flex-shrink: 0;
     }
-    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @keyframes blink {
+      0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
 
     .hero-content {
       display: flex; align-items: center; gap: 2.2rem;
@@ -261,9 +266,7 @@
     }
 
     .hero-photo-wrap {
-      /* FIX: flex-shrink:0 prevents photo from squishing on narrow screens */
-      flex-shrink: 0;
-      width: 220px;
+      width: 42%; min-width: 260px; display: flex; justify-content: flex-start;
       position: relative;
       animation: photo-sling 2.6s cubic-bezier(0.18,1,0.24,1) forwards;
       opacity: 0;
@@ -280,17 +283,17 @@
       width: 220px; height: 220px; border-radius: 32px;
       overflow: hidden;
       border: 2px solid var(--glass-border);
-      position: relative; z-index: 1;
+      position: relative;
       box-shadow: 0 26px 70px rgba(59,130,246,0.30);
+      backdrop-filter: blur(4px);
+      z-index: 1;
     }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
 
     .hero-text {
-      flex: 1;
-      min-width: 0; /* FIX: prevents flex child overflow */
-      max-width: 520px; text-align: left;
+      flex: 1; max-width: 520px; text-align: left;
       animation: text-lift 2.2s 0.25s cubic-bezier(0.20,1,0.28,1) forwards;
-      opacity: 0;
+      opacity: 0; transform: translateX(-80px) translateY(12px);
       will-change: transform, opacity;
     }
 
@@ -323,8 +326,7 @@
       padding: 0.9rem 2.2rem; border-radius: 100px;
       font-size: 0.9rem; font-weight: 500;
       border: none; cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative; overflow: hidden;
+      transition: all 0.3s; position: relative; overflow: hidden;
     }
     .hero-cta::before {
       content: ''; position: absolute; inset: 0;
@@ -336,26 +338,26 @@
     .hero-cta .cta-arrow { transition: transform 0.3s; }
     .hero-cta:hover .cta-arrow { transform: translateY(3px); }
 
-    /* RESTORED ANIMATIONS — no filter:blur, no skewX, stable layout */
+    /* Hero entrance animations */
     @keyframes photo-sling {
-      0%   { opacity: 0; transform: translateX(80px) scale(0.93) rotate(5deg); }
-      60%  { opacity: 1; transform: translateX(-8px) scale(1.03) rotate(-1.5deg); }
-      100% { opacity: 1; transform: translateX(0) scale(1) rotate(0deg); }
+      0%   { opacity: 0; transform: translateX(120px) scale(0.9) rotate(6deg); filter: blur(8px); }
+      55%  { opacity: 1; transform: translateX(-12px) scale(1.04) rotate(-2deg); filter: blur(0); }
+      100% { opacity: 1; transform: translateX(0) scale(1) rotate(0deg); filter: blur(0); }
     }
     @keyframes text-lift {
-      0%   { opacity: 0; transform: translateX(-60px) translateY(12px); }
-      65%  { opacity: 1; transform: translateX(18px) translateY(-2px); }
+      0%   { opacity: 0; transform: translateX(-80px) translateY(10px) skewX(-1deg); filter: blur(6px); }
+      60%  { opacity: 1; transform: translateX(26px) translateY(-2px) skewX(0deg); filter: blur(0); }
       100% { opacity: 1; transform: translateX(0) translateY(0); }
     }
     @keyframes photo-sling-mobile {
-      0%   { opacity: 0; transform: translateY(30px) scale(0.94); }
-      65%  { opacity: 1; transform: translateY(-5px) scale(1.02); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+      0%   { opacity: 0; transform: translateX(60px) scale(0.96) rotate(4deg); filter: blur(6px); }
+      60%  { opacity: 1; transform: translateX(-8px) scale(1.02) rotate(-1deg); filter: blur(0); }
+      100% { opacity: 1; transform: translateX(0) scale(1) rotate(0deg); filter: blur(0); }
     }
     @keyframes text-lift-mobile {
-      0%   { opacity: 0; transform: translateY(24px); }
-      70%  { opacity: 1; transform: translateY(-4px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0%   { opacity: 0; transform: translateX(-30px) translateY(18px) skewX(-1deg); filter: blur(5px); }
+      70%  { opacity: 1; transform: translateX(10px) translateY(-4px); filter: blur(0); }
+      100% { opacity: 1; transform: translateX(0) translateY(0); }
     }
 
     .hero-scroll {
@@ -370,9 +372,9 @@
       animation: scroll-anim 2s ease-in-out infinite;
     }
     @keyframes scroll-anim {
-      0%   { transform: scaleY(0); transform-origin: top; }
-      50%  { transform: scaleY(1); transform-origin: top; }
-      51%  { transform-origin: bottom; }
+      0%   { transform: scaleY(0); transform-origin: top;    }
+      50%  { transform: scaleY(1); transform-origin: top;    }
+      51%  { transform-origin: bottom;                       }
       100% { transform: scaleY(0); transform-origin: bottom; }
     }
 
@@ -414,6 +416,7 @@
       letter-spacing: -0.02em; margin-bottom: 0.75rem;
     }
 
+    /* Loghi aziende PCTO */
     .exp-logo {
       display: block;
       height: 56px; width: auto; max-width: 180px;
@@ -423,28 +426,37 @@
       margin-bottom: 0.75rem;
     }
 
-    /* FIX: gallery uses aspect-ratio to prevent height instability */
     .pcto-gallery {
-      display: flex; gap: 10px; margin-top: 1.25rem; flex-wrap: wrap;
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
     }
-    .pcto-gallery img {
-      width: calc(33.333% - 7px);
-      aspect-ratio: 4/3;
-      object-fit: cover;
-      border-radius: 10px;
-      flex-shrink: 0;
-      transition: transform 0.3s;
-    }
-    .pcto-gallery img:hover { transform: scale(1.05); }
 
-    /* =========================================================
-       PROGETTI — BrainyBuddy & Street Burger
-       FIX: project-section now fully consistent with section rules
-    ========================================================= */
+    .pcto-gallery img {
+      width: 100%;
+      max-width: 150px;
+      border-radius: 10px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .pcto-gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .project-section {
+      margin-top: 60px;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
     .project-section h2 {
-      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
       font-size: clamp(2rem, 4vw, 2.8rem);
-      letter-spacing: -0.03em; margin-bottom: 1.25rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
     }
 
     .project-section p {
@@ -452,81 +464,42 @@
       color: var(--text-mid);
       line-height: 1.75;
       margin-bottom: 1rem;
-      font-size: 0.9rem;
     }
 
-    /* BrainyBuddy header */
-    .bb-header {
-      display: flex; align-items: center; gap: 15px;
-      margin-bottom: 1.25rem;
-    }
-    .bb-logo {
-      width: 55px; height: 55px; flex-shrink: 0;
-      object-fit: contain; border-radius: 12px;
-      filter: drop-shadow(0 0 10px rgba(59,130,246,0.35));
+    .project-preview {
+      margin-top: 1.75rem;
     }
 
     .bb-features {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      margin-top: 1.25rem; margin-bottom: 1.75rem;
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
+
     .bb-feature {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      color: var(--text-mid);
-      padding: 6px 14px; border-radius: 100px;
-      font-size: 0.82rem; font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.02em;
-      transition: transform 0.2s;
-    }
-    .bb-feature:hover { transform: scale(1.04); }
-
-    /* FIX: iframe container uses aspect-ratio — no fixed heights, no overflow */
-    .iframe-wrap {
-      position: relative; width: 100%;
-      aspect-ratio: 16 / 9;
-      border-radius: 16px; overflow: hidden;
-      background: var(--bg-3);
-      border: 1px solid var(--glass-border);
-      margin-top: 1.75rem;
-    }
-    .iframe-wrap iframe {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      border: none; display: block;
+      background: rgba(0,0,0,0.05);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      transition: transform 0.2s ease;
     }
 
-    /* Placeholder when no media available */
-    .preview-placeholder {
-      width: 100%; aspect-ratio: 16/9;
-      border: 1px dashed rgba(59,130,246,0.3);
-      border-radius: 16px; background: var(--bg-3);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 0.75rem;
-      margin-top: 1.75rem;
-    }
-    .preview-placeholder span { font-size: 2.5rem; opacity: 0.3; }
-    .preview-placeholder p {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
-      color: var(--text-muted); letter-spacing: 0.05em; margin: 0;
+    .bb-feature:hover {
+      transform: scale(1.05);
     }
 
-    .preview-caption {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
-      color: var(--text-muted); text-align: center; margin-top: 0.6rem;
-      font-style: italic;
-    }
-
-    /* Street Burger screenshot */
-    .site-preview-img {
-      width: 100%; border-radius: 16px;
-      border: 1px solid var(--glass-border);
-      display: block; object-fit: cover;
-      margin-top: 1.75rem;
+    .preview-box {
+      border: 2px dashed #ccc;
+      padding: 40px;
+      text-align: center;
+      border-radius: 12px;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.02);
     }
 
     /* =========================================================
-       CONTATTI
+       5 — CONTATTI
     ========================================================= */
     #contact { text-align: center; padding-bottom: 60px; }
 
@@ -550,13 +523,14 @@
       font-size: 0.88rem; font-weight: 500;
       border: 1px solid var(--glass-border);
       color: var(--text); background: var(--glass);
-      backdrop-filter: blur(10px);
-      transition: transform 0.3s, box-shadow 0.3s, background 0.3s, border-color 0.3s;
+      backdrop-filter: blur(10px); transition: all 0.3s;
     }
     .contact-btn:hover {
       background: rgba(59,130,246,0.10); border-color: var(--accent); color: #fff;
       transform: translateY(-2px); box-shadow: 0 10px 40px rgba(59,130,246,0.2);
     }
+    .contact-btn svg { opacity: 0.75; transition: opacity 0.3s; }
+    .contact-btn:hover svg { opacity: 1; }
 
     /* =========================================================
        FOOTER
@@ -569,575 +543,522 @@
     }
 
     /* =========================================================
-       RESPONSIVE — mobile-first fixes
+       RESPONSIVE
     ========================================================= */
     @media (max-width: 768px) {
       .nav-links  { display: none; }
       .nav-toggle { display: block; }
+
       nav         { padding: 0 1.25rem; }
       .nav-logo   { font-size: 1.4rem; }
+      .nav-links a{ font-size: 1rem; }
 
-      /* HERO: stack vertically, center */
-      .hero-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 2rem;
-      }
-      /* FIX: reset width so photo centers correctly */
-      .hero-photo-wrap {
-        width: auto;
-        animation: photo-sling-mobile 2.2s cubic-bezier(0.18,1,0.24,1) forwards;
-        opacity: 0;
-      }
-      .hero-photo { width: 190px; height: 190px; }
+      .hero-content    { flex-direction: column; text-align: center; gap: 2rem; }
+      .hero-photo-wrap { justify-content: center; width: 100%; animation: photo-sling-mobile 2.4s cubic-bezier(0.18,1,0.24,1) forwards; opacity: 0; }
+      .hero-photo      { width: 200px; height: 200px; }
+      .hero-text       { text-align: center; animation: text-lift-mobile 2s 0.2s cubic-bezier(0.20,1,0.28,1) forwards; opacity: 0; transform: translateY(10px); max-width: 92%; margin: 0 auto; }
+      .hero-tagline    { margin: 0 auto 1rem; }
+      .hero-desc       { margin: 0 auto 2rem; }
+      .hero-cta        { width: 100%; justify-content: center; }
 
-      .hero-text {
-        text-align: center;
-        animation: text-lift-mobile 2s 0.2s cubic-bezier(0.20,1,0.28,1) forwards;
-        opacity: 0;
-        max-width: 100%;
-        margin: 0 auto;
-      }
-      .hero-tagline { margin: 0 auto 1rem; }
-      .hero-desc    { margin: 0 auto 2rem; }
-      .hero-cta     { width: 100%; justify-content: center; }
+      section          { padding: 90px 1.5rem; }
+      .section-title   { font-size: clamp(2.1rem, 8vw, 2.6rem); }
+      .glass-card      { padding: 1.6rem; }
 
-      section,
-      .project-section { padding: 80px 1.5rem; }
-
-      .section-title { font-size: clamp(2.1rem, 8vw, 2.6rem); }
-      .glass-card    { padding: 1.6rem; }
-
-      /* Grids collapse to 1 column */
       #about .about-body,
       #education .edu-grid { grid-template-columns: 1fr; }
 
-      /* Timeline dots hidden on mobile — not needed for stacked layout */
-      .exp-timeline { display: none; }
-      .exp-inner    { grid-template-columns: 1fr; gap: 0; }
-
-      /* Gallery: 2 per row on tablet */
-      .pcto-gallery img {
-        width: calc(50% - 5px);
-      }
-
-      /* BrainyBuddy features wrap nicely */
-      .bb-features { gap: 8px; }
-      .bb-feature  { font-size: 0.78rem; padding: 5px 12px; }
+      .exp-timeline   { display: none; }
+      .exp-inner      { grid-template-columns: 1fr; }
+      .project-section{ padding-top: 0; padding-bottom: 0; }
+      .preview-box    { padding: 28px 20px; }
     }
 
     @media (max-width: 480px) {
-      nav         { padding: 0 1rem; }
-      .nav-logo   { font-size: 1.25rem; }
-      section,
-      .project-section { padding: 70px 1.25rem; }
-      .hero-photo { width: 170px; height: 170px; }
+      nav       { padding: 0 1rem; }
+      .nav-logo { font-size: 1.25rem; }
+      section   { padding: 70px 1.25rem; }
+      .hero-photo { width: 180px; height: 180px; }
       .hero-name  { font-size: clamp(2.6rem, 12vw, 3.4rem); }
       .hero-tagline { font-size: clamp(0.9rem, 3.8vw, 1.05rem); }
-      .hero-cta   { padding: 0.95rem 1.7rem; font-size: 1rem; }
-
-      /* Gallery: full width on small phones */
-      .pcto-gallery img { width: 100%; }
+      .hero-cta { padding: 0.95rem 1.7rem; font-size: 1rem; }
     }
 
-    /* AOS: keep interactive elements clickable after animate */
+    /* AOS fix */
     [data-aos]             { pointer-events: none; }
     [data-aos].aos-animate { pointer-events: auto; }
+
+   
+
+    .bb-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 1rem;
+}
+
+.bb-logo {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(59,130,246,0.35));
+}
+
+
+
   </style>
+
 </head>
 <body>
 
-  <!-- NAVIGAZIONE -->
+  <!-- ═══════════════════════════════════════
+       NAVIGAZIONE
+  ══════════════════════════════════════════ -->
+
   <nav id="navbar">
     <a href="#home" class="nav-logo">AR<span>.</span></a>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">Chi sono</a></li>
-      <li><a href="#education">Formazione</a></li>
-      <li><a href="#experience">Esperienze</a></li>
-      <li><a href="#projects">Progetti</a></li>
-      <li><a href="#contact">Contatti</a></li>
-    </ul>
+<ul class="nav-links" id="navLinks">
+  <li><a href="#home">Home</a></li>
+  <li><a href="#about">Chi sono</a></li>
+  <li><a href="#education">Formazione</a></li>
+  <li><a href="#experience">Esperienze</a></li>
+  <li><a href="#contact">Contatti</a></li>
+</ul>
 
-    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="3" y1="6"  x2="21" y2="6"/>
-        <line x1="3" y1="12" x2="21" y2="12"/>
-        <line x1="3" y1="18" x2="21" y2="18"/>
-      </svg>
-    </button>
+<button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <line x1="3" y1="6"  x2="21" y2="6"/>
+    <line x1="3" y1="12" x2="21" y2="12"/>
+    <line x1="3" y1="18" x2="21" y2="18"/>
+  </svg>
+</button>
+
   </nav>
 
+  <!-- ═══════════════════════════════════════
+       1 — HERO
+  ══════════════════════════════════════════ -->
 
-  <!-- 1 — HERO -->
   <section id="home">
     <div class="hero-glow"></div>
     <div class="hero-glow-2"></div>
 
-    <div class="hero-content">
-      <div class="hero-photo-wrap">
-        <div class="hero-photo">
-          <img src="images/foto_andrea_portfolio.jpg" alt="Andrea Rizzo" />
-        </div>
-      </div>
+<div class="hero-content">
+  <div class="hero-photo-wrap">
+    <div class="hero-photo">
+      <img src="images/foto_andrea_portfolio.jpg" alt="Andrea Rizzo" />
+    </div>
+  </div>
 
-      <div class="hero-text">
-        <div class="hero-tag">
-          Studente Tecnico &nbsp;·&nbsp; Maturità 2026
-        </div>
-        <h1 class="hero-name">
-          <span class="gradient-text">Andrea Rizzo</span>
-        </h1>
-        <p class="hero-tagline">
-          Curiosità, tecnica e sport — il mio modo di stare al mondo.
-        </p>
-        <p class="hero-desc">
-          // Portfolio digitale — formazione tecnica, esperienze e progetti personali
-        </p>
-        <a href="#about" class="hero-cta">
-          Scopri il mio percorso
-          <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <polyline points="6 9 12 15 18 9"/>
-          </svg>
-        </a>
-      </div>
+  <div class="hero-text">
+    <div class="hero-tag">
+      Studente Tecnico &nbsp;·&nbsp; Maturità 2026
     </div>
 
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      <span>scorri</span>
-    </div>
+    <h1 class="hero-name">
+      <span class="gradient-text">Andrea Rizzo</span>
+    </h1>
+
+    <p class="hero-tagline">
+      Curiosità, tecnica e sport — il mio modo di stare al mondo.
+    </p>
+
+    <p class="hero-desc">
+      // Portfolio digitale — formazione tecnica, esperienze e progetti personali
+    </p>
+
+    <a href="#about" class="hero-cta">
+      Scopri il mio percorso
+      <svg class="cta-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<div class="hero-scroll">
+  <div class="scroll-line"></div>
+  <span>scorri</span>
+</div>
+
   </section>
 
   <div class="divider"></div>
 
+  <!-- ═══════════════════════════════════════
+       2 — CHI SONO
+  ══════════════════════════════════════════ -->
 
-  <!-- 2 — CHI SONO -->
   <section id="about">
     <p class="section-label" data-aos="fade-right">Chi sono</p>
     <h2 class="section-title" data-aos="fade-up">Chi sono</h2>
 
-    <div class="about-body">
+<div class="about-body">
 
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
-        <p class="card-eyebrow">// Informatica &amp; Elettronica</p>
-        <p class="card-title">Una passione nata da subito</p>
-        <p class="card-text">
-          Curiosità per circuiti e codice fin da bambino: ho scelto il percorso tecnico
-          per capire davvero <em>come</em> funziona ciò che usiamo ogni giorno. Oggi studio
-          programmazione, automazione e AI perché credo che saper collaborare con queste
-          tecnologie sia la skill chiave del futuro — e voglio esserci da protagonista.
-        </p>
-      </div>
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+    <p class="card-eyebrow">// Informatica &amp; Elettronica</p>
+    <p class="card-title">Una passione nata da subito</p>
+    <p class="card-text">
+      Curiosità per circuiti e codice fin da bambino: ho scelto il percorso tecnico
+      per capire davvero <em>come</em> funziona ciò che usiamo ogni giorno. Oggi studio
+      programmazione, automazione e AI perché credo che saper collaborare con queste
+      tecnologie sia la skill chiave del futuro — e voglio esserci da protagonista.
+    </p>
+  </div>
 
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="160">
-        <p class="card-eyebrow">// Sport &amp; Benessere</p>
-        <p class="card-title">Lo sport come stile di vita</p>
-        <p class="card-text">
-          Pratico calcio da sempre e lo sport è parte integrante di chi sono.
-          Mi ha insegnato disciplina, spirito di squadra e la capacità di rialzarsi
-          dopo una sconfitta — valori che porto con me anche nello studio e nei progetti.
-          Il benessere fisico e mentale è la mia priorità: un equilibrio sano
-          tra impegno, passione e vita è ciò che mi permette di dare il massimo
-          in tutto quello che faccio.
-        </p>
-      </div>
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="160">
+    <p class="card-eyebrow">// Sport &amp; Benessere</p>
+    <p class="card-title">Lo sport come stile di vita</p>
+    <p class="card-text">
+      Pratico calcio da sempre e lo sport è parte integrante di chi sono.
+      Mi ha insegnato disciplina, spirito di squadra e la capacità di rialzarsi
+      dopo una sconfitta — valori che porto con me anche nello studio e nei progetti.
+      Il benessere fisico e mentale è la mia priorità: un equilibrio sano
+      tra impegno, passione e vita è ciò che mi permette di dare il massimo
+      in tutto quello che faccio.
+    </p>
+  </div>
 
-    </div>
+</div>
+
   </section>
 
   <div class="divider"></div>
 
+  <!-- ═══════════════════════════════════════
+       3 — FORMAZIONE TECNICA
+  ══════════════════════════════════════════ -->
 
-  <!-- 3 — FORMAZIONE TECNICA -->
   <section id="education">
     <p class="section-label" data-aos="fade-right">Formazione</p>
     <h2 class="section-title" data-aos="fade-up">Formazione<br>Tecnica</h2>
 
-    <div class="edu-grid">
+<div class="edu-grid">
 
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
-        <p class="card-eyebrow">⚙️ &nbsp;Automazione e Controllo</p>
-        <p class="card-title">Sistemi Industriali</p>
-        <p class="card-text">Studio dei sistemi automatizzati, della logica di controllo e dei fondamenti dei processi industriali applicati a scenari ingegneristici reali.</p>
-        <div class="tag-list">
-          <span class="tag">PLC</span>
-          <span class="tag">Logica di Controllo</span>
-          <span class="tag">Automation</span>
-        </div>
-      </div>
-
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
-        <p class="card-eyebrow">💻 &nbsp;Programmazione</p>
-        <p class="card-title">Sviluppo Software</p>
-        <p class="card-text">Programmazione applicata con approcci strutturati e orientati agli oggetti, dal C di basso livello allo scripting con Python.</p>
-        <div class="tag-list">
-          <span class="tag">C / C++</span>
-          <span class="tag">Python</span>
-          <span class="tag">OOP</span>
-          <span class="tag">Algoritmi</span>
-        </div>
-      </div>
-
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
-        <p class="card-eyebrow">🖥️ &nbsp;Sistemi Informatici</p>
-        <p class="card-title">Reti e Sistemi Operativi</p>
-        <p class="card-text">Architettura dei sistemi di calcolo, protocolli di rete, ambienti operativi e nozioni fondamentali di amministrazione di sistema.</p>
-        <div class="tag-list">
-          <span class="tag">Linux</span>
-          <span class="tag">Networking</span>
-          <span class="tag">SQL</span>
-        </div>
-      </div>
-
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
-        <p class="card-eyebrow">🤖 &nbsp;Robotica</p>
-        <p class="card-title">Robotica Industriale</p>
-        <p class="card-text">Introduzione ai principi della robotica, alla cinematica e agli ambienti di simulazione industriale, con formazione pratica e certificazioni ABB.</p>
-        <div class="tag-list">
-          <span class="tag">RobotStudio</span>
-          <span class="tag">Cinematica</span>
-          <span class="tag">ABB</span>
-        </div>
-      </div>
-
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+    <p class="card-eyebrow">⚙️ &nbsp;Automazione e Controllo</p>
+    <p class="card-title">Sistemi Industriali</p>
+    <p class="card-text">Studio dei sistemi automatizzati, della logica di controllo e dei fondamenti dei processi industriali applicati a scenari ingegneristici reali.</p>
+    <div class="tag-list">
+      <span class="tag">PLC</span>
+      <span class="tag">Logica di Controllo</span>
+      <span class="tag">Automation</span>
     </div>
+  </div>
+
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
+    <p class="card-eyebrow">💻 &nbsp;Programmazione</p>
+    <p class="card-title">Sviluppo Software</p>
+    <p class="card-text">Programmazione applicata con approcci strutturati e orientati agli oggetti, dal C di basso livello allo scripting con Python.</p>
+    <div class="tag-list">
+      <span class="tag">C / C++</span>
+      <span class="tag">Python</span>
+      <span class="tag">OOP</span>
+      <span class="tag">Algoritmi</span>
+    </div>
+  </div>
+
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
+    <p class="card-eyebrow">🖥️ &nbsp;Sistemi Informatici</p>
+    <p class="card-title">Reti e Sistemi Operativi</p>
+    <p class="card-text">Architettura dei sistemi di calcolo, protocolli di rete, ambienti operativi e nozioni fondamentali di amministrazione di sistema.</p>
+    <div class="tag-list">
+      <span class="tag">Linux</span>
+      <span class="tag">Networking</span>
+      <span class="tag">SQL</span>
+    </div>
+  </div>
+
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
+    <p class="card-eyebrow">🤖 &nbsp;Robotica</p>
+    <p class="card-title">Robotica Industriale</p>
+    <p class="card-text">Introduzione ai principi della robotica, alla cinematica e agli ambienti di simulazione industriale, con formazione pratica e certificazioni ABB.</p>
+    <div class="tag-list">
+      <span class="tag">RobotStudio</span>
+      <span class="tag">Cinematica</span>
+      <span class="tag">ABB</span>
+    </div>
+  </div>
+
+</div>
+
   </section>
 
   <div class="divider"></div>
 
+  <!-- ═══════════════════════════════════════
+       4 — ESPERIENZE PCTO
+  ══════════════════════════════════════════ -->
 
-  <!-- 4 — ESPERIENZE PCTO -->
   <section id="experience">
     <p class="section-label" data-aos="fade-right">Esperienze</p>
     <h2 class="section-title" data-aos="fade-up">Esperienze<br>PCTO</h2>
 
-    <div class="exp-list">
+<div class="exp-list">
 
-      <!-- ABB RobotStudio -->
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
-        <div class="exp-inner">
-          <div class="exp-timeline">
-            <div class="exp-dot"></div>
-            <div class="exp-line"></div>
-          </div>
-          <div>
-            <img src="images/logo_abb.png" alt="ABB" class="exp-logo" />
-            <p class="card-eyebrow">Certificazioni ufficiali ABB</p>
-            <h3 class="exp-company">ABB RobotStudio</h3>
-            <p class="card-text" style="margin-bottom:1rem;">
-              Ho conseguito due certificazioni ufficiali rilasciate da ABB per l'utilizzo di RobotStudio,
-              il software leader nel settore per la simulazione e la programmazione offline di robot industriali.
-              Il percorso formativo si è articolato in due livelli progressivi, ciascuno con obiettivi e contenuti distinti.
-            </p>
-            <div class="challenge-block">
-              <p class="challenge-label">// Certificazione Base</p>
-              <p class="challenge-text">Il modulo base ha introdotto i fondamenti della simulazione robotica industriale: interfaccia del software, creazione e configurazione di stazioni virtuali, importazione di componenti CAD e programmazione di traiettorie elementari.</p>
-            </div>
-            <div class="challenge-block alt">
-              <p class="challenge-label">// Certificazione Advanced</p>
-              <p class="challenge-text">Il modulo avanzato ha approfondito la logica di programmazione RAPID, la gestione degli eventi di sistema, la simulazione di flussi di lavoro industriali complessi e l'ottimizzazione dei percorsi.</p>
-            </div>
-            <div class="challenge-block">
-              <p class="challenge-label">// Teoria → Pratica</p>
-              <p class="challenge-text">Le equazioni di cinematica studiate in classe si sono trasformate in movimenti reali del robot all'interno del simulatore — validando la logica di programmazione prima di qualsiasi installazione fisica.</p>
-            </div>
-            <div class="tag-list">
-              <span class="cert-badge">RobotStudio Base</span>
-              <span class="cert-badge">RobotStudio Advanced</span>
-            </div>
-          </div>
+  <!-- ABB RobotStudio -->
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="100">
+    <div class="exp-inner">
+      <div class="exp-timeline">
+        <div class="exp-dot"></div>
+        <div class="exp-line"></div>
+      </div>
+      <div>
+        <img src="images/logo_abb.png" alt="ABB" class="exp-logo" />
+        <p class="card-eyebrow">Certificazioni ufficiali ABB</p>
+        <h3 class="exp-company">ABB RobotStudio</h3>
+        <p class="card-text" style="margin-bottom:1rem;">
+          Ho conseguito due certificazioni ufficiali rilasciate da ABB per l'utilizzo di RobotStudio,
+          il software leader nel settore per la simulazione e la programmazione offline di robot industriali.
+          Il percorso formativo si è articolato in due livelli progressivi, ciascuno con obiettivi e contenuti distinti.
+        </p>
+        <div class="challenge-block">
+          <p class="challenge-label">// Certificazione Base</p>
+          <p class="challenge-text">Il modulo base ha introdotto i fondamenti della simulazione robotica industriale: interfaccia del software, creazione e configurazione di stazioni virtuali, importazione di componenti CAD e programmazione di traiettorie elementari. Ho imparato a muovermi nell'ambiente di lavoro di RobotStudio e a comprendere la struttura logica di un programma robotico.</p>
+        </div>
+        <div class="challenge-block alt">
+          <p class="challenge-label">// Certificazione Advanced</p>
+          <p class="challenge-text">Il modulo avanzato ha approfondito la logica di programmazione RAPID, la gestione degli eventi di sistema, la simulazione di flussi di lavoro industriali complessi e l'ottimizzazione dei percorsi. Questo livello ha permesso di avvicinarsi concretamente alla programmazione robotica applicata a contesti produttivi reali, rafforzando la comprensione del legame tra cinematica teorica e movimento fisico del robot.</p>
+        </div>
+        <div class="challenge-block">
+          <p class="challenge-label">// Teoria → Pratica</p>
+          <p class="challenge-text">Le equazioni di cinematica studiate in classe si sono trasformate in movimenti reali del robot all'interno del simulatore — validando la logica di programmazione prima di qualsiasi installazione fisica.</p>
+        </div>
+        <div class="tag-list">
+          <span class="cert-badge">RobotStudio Base</span>
+          <span class="cert-badge">RobotStudio Advanced</span>
         </div>
       </div>
-
-      <!-- Comune di Civita Castellana -->
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
-        <div class="exp-inner">
-          <div class="exp-timeline">
-            <div class="exp-dot"></div>
-            <div class="exp-line"></div>
-          </div>
-          <div>
-            <img src="images/logo_comune.png" alt="Comune di Civita Castellana" class="exp-logo" style="height:72px; max-width:220px;" />
-            <p class="card-eyebrow">Luglio – Agosto 2024</p>
-            <h3 class="exp-company">Comune di Civita Castellana</h3>
-            <p class="card-text" style="margin-bottom:1rem;">
-              Ho svolto un'esperienza PCTO presso il Comune di Civita Castellana, un ente pubblico locale
-              che gestisce servizi amministrativi, sociali e tecnici per il territorio.
-              È stata la mia prima esposizione a un ambiente lavorativo strutturato e formale,
-              molto diverso dal contesto scolastico.
-            </p>
-            <div class="challenge-block">
-              <p class="challenge-label">// Attività svolte</p>
-              <p class="challenge-text">Ho affiancato il personale degli uffici nell'organizzazione e archiviazione di documenti, nella gestione di pratiche amministrative e nel supporto alle attività operative quotidiane.</p>
-            </div>
-            <div class="challenge-block alt">
-              <p class="challenge-label">// Cosa ho imparato</p>
-              <p class="challenge-text">L'esperienza mi ha permesso di sviluppare senso di responsabilità, puntualità e capacità di lavorare all'interno di una struttura organizzativa definita.</p>
-            </div>
-            <div class="tag-list">
-              <span class="tag">Pubblica Amministrazione</span>
-              <span class="tag">Organizzazione</span>
-              <span class="tag">Comunicazione</span>
-              <span class="tag">Digitalizzazione</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Erasmus PCTO – Dublino -->
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="160">
-        <div class="exp-inner">
-          <div class="exp-timeline">
-            <div class="exp-dot"></div>
-            <div class="exp-line"></div>
-          </div>
-          <div>
-            <p class="card-eyebrow">Dicembre 2024 · 2 settimane &nbsp;·&nbsp; Dublino, Irlanda ☘️</p>
-            <h3 class="exp-company">Erasmus PCTO – Dublino</h3>
-            <p class="card-text" style="margin-bottom:1rem;">
-              Esperienza formativa svolta nell'ambito del progetto Erasmus PCTO, della durata di circa due settimane,
-              dal 1° dicembre a metà dicembre 2024. Ho soggiornato presso una host house a Port Marnock,
-              una località costiera vicino Dublino, frequentando una scuola di lingua inglese
-              e vivendo un'esperienza completamente immersiva nella cultura locale.
-            </p>
-            <div class="challenge-block">
-              <p class="challenge-label">// Contesto e attività</p>
-              <p class="challenge-text">Ho partecipato a corsi di lingua inglese in una scuola internazionale, interagendo con studenti da tutta Europa. La convivenza in famiglia ospitante ha rafforzato la mia autonomia e adattabilità in contesti nuovi.</p>
-            </div>
-            <div class="challenge-block alt">
-              <p class="challenge-label">// Cosa ho portato a casa</p>
-              <p class="challenge-text">Un miglioramento concreto della lingua inglese, una visione più internazionale del mondo del lavoro e la consapevolezza che saper navigare contesti culturali diversi è una competenza fondamentale.</p>
-            </div>
-            <!--
-              Foto Dublino: sostituire i percorsi con quelli reali
-              es. src="images/dublino1.jpg"
-            -->
-            <div class="pcto-gallery">
-              <img src="images/dublino1.jpg" alt="Erasmus Dublino 1" />
-              <img src="images/dublino2.jpg" alt="Erasmus Dublino 2" />
-              <img src="images/dublino3.jpg" alt="Erasmus Dublino 3" />
-            </div>
-            <div class="tag-list" style="margin-top:1rem;">
-              <span class="tag">Erasmus+</span>
-              <span class="tag">Dublino</span>
-              <span class="tag">Lingua Inglese</span>
-              <span class="tag">Internazionale</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CGT Elettronica -->
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="180">
-        <div class="exp-inner">
-          <div class="exp-timeline">
-            <div class="exp-dot"></div>
-            <div class="exp-line"></div>
-          </div>
-          <div>
-            <img src="images/logo_cgt_elettronica.png" alt="CGT Elettronica" class="exp-logo" />
-            <p class="card-eyebrow">Febbraio 2026 &nbsp;·&nbsp; Viterbo / Roma</p>
-            <h3 class="exp-company">CGT Elettronica</h3>
-            <p class="card-text" style="margin-bottom:1rem;">
-              Ho effettuato uno stage presso CGT Elettronica, un'azienda operante nel settore
-              dell'elettronica e dei sistemi tecnici, con clientela sia nel territorio di Viterbo
-              che nell'area romana. L'ambiente lavorativo era tecnico e dinamico, con personale
-              specializzato in elettronica applicata e manutenzione di sistemi.
-            </p>
-            <div class="challenge-block">
-              <p class="challenge-label">// Attività osservate e svolte</p>
-              <p class="challenge-text">Durante la settimana ho osservato i flussi di lavoro tecnici dell'azienda: dalla gestione e diagnosi di componenti elettronici, all'organizzazione delle commesse, fino all'interazione con i clienti in un contesto professionale strutturato.</p>
-            </div>
-            <div class="challenge-block alt">
-              <p class="challenge-label">// Cosa ho imparato</p>
-              <p class="challenge-text">L'esperienza mi ha dato una prospettiva concreta su come funziona un'azienda tecnica dall'interno. Le competenze scolastiche trovano applicazione diretta nel lavoro, ma richiedono anche capacità trasversali come precisione e spirito di squadra.</p>
-            </div>
-            <div class="tag-list">
-              <span class="tag">Elettronica</span>
-              <span class="tag">Sistemi Tecnici</span>
-              <span class="tag">Diagnostica</span>
-              <span class="tag">Ambiente Professionale</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Orientamento Universitario -->
-      <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
-        <div class="exp-inner">
-          <div class="exp-timeline">
-            <div class="exp-dot"></div>
-          </div>
-          <div>
-            <p class="card-eyebrow">2023 – 2025</p>
-            <h3 class="exp-company">Orientamento Universitario</h3>
-            <p class="card-text">
-              Partecipazione a diverse attività di orientamento focalizzate su università, percorsi di carriera
-              e opportunità di formazione tecnica — acquisendo consapevolezza dei percorsi accademici
-              in ingegneria e informatica.
-            </p>
-            <div class="tag-list">
-              <span class="tag">Università</span>
-              <span class="tag">Orientamento</span>
-              <span class="tag">Ingegneria</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
+  </div>
+
+  <!-- Comune di Civita Castellana -->
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="140">
+    <div class="exp-inner">
+      <div class="exp-timeline">
+        <div class="exp-dot"></div>
+        <div class="exp-line"></div>
+      </div>
+      <div>
+        <img src="images/logo_comune.png" alt="Comune di Civita Castellana" class="exp-logo" style="height:72px; max-width:220px;" />
+        <p class="card-eyebrow">Luglio – Agosto 2024</p>
+        <h3 class="exp-company">Comune di Civita Castellana</h3>
+        <p class="card-text" style="margin-bottom:1rem;">
+          Ho svolto un'esperienza PCTO presso il Comune di Civita Castellana, un ente pubblico locale
+          che gestisce servizi amministrativi, sociali e tecnici per il territorio.
+          È stata la mia prima esposizione a un ambiente lavorativo strutturato e formale,
+          molto diverso dal contesto scolastico.
+        </p>
+        <div class="challenge-block">
+          <p class="challenge-label">// Attività svolte</p>
+          <p class="challenge-text">Ho affiancato il personale degli uffici nell'organizzazione e archiviazione di documenti, nella gestione di pratiche amministrative e nel supporto alle attività operative quotidiane. Ho avuto modo di osservare come i diversi uffici collaborino tra loro e come vengano gestiti i flussi di comunicazione interna.</p>
+        </div>
+        <div class="challenge-block alt">
+          <p class="challenge-label">// Cosa ho imparato</p>
+          <p class="challenge-text">L'esperienza mi ha permesso di sviluppare senso di responsabilità, puntualità e capacità di lavorare all'interno di una struttura organizzativa definita. Ho anche compreso come la digitalizzazione dei processi sia sempre più centrale anche nella pubblica amministrazione, e quanto sia importante la comunicazione chiara in un contesto professionale.</p>
+        </div>
+        <div class="tag-list">
+          <span class="tag">Pubblica Amministrazione</span>
+          <span class="tag">Organizzazione</span>
+          <span class="tag">Comunicazione</span>
+          <span class="tag">Digitalizzazione</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="160">
+    <div class="exp-inner">
+      <div class="exp-timeline">
+        <div class="exp-dot"></div>
+        <div class="exp-line"></div>
+      </div>
+      <div>
+        <p class="card-eyebrow">Esperienza internazionale</p>
+        <h3 class="exp-company">Erasmus PCTO – Dublino ☘️</h3>
+        <p class="card-text" style="margin-bottom:1rem;">
+          Esperienza formativa svolta nell'ambito del progetto Erasmus PCTO, della durata di circa due settimane, dal 1° dicembre a metà dicembre 2024.
+          Durante questo periodo ho soggiornato presso una host house situata a Port Marnock, una località costiera vicino Dublino, vivendo così un'esperienza immersiva all'interno della cultura locale.
+          Ho frequentato una scuola di lingua inglese, migliorando significativamente le mie competenze linguistiche grazie a un contesto reale e quotidiano.
+          Questa esperienza mi ha permesso non solo di potenziare la conoscenza della lingua inglese, ma anche di sviluppare una maggiore autonomia personale, adattabilità e apertura verso nuove culture e tradizioni.
+        </p>
+        <div class="pcto-gallery">
+          <img src="placeholder1.jpg" alt="Erasmus Dublino 1">
+          <img src="placeholder2.jpg" alt="Erasmus Dublino 2">
+          <img src="placeholder3.jpg" alt="Erasmus Dublino 3">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CGT Elettronica -->
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="200">
+    <div class="exp-inner">
+      <div class="exp-timeline">
+        <div class="exp-dot"></div>
+        <div class="exp-line"></div>
+      </div>
+      <div>
+        <img src="images/logo_cgt_elettronica.png" alt="CGT Elettronica" class="exp-logo" />
+        <p class="card-eyebrow">Febbraio 2026 &nbsp;·&nbsp; Viterbo / Roma</p>
+        <h3 class="exp-company">CGT Elettronica</h3>
+        <p class="card-text" style="margin-bottom:1rem;">
+          Ho effettuato uno stage presso CGT Elettronica, un'azienda operante nel settore
+          dell'elettronica e dei sistemi tecnici, con clientela sia nel territorio di Viterbo
+          che nell'area romana. L'ambiente lavorativo era tecnico e dinamico, con personale
+          specializzato in elettronica applicata e manutenzione di sistemi.
+        </p>
+        <div class="challenge-block">
+          <p class="challenge-label">// Attività osservate e svolte</p>
+          <p class="challenge-text">Durante la settimana ho avuto l'opportunità di osservare da vicino i flussi di lavoro tecnici dell'azienda: dalla gestione e diagnosi di componenti elettronici, all'organizzazione delle commesse, fino all'interazione con i clienti in un contesto professionale strutturato. Ho assistito a operazioni di test e verifica su sistemi elettronici, comprendendo come le competenze tecniche si integrino con quelle organizzative in un'azienda reale.</p>
+        </div>
+        <div class="challenge-block alt">
+          <p class="challenge-label">// Cosa ho imparato</p>
+          <p class="challenge-text">L'esperienza mi ha dato una prospettiva concreta su come funziona un'azienda tecnica dall'interno. Ho capito che le competenze acquisite a scuola — elettronica, sistemi, logica — trovano applicazione diretta nel mondo del lavoro, ma richiedono anche capacità trasversali come precisione, attenzione al dettaglio e saper lavorare in team.</p>
+        </div>
+        <div class="tag-list">
+          <span class="tag">Elettronica</span>
+          <span class="tag">Sistemi Tecnici</span>
+          <span class="tag">Diagnostica</span>
+          <span class="tag">Ambiente Professionale</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Orientamento Universitario -->
+  <div class="glass-card" data-aos="fade-up" data-aos-delay="220">
+    <div class="exp-inner">
+      <div class="exp-timeline">
+        <div class="exp-dot"></div>
+      </div>
+      <div>
+        <p class="card-eyebrow">2023 – 2025</p>
+        <h3 class="exp-company">Orientamento Universitario</h3>
+        <p class="card-text">
+          Partecipazione a diverse attività di orientamento focalizzate su università, percorsi di carriera
+          e opportunità di formazione tecnica — acquisendo consapevolezza dei percorsi accademici
+          in ingegneria e informatica.
+        </p>
+        <div class="tag-list">
+          <span class="tag">Università</span>
+          <span class="tag">Orientamento</span>
+          <span class="tag">Ingegneria</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
   </section>
 
-  <div class="divider"></div>
-
-
-  <!-- 5 — PROGETTI PERSONALI (label + title intro) -->
-  <section id="projects">
-    <p class="section-label" data-aos="fade-right">Showcase</p>
-    <h2 class="section-title" data-aos="fade-up">Progetti<br>Personali</h2>
-  </section>
-
-  <!-- BrainyBuddy AI -->
-  <div class="project-section" data-aos="fade-up">
+  <section class="project-section">
     <div class="bb-header">
-      <img src="images/logo_brainybuddy.jpg" alt="BrainyBuddy Logo" class="bb-logo" />
-      <h2>BrainyBuddy AI</h2>
+  <img src="images/logo_brainybuddy.jpg" alt="BrainyBuddy Logo" class="bb-logo">
+  <h2>BrainyBuddy AI</h2>
     </div>
 
     <p>
-      BrainyBuddy AI è un assistente allo studio basato su intelligenza artificiale, progettato per supportare
-      gli studenti nella comprensione, organizzazione e memorizzazione dei contenuti scolastici
-      in modo strutturato ed efficace.
+      BrainyBuddy AI è un assistente allo studio basato su intelligenza artificiale, progettato per supportare gli studenti nella comprensione, organizzazione e memorizzazione dei contenuti scolastici in modo strutturato ed efficace.
     </p>
+
     <p>
-      A differenza dei tradizionali chatbot, BrainyBuddy organizza ogni output in sezioni didattiche ben definite:
-      riassunto, concetti chiave, domande di studio e azioni consigliate — trasformando l'AI in un vero
-      strumento di apprendimento attivo.
+      A differenza dei tradizionali chatbot, BrainyBuddy non fornisce semplici risposte testuali, ma organizza ogni output in sezioni didattiche ben definite: riassunto, concetti chiave, domande di studio e azioni consigliate, trasformando l'intelligenza artificiale in un vero strumento di apprendimento attivo.
     </p>
+
     <p>
-      Il sistema è sviluppato tramite un workflow automatizzato con n8n e utilizza un'architettura
-      multi-modello AI, permettendo una gestione efficiente delle richieste e una migliore qualità delle risposte.
+      Il sistema è sviluppato tramite un workflow automatizzato con n8n e utilizza un'architettura multi-modello AI, permettendo una gestione efficiente delle richieste, una maggiore disponibilità di risorse e una migliore qualità delle risposte.
     </p>
 
     <div class="bb-features">
-      <span class="bb-feature">✔ Risposte strutturate per lo studio</span>
-      <span class="bb-feature">✔ Concetti chiave interattivi</span>
-      <span class="bb-feature">✔ Domande di verifica automatiche</span>
-      <span class="bb-feature">✔ Azioni di studio consigliate</span>
-      <span class="bb-feature">✔ Sistema multi-modello AI</span>
+      <div class="bb-feature">✔ Risposte strutturate per lo studio</div>
+      <div class="bb-feature">✔ Concetti chiave interattivi</div>
+      <div class="bb-feature">✔ Domande di verifica automatiche</div>
+      <div class="bb-feature">✔ Azioni di studio consigliate</div>
+      <div class="bb-feature">✔ Sistema multi-modello AI</div>
     </div>
 
-    <!--
-      VIDEO DEMO BRAINYBUDDY
-      Opzione A – video locale:
-        <video src="video/brainybuddy-demo.mp4" controls style="width:100%;border-radius:16px;margin-top:1.75rem;"></video>
-
-      Opzione B – YouTube embed:
-        <div class="iframe-wrap">
-          <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe>
-        </div>
-
-      Placeholder attivo finché non inserisci il video:
-    -->
-    <div class="preview-placeholder">
-      <span>🤖</span>
-      <p>BrainyBuddy AI — Demo</p>
-      <p style="opacity:0.5; font-size:0.65rem; margin-top:0.2rem;">Sostituire con video o iframe</p>
-    </div>
-    <p class="preview-caption">Demo del flusso di analisi e risposta strutturata di BrainyBuddy AI.</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Street Burger -->
-  <div class="project-section" data-aos="fade-up">
-    <h2>Street Burger — Progetto Web</h2>
-
-    <p>
-      Progettazione e sviluppo del sito web per l'attività Street Burger. Il progetto ha coperto
-      l'intera pipeline: dall'analisi del brand e del target, alla definizione dell'architettura
-      delle informazioni, fino alla realizzazione grafica e tecnica del sito finale.
-    </p>
-    <p>
-      Il sito include landing page con hero section, presentazione del menu, sezione contatti e mappa.
-      Il design segue un'estetica moderna, coerente con l'identità visiva dell'attività.
-    </p>
-
-    <div class="tag-list" style="margin-bottom:0.5rem;">
-      <span class="tag">HTML</span>
-      <span class="tag">CSS</span>
-      <span class="tag">JavaScript</span>
-      <span class="tag">Web Design</span>
-      <span class="tag">UI/UX</span>
-    </div>
-
-    <!--
-      ANTEPRIMA STREET BURGER
-      Opzione A – screenshot: <img class="site-preview-img" src="images/preview_street_burger.jpg" alt="Street Burger" />
-      Opzione B – iframe live:
-        <div class="iframe-wrap">
-          <iframe src="https://tuo-sito-street-burger.it" title="Street Burger" sandbox="allow-scripts allow-same-origin"></iframe>
-        </div>
-
-      Placeholder:
-    -->
-    <div class="preview-placeholder">
-      <span>🍔</span>
-      <p>Street Burger — Anteprima sito</p>
-      <p style="opacity:0.5; font-size:0.65rem; margin-top:0.2rem;">Sostituire con screenshot o iframe</p>
-    </div>
-    <p class="preview-caption">Anteprima del sito web progettato per Street Burger.</p>
-  </div>
-
-  <div class="divider"></div>
-
-
-  <!-- 6 — CONTATTI -->
-  <section id="contact">
-    <h2 class="contact-headline" data-aos="fade-up">
-      Alea iacta<br><span class="accent">est.</span>
-    </h2>
-
-    <p class="section-label" data-aos="fade-up" style="justify-content:center; margin-bottom:0.5rem;">Contatti</p>
-
-    <p class="contact-sub" data-aos="fade-up" data-aos-delay="100">
-      Aperto a collaborazioni, confronti tecnici o semplicemente una chiacchierata
-      su tecnologia e innovazione.
-    </p>
-
-    <div class="contact-btns" data-aos="fade-up" data-aos-delay="200">
-      <a href="mailto:andrearizzo656@gmail.com" class="contact-btn" aria-label="Scrivimi via email"
-         style="font-size:1.6rem; padding:0.85rem 1.25rem;">
-        📧
-      </a>
+    <div class="project-preview">
+      <div class="preview-box">
+        Demo interattiva di BrainyBuddy AI (video dimostrativo)
+      </div>
     </div>
   </section>
 
+  <section class="project-section">
+    <h2>Street Burger – Progetto Web</h2>
 
-  <!-- FOOTER -->
+    <p>
+      Progetto di progettazione e sviluppo di un sito web per l'attività Street Burger,
+      con focus su design moderno, esperienza utente e presentazione del brand.
+    </p>
+
+    <div class="project-preview">
+      <div class="preview-box">
+        Inserire qui anteprima del sito (immagine o iframe)
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       5 — CONTATTI
+  ══════════════════════════════════════════ -->
+
+  <section id="contact">
+
+<h2 class="contact-headline" data-aos="fade-up">
+  Alea iacta<br><span class="accent">est.</span>
+</h2>
+
+<p class="section-label" data-aos="fade-up" style="justify-content:center; margin-bottom:0.5rem;">Contatti</p>
+
+<p class="contact-sub" data-aos="fade-up" data-aos-delay="100">
+  Aperto a collaborazioni, confronti tecnici o semplicemente una chiacchierata
+  su tecnologia e innovazione.
+</p>
+
+<div class="contact-btns" data-aos="fade-up" data-aos-delay="200">
+  <a href="mailto:andrearizzo656@gmail.com" class="contact-btn" aria-label="Scrivimi via email">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <polyline points="22,4 12,13 2,4"/>
+    </svg>
+  </a>
+</div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════ -->
+
   <footer>
     <p>Progettato e realizzato da <strong>Andrea Rizzo</strong> &nbsp;·&nbsp; 2026</p>
   </footer>
 
+  <!-- ═══════════════════════════════════════
+       SCRIPTS
+  ══════════════════════════════════════════ -->
 
-  <!-- SCRIPTS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
   <script>
-    /* AOS — once prevents re-trigger on scroll-up */
+    /* AOS */
     AOS.init({ once: true, offset: 80, duration: 700, easing: 'ease-out-cubic' });
 
-    /* Nav opacity on scroll — passive for performance */
+    /* Nav opacità su scroll */
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.style.background = window.scrollY > 40
         ? 'rgba(8,8,8,0.95)'
         : 'rgba(8,8,8,0.75)';
-    }, { passive: true });
+    });
 
-    /* Magnetic CTA */
+    /* Effetto magnetico CTA */
     const cta = document.querySelector('.hero-cta');
     if (cta) {
       cta.addEventListener('mousemove', e => {
@@ -1149,7 +1070,7 @@
       cta.addEventListener('mouseleave', () => { cta.style.transform = ''; });
     }
 
-    /* Mobile nav toggle */
+    /* Menù mobile */
     function toggleNav() {
       const links = document.getElementById('navLinks');
       const open  = links.classList.toggle('open');
@@ -1172,7 +1093,7 @@
       }
     }
 
-    /* Close mobile nav on link click */
+    /* Chiudi menù mobile al click su un link */
     document.querySelectorAll('#navLinks a').forEach(link => {
       link.addEventListener('click', () => {
         const links = document.getElementById('navLinks');
@@ -1183,15 +1104,16 @@
     });
 
     /* Smooth scroll with nav offset */
-    const nav       = document.getElementById('navbar');
-    const navHeight = () => nav ? nav.getBoundingClientRect().height : 0;
-    const GAP       = 18;
+    const nav      = document.getElementById('navbar');
+    const navH     = () => (nav ? nav.getBoundingClientRect().height : 0);
+    const anchorGap = 18;
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', e => {
-        const target = document.querySelector(link.getAttribute('href'));
+        const id = link.getAttribute('href');
+        const target = document.querySelector(id);
         if (!target) return;
         e.preventDefault();
-        const top = target.getBoundingClientRect().top + window.scrollY - navHeight() - GAP;
+        const top = target.getBoundingClientRect().top + window.scrollY - navH() - anchorGap;
         window.scrollTo({ top, behavior: 'smooth' });
       });
     });
